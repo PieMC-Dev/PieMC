@@ -37,8 +37,7 @@ class Packet(BinaryStream):
 
     def read_string(self):
         length = self.read_unsigned_short_be()
-        print(self.data)
-        string = self.read(length).decode("utf-8", "ignore")
+        string = self.read(length).decode()
         return string
 
     def write_string(self, value: str):

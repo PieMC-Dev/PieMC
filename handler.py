@@ -30,7 +30,7 @@ class PacketHandler:
             f.write("\n".join(p_data))
             print("Ping saved.")
             pong = OfflinePong()
-            pong.server_timestamp = int(time.time())
+            pong.client_timestamp = ping.client_timestamp
             pong.server_guid = self.server.guid
             pong.magic = ProtocolInfo.MAGIC
             pong.server_name = self.server.name
