@@ -14,16 +14,23 @@ class Server(UDPServer):
         self.motd1 = "PieMC-Bedrock"
         self.motd2 = "PieMC-Bedrock"
         self.raknet_version: int = 11
-        self.game_protocol_version: int = 537
+        self.game_protocol_version: int = 582
         self.address: tuple = (hostname, port)
-        self.guid = random.randint(0, sys.maxsize)
+        self.port_v6: int = 19133
+        self.gamemode: str = "Survival"
+        self.gamemode_num: int = 1
+        self.guid = random.randint(1000000000000000, 9999999999999999)
         self.start_time: int = int(time.time() * 1000)
         self.connections: list[Connection] = []
         self.edition: str = "MCPE"
-        self.version_name: str = "1.19.81"
+        self.game_version_name: str = "1.19.81"
         self.player_count: int = 0
         self.max_players: int = 20
         self.handler = PacketHandler(self)
+        self.name = ";".join([self.edition, self.motd1, str(self.game_protocol_version), self.game_version_name, str(self.player_count), str(self.max_players), str(self.guid), self.motd2, self.gamemode, str(self.gamemode_num), str(self.port), str(self.port_v6)]) + ";"
+
+    def update_name(self):
+        self.name = ";".join([self.edition, self.motd1, str(self.game_protocol_version), self.game_version_name, str(self.player_count), str(self.max_players), str(self.guid), self.motd2, self.gamemode, str(self.gamemode_num), str(self.port), str(self.port_v6)]) + ";"
 
     def add_connection(self, connection: Connection):
         self.connections.append(connection)
@@ -32,10 +39,10 @@ class Server(UDPServer):
         i = 0
         for conn in self.connections:
             if conn == connection:
-                self.connections.pop(i)
+                self.connections.remove(i)
             i += 1
 
     def run(self):
         while True:
             data, addr = self.recieve()
-            self.handler.handle(data, addr) # TODO
+            self.handler.handle(data, addr)
