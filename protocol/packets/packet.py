@@ -1,18 +1,18 @@
-from ..binary_stream import BinaryStream
-from ..protocol_info import ProtocolInfo
+from PieMC_Bedrock.protocol.binary_stream import BinaryStream
+from PieMC_Bedrock.protocol.protocol_info import ProtocolInfo
 
 class Packet(BinaryStream):
     packet_id = -1
     clientbound: bool = False
     serverbound: bool = False
 
-    def __init__(self, data, pos):
+    def __init__(self, data: bytes = b"", pos: int = 0):
         super().__init__(data=data, pos=pos)
         self.read_int = self.read_unsigned_int_be
         self.write_int = self.write_unsigned_int_be
         self.read_magic = self.read(16)
         self.write_magic = self.write(ProtocolInfo.MAGIC)
-        selc.read_long = self.read_unsigned_long_be
+        self.read_long = self.read_unsigned_long_be
         self.write_long = self.write_unsigned_long_be
         self.read_short = self.read_unsigned_long_be
         self.write_short = self.write_unsigned_long_be
@@ -29,13 +29,11 @@ class Packet(BinaryStream):
 
     def decode(self):
         self.decode_header()
-        if hasattr(self, "decode_payload"):
-            self.decode_payload()
+        self.decode_payload()
 
     def encode(self):
         self.encode_header()
-        if hasattr(self, "encode_payload"):
-            self.encode_payload()
+        self.encode_payload()
 
     def read_string(self):
         return self.read(self.read_unsigned_short_be()).decode()

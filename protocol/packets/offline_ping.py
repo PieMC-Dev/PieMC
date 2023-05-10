@@ -1,5 +1,5 @@
-from packet import Packet
-from ..protocol_info import ProtocolInfo
+from PieMC_Bedrock.protocol.packets.packet import Packet
+from PieMC_Bedrock.protocol.protocol_info import ProtocolInfo
 
 class OfflinePing(Packet):
     packet_id = ProtocolInfo.OFFLINE_PING
@@ -11,5 +11,3 @@ class OfflinePing(Packet):
         self.magic = self.read(16)
         if not self.feos():
             self.client_guid = self.read_unsigned_long_be()
-        print(self.client_timestamp)
-        print(client_guid)

@@ -8,7 +8,7 @@ class UDPServer:
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.SOL_UDP)
         self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
-        self.socket.bind((host, port))
+        self.socket.bind((hostname, port))
 
     def recieve(self):
         return self.socket.recvfrom(65535)

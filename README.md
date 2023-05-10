@@ -4,8 +4,13 @@
 Серверное ПО для Minecraft: Bedrock Edition, написанное на Python.
 Пока что находится в ранней стадии разработки.
 
+Запуск:
+```python3 -m PieMC_Bedrock"
+
 ## Функционал:
  - [x] Базовый протокол (RakNet)
+ - [x] Возможность принимать пакеты
+ - [x] Логирование пакетов
  - [ ] MOTD
  - [ ] Протокол игры
  - [ ] Плагины
@@ -33,11 +38,17 @@
 Server software for Minecraft: Bedrock Edition, writtem in Python.
 It is currently in the early stages of development.
 
+Run:
+```python3 -m PieMC_Bedrock```
+
 ## Functionality:
  - [x] Basic protocol (RakNet)
+ - [x] Packet recieving
+ - [x] Packet logging
  - [ ] MOTD
  - [ ] Game Protocol
  - [ ] Plugins
+ - [ ] Permissions
  - [ ] Ability to log in to the server
  - [ ] Commands
  - [ ] World Generation
