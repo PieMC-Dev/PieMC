@@ -9,9 +9,7 @@
 
 ## Функционал:
  - [x] Базовый протокол (RakNet)
- - [x] Возможность принимать пакеты
- - [x] Логирование пакетов
- - [ ] MOTD
+ - [x] MOTD
  - [ ] Протокол игры
  - [ ] Плагины
  - [ ] Возможность войти на сервер
@@ -43,9 +41,7 @@ Run:
 
 ## Functionality:
  - [x] Basic protocol (RakNet)
- - [x] Packet recieving
- - [x] Packet logging
- - [ ] MOTD
+ - [x] MOTD
  - [ ] Game Protocol
  - [ ] Plugins
  - [ ] Permissions
