@@ -1,6 +1,4 @@
-from rak_net.connection import Connection
 from rak_net.server import Server
-from rak_net.protocol.packet.frame import Frame
 
 server = Server(11, "0.0.0.0", 19132)
 
