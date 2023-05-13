@@ -2,63 +2,52 @@ from rak_net.server import Server
 
 server = Server(11, "0.0.0.0", 19132)
 
-edition = "MCPE"
-motd1 = "PieMC-Bedrock"
-motd2 = "PieMC-Bedrock"
-total_players = 2
-max_players = 20
-protocol_version = 582
-version_name = "1.19.81"
-gamemode = "Survival"
-gamemode_num = 1
-port_v4 = 19132
-port_v6 = 19133
-server_guid = server.guid
-
-server.name = ";".join([
-        edition,
-        motd1,
-        str(protocol_version),
-        version_name,
-        str(total_players),
-        str(max_players),
-        str(server_guid),
-        motd2,
-        gamemode,
-        str(gamemode_num),
-        str(port_v4),
-        str(port_v6)
-    ]) + ";"
 
 class Interface:
     def __init__(self, server):
         self.server = server
-    
-    def on_frame(self, frame, connection):
+        self.edition = "MCPE"
+        self.motd1 = "PieMC-Bedrock"
+        self.motd2 = "PieMC-Bedrock"
+        self.total_players = 2
+        self.max_players = 20
+        self.protocol_version = 582
+        self.version_name = "1.19.81"
+        self.gamemode = "Survival"
+        self.gamemode_num = 1
+        self.port_v4 = 19132
+        self.port_v6 = 19133
+        self.server_guid = server.guid
+
+    @staticmethod
+    def on_frame(frame):
         print(hex(frame.body[0]))
 
-    def on_disconnect(self, connection):
+    @staticmethod
+    def on_disconnect(connection):
         print(f"{connection.address.token} отключился.")
 
-    def on_new_incoming_connection(self, connection):
+    @staticmethod
+    def on_new_incoming_connection(connection):
         print(f"{connection.address.token} подключается...")
 
     def update_server_name(self):
         server_name = ";".join([
-            edition,
-            motd1,
-            protocol_version,
-            version_name,
-            total_players,
-            max_players,
-            server_guid,
-            motd2,
-            gamemode,
-            gamemode_num,
-            port_v4,
-            port_v6
+            self.edition,
+            self.motd1,
+            str(self.protocol_version),
+            self.version_name,
+            str(self.total_players),
+            str(self.max_players),
+            str(self.server_guid),
+            self.motd2,
+            self.gamemode,
+            str(self.gamemode_num),
+            str(self.port_v4),
+            str(self.port_v6)
         ]) + ";"
         self.server.name = server_name
+
 
 server.interface = Interface(server)
 

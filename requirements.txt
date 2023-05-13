@@ -1,2 +1,2 @@
-git+https://github.com/Podrum/binary_utils
-git+https://github.com/Podrum/rak_net
+binary_utils>=1.3
+rak_net>=1.9

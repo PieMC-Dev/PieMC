@@ -2,10 +2,15 @@ from binary_utils.binary_stream import BinaryStream
 from rak_net.protocol.packet.packet import Packet
 import zlib
 
+
 class GamePacket(Packet):
     clientbound: bool = None
     serverbound: bool = None
     packet_id = 0xfe
+
+    def __init__(self, data: bytes = b"", pos: int = 0):
+        super().__init__(data, pos)
+        self.body = None
 
     def decode_payload(self):
         self.body = zlib.decompress(self.read_remaining(), -zlib.MAX_WBITS, 1024 * 1024 * 8)

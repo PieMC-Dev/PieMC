@@ -1,11 +1,18 @@
 import json
 from binary_utils.binary_stream import BinaryStream
-from PieMC_Bedrock.packets.game_packet import GamePacket
-from PieMC_Bedrock import jwt
+from game_packet import GamePacket
+from .. import jwt
+
 
 class Login(GamePacket):
     clientbound: False
     serverbound: True
+
+    def __init__(self, data: bytes = b"", pos: int = 0):
+        super().__init__(data, pos)
+        self.skin_data = None
+        self.chain_data = None
+        self.protocol_version = None
 
     def decode_payload(self):
         self.protocol_version = self.read_unsigned_int_be()
@@ -20,7 +27,7 @@ class Login(GamePacket):
         self.write_unsigned_int_be(self.protocol_version)
         raw_chain_data = {"chain": []}
         for chain in self.chain_data:
-            jwt_data  = jwt.encode({"alg": "HS256", "typ": "JWT"}, chain, jwt.mojang_public_key)
+            jwt_data = jwt.encode({"alg": "HS256", "typ": "JWT"}, chain, jwt.mojang_public_key)
             raw_chain_data["chain"].append(jwt_data)
         temp_stream = BinaryStream()
         json_data = json.dumps(raw_chain_data)
