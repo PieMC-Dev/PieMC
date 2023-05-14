@@ -14,6 +14,7 @@ class GamePacket(Packet):
 
     def decode_payload(self):
         self.body = zlib.decompress(self.read_remaining(), -zlib.MAX_WBITS, 1024 * 1024 * 8)
+#        self.body = self.read_remaining()
 
     def encode_payload(self):
         compress = zlib.compressobj(1, zlib.DEFLATED, -zlib.MAX_WBITS)

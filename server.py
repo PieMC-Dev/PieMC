@@ -1,4 +1,5 @@
 from rak_net.server import Server
+from packets.game_packet import GamePacket
 
 server = Server(11, "0.0.0.0", 19132)
 
@@ -18,21 +19,21 @@ class Interface:
         self.port_v4 = 19132
         self.port_v6 = 19133
         self.server_guid = server.guid
+        self.update_server_name()
 
-    @staticmethod
-    def on_frame(frame):
-        print(hex(frame.body[0]))
+    def on_frame(self, frame, connection):
+        game_packet = GamePacket(frame.body)
+        game_packet.decode()
+        print(hex(game_packet.body[0]))
 
-    @staticmethod
-    def on_disconnect(connection):
+    def on_disconnect(self, connection):
         print(f"{connection.address.token} отключился.")
 
-    @staticmethod
-    def on_new_incoming_connection(connection):
+    def on_new_incoming_connection(self, connection):
         print(f"{connection.address.token} подключается...")
 
     def update_server_name(self):
-        server_name = ";".join([
+        self.server.name = ";".join([
             self.edition,
             self.motd1,
             str(self.protocol_version),
@@ -46,7 +47,6 @@ class Interface:
             str(self.port_v4),
             str(self.port_v6)
         ]) + ";"
-        self.server.name = server_name
 
 
 server.interface = Interface(server)
@@ -54,5 +54,9 @@ server.interface = Interface(server)
 if __name__ == "__main__":
     print("Сервер запущен!")
     while True:
-        server.handle()
-        server.tick()
+        try:
+            server.handle()
+            server.tick()
+        except KeyboardInterrupt:
+            print("\nExit.")
+            exit(1)
