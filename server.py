@@ -1,7 +1,7 @@
-from rak_net.server import Server
+from rak_net.server import server
 from packets.game_packet import GamePacket
 
-server = Server(11, "0.0.0.0", 19132)
+server = server("0.0.0.0", 19132, 4)
 
 
 class Interface:
@@ -23,8 +23,13 @@ class Interface:
 
     def on_frame(self, frame, connection):
         game_packet = GamePacket(frame.body)
+        print(f"Новый GamePacket от {connection.address.token}:")
+        print(game_packet.data)
         game_packet.decode()
-        print(hex(game_packet.body[0]))
+        packets = game_packet.read_packets_data()
+        for packet in packets:
+            print(f"Новый пакет от {connection.address.token}:")
+            print(packet.body)
 
     def on_disconnect(self, connection):
         print(f"{connection.address.token} отключился.")
@@ -54,9 +59,4 @@ server.interface = Interface(server)
 if __name__ == "__main__":
     print("Сервер запущен!")
     while True:
-        try:
-            server.handle()
-            server.tick()
-        except KeyboardInterrupt:
-            print("\nExit.")
-            exit(1)
+        server.handle()
