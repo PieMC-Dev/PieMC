@@ -6,7 +6,6 @@ text = __import__("lang." + config.LANG, fromlist=[config.LANG])
 
 server = server("0.0.0.0", 19132, 4)
 
-
 class Interface:
     def __init__(self, server):
         self.server = server
@@ -55,7 +54,6 @@ class Interface:
             str(self.port_v4),
             str(self.port_v6)
         ]) + ";"
-
 
 server.interface = Interface(server)
 
