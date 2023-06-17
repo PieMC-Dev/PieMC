@@ -1,36 +1,43 @@
-from rak_net.server import Server
+from rak_net.server import server
 from packets.game_packet import GamePacket
+import config
 
-server = Server(11, "0.0.0.0", 19132)
+text = __import__("lang." + config.LANG, fromlist=[config.LANG])
 
+server = server("0.0.0.0", 19132, 4)
 
 class Interface:
     def __init__(self, server):
         self.server = server
         self.edition = "MCPE"
-        self.motd1 = "PieMC-Bedrock"
-        self.motd2 = "PieMC-Bedrock"
+        self.motd1 = text.MOTD1
+        self.motd2 = text.MOTD2
         self.total_players = 2
-        self.max_players = 20
-        self.protocol_version = 582
-        self.version_name = "1.19.81"
-        self.gamemode = "Survival"
-        self.gamemode_num = 1
-        self.port_v4 = 19132
-        self.port_v6 = 19133
+        self.max_players = config.MAX_PLAYERS  # Use the configuration variable from config.py
+        self.protocol_version = config.PROTOCOL_VERSION
+        self.version_name = config.VERSION_NAME
+        self.gamemode = config.GAMEMODE
+        self.gamemode_num = config.GAMEMODE_NUM
+        self.port_v4 = config.PORT_V4
+        self.port_v6 = config.PORT_V6
         self.server_guid = server.guid
         self.update_server_name()
 
     def on_frame(self, frame, connection):
         game_packet = GamePacket(frame.body)
+        print(f"text.NEWPACKET {connection.address.token}:")
+        print(game_packet.data)
         game_packet.decode()
-        print(hex(game_packet.body[0]))
+        packets = game_packet.read_packets_data()
+        for packet in packets:
+            print(f"text.NEWPACKET {connection.address.token}:")
+            print(packet.body)
 
     def on_disconnect(self, connection):
-        print(f"{connection.address.token} отключился.")
+        print(f"{connection.address.token} text.DISCONNECTED")
 
     def on_new_incoming_connection(self, connection):
-        print(f"{connection.address.token} подключается...")
+        print(f"{connection.address.token} text.CONNECTING")
 
     def update_server_name(self):
         self.server.name = ";".join([
@@ -48,15 +55,9 @@ class Interface:
             str(self.port_v6)
         ]) + ";"
 
-
 server.interface = Interface(server)
 
 if __name__ == "__main__":
-    print("Сервер запущен!")
+    print(text.RUNNING)
     while True:
-        try:
-            server.handle()
-            server.tick()
-        except KeyboardInterrupt:
-            print("\nExit.")
-            exit(1)
+        server.handle()

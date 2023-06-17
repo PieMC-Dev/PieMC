@@ -1,5 +1,5 @@
 import json
-from binary_utils.binary_stream import BinaryStream
+from binary_utils.binary_stream import binary_stream
 from game_packet import GamePacket
 from .. import jwt
 
@@ -17,7 +17,7 @@ class Login(GamePacket):
     def decode_payload(self):
         self.protocol_version = self.read_unsigned_int_be()
         self.chain_data = []
-        buffer = BinaryStream(self.read_byte_array())
+        buffer = binary_stream(self.read_byte_array())
         raw_chain_data = json.loads(buffer.read(buffer.read_unsigned_int_le()).decode())
         for chain in raw_chain_data["chain"]:
             self.chain_data.append(jwt.decode(chain))
@@ -29,7 +29,7 @@ class Login(GamePacket):
         for chain in self.chain_data:
             jwt_data = jwt.encode({"alg": "HS256", "typ": "JWT"}, chain, jwt.mojang_public_key)
             raw_chain_data["chain"].append(jwt_data)
-        temp_stream = BinaryStream()
+        temp_stream = binary_stream()
         json_data = json.dumps(raw_chain_data)
         temp_stream.write_unsigned_int_le(len(json_data))
         temp_stream.write(json_data.encode())
