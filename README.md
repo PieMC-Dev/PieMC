@@ -21,7 +21,7 @@
  - Есть ли возможность создавать плагины?
  > Пока что нет, но мы будем работать над этим.
  - Когда ПО будет готово к использованию?
- > Не знаю, пока что я работаю над проектом в одиночку, а реализовать с нуля все механики, которые сделали Mojang за 12 лет - задача не из лёгких. Буду работать и надеяться на вашу помощь.
+ > Не знаю, реализовать с нуля все механики, которые сделали Mojang за 12 лет - задача не из лёгких. Буду работать и надеяться на вашу помощь.
  - Могу ли я помочь в разработке?
  > Конечно, если вы знаете Python и можете разобраться в коде проекта. Я буду одобрять все Pull Request'ы.
  - Могу ли я пообщаться с разработчиком?
@@ -33,7 +33,7 @@
 # English
 [translated using ChatGPT, lol]
 
-Server software for Minecraft: Bedrock Edition, writtem in Python.
+Server software for Minecraft: Bedrock Edition, written in Python.
 It is currently in the early stages of development.
 
 Run:
@@ -54,7 +54,7 @@ Run:
  - Is it possible to create plugins?
  > Not at the moment, but we will work on it.
  - When will the software be ready for use?
- > I'm not sure, currently I am working on the project alone, and implementing all the mechanics that Mojang has developed over the past 12 years from scratch is not an easy task. I will continue to work on it and hope for your help.
+ > I'm not sure, implementing all the mechanics that Mojang has developed over the past 12 years from scratch is not an easy task. I will continue to work on it and hope for your help.
  - Can I help with the development?
  > Certainly, if you know Python and can understand the project's code. I will approve all Pull Requests.
  - Can I talk to the developer?

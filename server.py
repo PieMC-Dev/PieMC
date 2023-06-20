@@ -1,10 +1,17 @@
-from rak_net.server import server
+from rak_net.server import server as raknet_server
 from packets.game_packet import GamePacket
 import config
 
-text = __import__("lang." + config.LANG, fromlist=[config.LANG])
+# Import "en(.py)" or other language from config if defined correctly
+with open('languages.txt') as f:
+    languages = f.read().strip().split('\n')
+    if config.LANG in languages:
+        language = config.LANG
+    else:
+        language = 'en'
+text = __import__('lang.' + language, fromlist=[config.LANG])
 
-server = server("0.0.0.0", 19132, 4)
+server = raknet_server("0.0.0.0", 19132, 4)
 
 class Interface:
     def __init__(self, server):
@@ -25,19 +32,19 @@ class Interface:
 
     def on_frame(self, frame, connection):
         game_packet = GamePacket(frame.body)
-        print(f"text.NEWPACKET {connection.address.token}:")
+        # print(f"{text.NEWPACKET} {connection.address.token}:")
         print(game_packet.data)
         game_packet.decode()
         packets = game_packet.read_packets_data()
         for packet in packets:
-            print(f"text.NEWPACKET {connection.address.token}:")
+            print(f"{text.NEWPACKET} {connection.address.token}:")
             print(packet.body)
 
     def on_disconnect(self, connection):
-        print(f"{connection.address.token} text.DISCONNECTED")
+        print(f"{connection.address.token} {text.DISCONNECTED}")
 
     def on_new_incoming_connection(self, connection):
-        print(f"{connection.address.token} text.CONNECTING")
+        print(f"{connection.address.token} {text.CONNECTING}")
 
     def update_server_name(self):
         self.server.name = ";".join([
@@ -57,7 +64,10 @@ class Interface:
 
 server.interface = Interface(server)
 
-if __name__ == "__main__":
+def run():
     print(text.RUNNING)
     while True:
         server.handle()
+
+if __name__ == '__main__':
+    run()
