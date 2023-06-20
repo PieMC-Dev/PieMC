@@ -91,7 +91,7 @@ Our roadmap outlines the future development plans for PieMC Bedrock. We're excit
 - **Permissions ⬜** - Implement a permissions system to manage user access levels and control their actions on the server.
 - **User Authentication ⬜** - Introduce a secure authentication mechanism to allow players to log in using their Minecraft accounts.
 
-![Gameplay](https://rare-gallery.com/mocahbig/472875-Minecraft-shaders-video-games-screen-shot.jpg)
+![Gameplay](https://i.ibb.co/Lxsqp61/472875-Minecraft-shaders-video-games-screen-shot.jpg)
 
 ## Phase 3: Enhanced Gameplay 🎮
 
