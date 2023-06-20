@@ -1,6 +1,4 @@
 RUNNING = "Servidor iniciado"
-MOTD1 = "Servidor PieMC"
-MOTD2 = "PYTHON"
 NEWPACKET = "Nuevo Paquete de Juego desde"
 DISCONNECTED = "Desconectado."
 CONNECTING = "Conectando..."
