@@ -3,8 +3,9 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/lapismyt/PieMC_Bedrock/blob/main/LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/lapismyt/PieMC_Bedrock)](https://github.com/lapismyt/PieMC_Bedrock/commits/main)
 [![Languages](https://img.shields.io/github/languages/count/lapismyt/PieMC_Bedrock)](https://github.com/lapismyt/PieMC_Bedrock)
+[![Stars](https://img.shields.io/github/stars/lapismyt/PieMC_Bedrock?style=social)](https://github.com/lapismyt/PieMC_Bedrock/stargazers)
 
-Server software for Minecraft: Bedrock Edition, written in Python. It is currently in the early stages of development.
+Server software for Minecraft: Bedrock Edition, written in Python. It is currently in the early stages of development. 🚧
 
 ## Getting Started
 
@@ -16,15 +17,15 @@ python3 -m PieMC_Bedrock
 
 ## Functionality
 
-- [x] Basic protocol (RakNet)
-- [x] MOTD
-- [ ] Game Protocol
-- [ ] Plugins
-- [ ] Permissions
-- [ ] Ability to log in to the server
-- [ ] Commands
-- [ ] World Generation
-- [ ] Mobs
+- ✅ Basic protocol (RakNet)
+- ✅ MOTD
+- ⬜ Game Protocol
+- ⬜ Plugins
+- ⬜ Permissions
+- ⬜ Ability to log in to the server
+- ⬜ Commands
+- ⬜ World Generation
+- ⬜ Mobs
 
 ## Frequently Asked Questions
 
@@ -47,9 +48,29 @@ python3 -m PieMC_Bedrock
 
 ![Repo Size](https://img.shields.io/github/repo-size/lapismyt/PieMC_Bedrock)
 ![Lines of Code](https://img.shields.io/tokei/lines/github/lapismyt/PieMC_Bedrock)
+
 ![Contributors](https://img.shields.io/github/contributors/lapismyt/PieMC_Bedrock)
-![Latest Release](https://img.shields.io/github/v/release/lapismyt/PieMC_Bedrock)
-![License](https://img.shields.io/github/license/lapismyt/PieMC_Bedrock)
+![Stars](https://img.shields.io/github/stars/lapismyt/PieMC_Bedrock?style=social)
+
+## Project Evolution
+
+📈 **Stars Evolution:**
+
+![Stars Evolution](https://img.shields.io/github/stars/lapismyt/PieMC_Bedrock?style=social&label=Stars)
+
+📈 **Repository Size Evolution:**
+
+![Repository Size Evolution](https://img.shields.io/github/repo-size/lapismyt/PieMC_Bedrock?label=Repository%20Size)
+
+📈 **Contributors Evolution:**
+
+![Contributors Evolution](https://img.shields.io/github/contributors/lapismyt/PieMC_Bedrock?label=Contributors)
+
+📈 **Lines of Code Evolution:**
+
+![Lines of Code Evolution](https://img.shields.io/tokei/lines
+
+/github/lapismyt/PieMC_Bedrock?label=Lines%20of%20Code)
 
 ## Development Team
 
@@ -67,6 +88,20 @@ We welcome contributions from the community. If you're interested in contributin
 2. Make your changes, ensuring they follow the project's coding conventions.
 3. Test your changes thoroughly.
 4. Submit a pull request with a clear description of your changes and the problem it solves.
+
+## Roadmap
+
+Our roadmap for the future development of PieMC_Bedrock includes the following:
+
+1. **Game Protocol Implementation:** Complete the implementation of the game protocol to enable full gameplay functionality.
+2. **Plugin System:** Develop a robust plugin system that allows users to extend the server's capabilities and customize their gameplay experience.
+3. **Permissions System:** Introduce a permissions system to manage user access and privileges on the server.
+4. **User Authentication:** Implement a secure authentication mechanism to allow players to log in to the server with their Minecraft accounts.
+5. **Command System:** Create a comprehensive command system to enable server administrators to manage and control the gameplay environment.
+6. **World Generation:** Implement world generation algorithms to generate diverse and interesting game worlds.
+7. **Mobs:** Add various mobs and AI behavior to enhance the gameplay experience and create a living, dynamic world.
+
+Please note that this roadmap is subject to change as we adapt to new challenges and community feedback.
 
 ## License
 
