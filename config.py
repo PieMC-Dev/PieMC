@@ -8,3 +8,5 @@ GAMEMODE_NUM = 1
 PORT_V4 = 19132
 PORT_V6 = 19133 # NOT USEFUL
 LANG = "en"
+MOTD1 = "PieMC-Bedrock Server"
+MOTD2 = "Powered by PieMC-Bedrock"
