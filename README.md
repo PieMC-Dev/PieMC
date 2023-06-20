@@ -1,5 +1,7 @@
 # PieMC Bedrock
 
+![Logo](https://i.ibb.co/ws95McC/apple-pie-slice-scaled-64x-pngcrushed-1.png)
+
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/lapismyt/PieMC_Bedrock/blob/main/LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/lapismyt/PieMC_Bedrock)](https://github.com/lapismyt/PieMC_Bedrock/commits/main)
 [![Languages](https://img.shields.io/github/languages/count/lapismyt/PieMC_Bedrock)](https://github.com/lapismyt/PieMC_Bedrock)
@@ -115,10 +117,6 @@ Our roadmap outlines the future development plans for PieMC Bedrock. We're excit
 ![Community](https://i.ytimg.com/vi/oXKVfLTrdBM/maxresdefault.jpg)
 
 We're thrilled to have you on this journey with us. As we progress through each phase, we'll update the roadmap to reflect our accomplishments and adapt to new challenges and opportunities.
-
-## License
-
-This project is licensed under the [MIT License](https://github.com/lapismyt/PieMC_Bedrock/blob/main/LICENSE).
 
 ## License
 
