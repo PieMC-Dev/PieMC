@@ -17,8 +17,8 @@ class Interface:
     def __init__(self, server):
         self.server = server
         self.edition = "MCPE"
-        self.motd1 = text.MOTD1
-        self.motd2 = text.MOTD2
+        self.motd1 = config.MOTD1
+        self.motd2 = config.MOTD2
         self.total_players = 2
         self.max_players = config.MAX_PLAYERS  # Use the configuration variable from config.py
         self.protocol_version = config.PROTOCOL_VERSION
