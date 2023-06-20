@@ -56,21 +56,7 @@ python3 -m PieMC_Bedrock
 
 📈 **Stars Evolution:**
 
-![Stars Evolution](https://img.shields.io/github/stars/lapismyt/PieMC_Bedrock?style=social&label=Stars)
-
-📈 **Repository Size Evolution:**
-
-![Repository Size Evolution](https://img.shields.io/github/repo-size/lapismyt/PieMC_Bedrock?label=Repository%20Size)
-
-📈 **Contributors Evolution:**
-
-![Contributors Evolution](https://img.shields.io/github/contributors/lapismyt/PieMC_Bedrock?label=Contributors)
-
-📈 **Lines of Code Evolution:**
-
-![Lines of Code Evolution](https://img.shields.io/tokei/lines
-
-/github/lapismyt/PieMC_Bedrock?label=Lines%20of%20Code)
+![Stars Evolution](https://starchart.cc/andiricum2/PieMC_Bedrock.svg)
 
 ## Development Team
 
