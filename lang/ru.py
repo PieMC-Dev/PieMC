@@ -1,6 +1,4 @@
 RUNNING = "Сервер запущен"
-MOTD1 = "Сервер PieMC"
-MOTD2 ="ПИТОН"
 NEWPACKET = "Новый игровой пакет от"
 DISCONNECTED = "Отключено"
 CONNECTING = "Подключение..."
