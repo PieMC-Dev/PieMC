@@ -56,7 +56,7 @@ python3 -m PieMC_Bedrock
 
 📈 **Stars Evolution:**
 
-![Stars Evolution](https://starchart.cc/andiricum2/PieMC_Bedrock.svg)
+![Stars Evolution](https://starchart.cc/lapismyt/PieMC_Bedrock.svg)
 
 ## Development Team
 
