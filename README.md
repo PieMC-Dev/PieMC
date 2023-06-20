@@ -1,6 +1,11 @@
-# PieMC Bedrock
+<p align="center">
+  <h1>PieMC Bedrock</h1>
+</p>
 
-![Logo](https://i.ibb.co/ws95McC/apple-pie-slice-scaled-64x-pngcrushed-1.png)
+<p align="center">
+  <img src="https://i.ibb.co/ws95McC/apple-pie-slice-scaled-64x-pngcrushed-1.png" alt="Image" width="200" height="200" />
+</p>
+
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/lapismyt/PieMC_Bedrock/blob/main/LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/lapismyt/PieMC_Bedrock)](https://github.com/lapismyt/PieMC_Bedrock/commits/main)
