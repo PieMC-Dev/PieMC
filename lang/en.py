@@ -1,6 +1,4 @@
 RUNNING = "Server started"
-MOTD1 = "PieMC Server"
-MOTD2 = "PYTHON"
 NEWPACKET = "New GamePacket from"
 DISCONNECTED = "Disconnected."
 CONNECTING = "Connecting..."
