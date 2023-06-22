@@ -1,3 +1,7 @@
+#PieMC
+lang/__pycache__/
+packets/__pycache__/
+*.pyc
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

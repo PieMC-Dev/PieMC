@@ -20,8 +20,8 @@ if os.path.exists(lang_fullpath):
         language = 'en'
         print(f"The {config.LANG} lang doesn't exist in the {lang_dirname} directory.")
     
-
 text = __import__('lang.' + language, fromlist=[config.LANG])
+
 
 server = raknet_server("0.0.0.0", 19132, 4)
 
@@ -33,7 +33,8 @@ class Interface:
         self.motd2 = config.MOTD2
         self.total_players = 2
         self.max_players = config.MAX_PLAYERS  # Use the configuration variable from config.py
-        self.protocol_version = config.PROTOCOL_VERSION
+        self.protocol_version = 582
+
 
         # Checking for correctly set gamemode and setting gamemode_num
         match config.GAMEMODE.lower():
@@ -51,8 +52,7 @@ class Interface:
                 self.gamemode_num = 1
         # self.gamemode = config.GAMEMODE
         # self.gamemode_num = config.GAMEMODE_NUM
-        self.port_v4 = config.PORT_V4
-        self.port_v6 = config.PORT_V6
+        self.port = config.PORT
         self.server_guid = server.guid
         self.update_server_name()
 
@@ -76,21 +76,22 @@ class Interface:
         self.server.name = ";".join([
             self.edition,
             self.motd1,
+            self.motd2,
+            self.gamemode,
             str(self.protocol_version),
             str(self.total_players),
             str(self.max_players),
             str(self.server_guid),
-            self.motd2,
-            self.gamemode,
             str(self.gamemode_num),
-            str(self.port_v4),
-            str(self.port_v6)
+            str(self.port),
         ]) + ";"
 
 server.interface = Interface(server)
 
 def run():
     print(text.RUNNING)
+    print("IP: " + config.HOST)
+    print(str(text.PORT) + ": "+ str(config.PORT))
     while True:
         server.handle()
 
