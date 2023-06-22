@@ -4,4 +4,4 @@ MAX_PLAYERS = 20
 GAMEMODE = "Survival"
 LANG = "en"
 MOTD1 = "PieMC Server"
-MOTD2 = "Powered by PieMC-Bedrock"
+MOTD2 = "Powered by PieMC"
