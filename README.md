@@ -9,9 +9,10 @@
 [![Last Commit](https://img.shields.io/github/last-commit/lapismyt/PieMC_Bedrock)](https://github.com/lapismyt/PieMC_Bedrock/commits/main)
 [![Languages](https://img.shields.io/github/languages/count/lapismyt/PieMC_Bedrock)](https://github.com/lapismyt/PieMC_Bedrock)
 [![Stars](https://img.shields.io/github/stars/lapismyt/PieMC_Bedrock?style=social)](https://github.com/lapismyt/PieMC_Bedrock/stargazers)
-[Our Discord](https://discord.gg/ybXKzdyNhG)
 
 Server software for Minecraft: Bedrock Edition, written in Python. It is currently in the early stages of development. 🚧
+
+[Our Discord](https://discord.gg/ybXKzdyNhG)
 
 ## Getting Started
 
