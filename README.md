@@ -8,9 +8,8 @@
 [![License](https://img.shields.io/badge/license-GPL--3.0-blue.svg)](https://github.com/lapismyt/PieMC_Bedrock/blob/main/LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/lapismyt/PieMC_Bedrock?color=blue)](https://github.com/lapismyt/PieMC_Bedrock/commits/main)
 [![Languages](https://img.shields.io/github/languages/count/lapismyt/PieMC_Bedrock?color=blue)](https://github.com/lapismyt/PieMC_Bedrock)
+[![Discord](https://img.shields.io/discord/1120767457364279338?color=blue)](https://discord.gg/Bf3cXRUUnm)
 [![Stars](https://img.shields.io/github/stars/lapismyt/PieMC_Bedrock?style=social&color=blue)](https://github.com/lapismyt/PieMC_Bedrock/stargazers)
-
-![Discord](https://img.shields.io/discord/1120767457364279338?color=blue)
 
 Server software for Minecraft: Bedrock Edition, written in Python. It is currently in the early stages of development. 🚧
 
