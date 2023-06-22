@@ -1,99 +1,72 @@
-from rak_net.server import server as raknet_server
-from packets.game_packet import GamePacket
-import config
-import os
-
-# Import "en(.py)" or other language from config if defined correctly
-lang_dirname = "lang"
-file_to_find = config.LANG + ".py"
-
-# Get the full path of the "lang" directory
-lang_fullpath = os.path.join(os.getcwd(), lang_dirname)
-
-# Check if the directory exists
-if os.path.exists(lang_fullpath):
-    # Check if the file exists in the directory
-    lang_path = os.path.join(lang_fullpath, file_to_find)
-    if os.path.isfile(lang_path):
-        language = config.LANG
-    else:
-        language = 'en'
-        print(f"The {config.LANG} lang doesn't exist in the {lang_dirname} directory.")
-    
-text = __import__('lang.' + language, fromlist=[config.LANG])
+import socket
 
 
-server = raknet_server("0.0.0.0", 19132, 4)
-
-class Interface:
-    def __init__(self, server):
-        self.server = server
-        self.edition = "MCPE"
-        self.motd1 = config.MOTD1
-        self.motd2 = config.MOTD2
-        self.total_players = 2
-        self.max_players = config.MAX_PLAYERS  # Use the configuration variable from config.py
-        self.protocol_version = 582
+class Packet:
+    def __init__(self, body):
+        self.body = body
 
 
-        # Checking for correctly set gamemode and setting gamemode_num
-        match config.GAMEMODE.lower():
-            case 'survival':
-                self.gamemode = 'Survival'
-                self.gamemode_num = 1
-            case 'creative':
-                self.gamemode = 'Creative'
-                self.gamemode_num = 2
-            case 'adventure':
-                self.gamemode = 'Adventure'
-                self.gamemode_num = 3
-            case _:
-                self.gamemode = 'Survival'
-                self.gamemode_num = 1
-        # self.gamemode = config.GAMEMODE
-        # self.gamemode_num = config.GAMEMODE_NUM
-        self.port = config.PORT
-        self.server_guid = server.guid
-        self.update_server_name()
+class PingPacket(Packet):
+    def __init__(self, body):
+        super().__init__(body)
 
-    def on_frame(self, frame, connection):
-        game_packet = GamePacket(frame.body)
-        # print(f"{text.NEWPACKET} {connection.address.token}:")
-        print(game_packet.data)
-        game_packet.decode()
-        packets = game_packet.read_packets_data()
+
+class GamePacket(Packet):
+    def __init__(self, body):
+        super().__init__(body)
+
+    def decode(self, client_address):
+        packets = self.read_packets_data()
         for packet in packets:
-            print(f"{text.NEWPACKET} {connection.address.token}:")
-            print(packet.body)
+            packet_hex = packet.body.hex()
+            print(f"Packet body: {packet_hex}")
 
-    def on_disconnect(self, connection):
-        print(f"{connection.address.token} {text.DISCONNECTED}")
+            if isinstance(packet, PingPacket):
+                self.handle_ping_packet(packet, client_address)
 
-    def on_new_incoming_connection(self, connection):
-        print(f"{connection.address.token} {text.CONNECTING}")
+    def handle_ping_packet(self, packet, client_address):
+        # Handle the ping packet
+        response_packet = PingPacket(b"Response")
+        encoded_response = response_packet.body
+        self.server.server_socket.sendto(encoded_response, client_address)
 
-    def update_server_name(self):
-        self.server.name = ";".join([
-            self.edition,
-            self.motd1,
-            self.motd2,
-            self.gamemode,
-            str(self.protocol_version),
-            str(self.total_players),
-            str(self.max_players),
-            str(self.server_guid),
-            str(self.gamemode_num),
-            str(self.port),
-        ]) + ";"
+    def read_packets_data(self):
+        packets = []
+        # Implement your logic to extract packets from the game packet data
+        # Example implementation:
+        # Assuming each packet starts with a length prefix followed by the packet body
+        index = 0
+        while index < len(self.body):
+            length = int.from_bytes(self.body[index:index + 4], "little")
+            packet_body = self.body[index + 4:index + 4 + length]
+            packet = Packet(packet_body)  # Replace with the appropriate class or structure
+            packets.append(packet)
+            index += length + 4
+        return packets
 
-server.interface = Interface(server)
 
-def run():
-    print(text.RUNNING)
-    print("IP: " + config.HOST)
-    print(str(text.PORT) + ": "+ str(config.PORT))
-    while True:
-        server.handle()
+class MinecraftBedrockServer:
+    def __init__(self, ip, port):
+        self.ip = ip
+        self.port = port
+        self.server_socket = None
 
-if __name__ == '__main__':
-    run()
+    def start(self):
+        # Create a UDP socket object
+        self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.server_socket.bind((self.ip, self.port))
+
+        print("Server started!")
+
+        while True:
+            # Receive data from clients
+            data, client_address = self.server_socket.recvfrom(1024)
+
+            # Process received data
+            game_packet = GamePacket(data)
+            game_packet.decode(client_address)
+
+
+if __name__ == "__main__":
+    server = MinecraftBedrockServer("0.0.0.0", 19132)
+    server.start()

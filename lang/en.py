@@ -1,6 +1,0 @@
-RUNNING = "Server started"
-NEWPACKET = "New GamePacket from"
-DISCONNECTED = "Disconnected."
-CONNECTING = "Connecting..."
-DISCONNECT_PACKET = "PieMC-Bedrock is not done.\nWe are working on it day and night.\nIf you want to help us, you can contribute at:\nhttps://github.com/LapisMYT/PieMC_Bedrock"
-PORT = "Port"

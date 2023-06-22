@@ -1,6 +1,0 @@
-RUNNING = "Zerbitzaria hasia"
-NEWPACKET = "Joko Pakete Berria:"
-DISCONNECTED = "Deskonektatua."
-CONNECTING = "Konektatzen..."
-DISCONNECT_PACKET = "PieMC-Bedrock oraindik ez dago bukatuta.\nGau eta egun ari gara lanean.\nLagundu nahi baduzu, hemen lagun dezakezu:\nhttps://github.com/LapisMYT/PieMC_Bedrock"
-PORT = "Portua"
