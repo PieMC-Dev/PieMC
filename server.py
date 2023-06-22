@@ -23,8 +23,23 @@ class Interface:
         self.max_players = config.MAX_PLAYERS  # Use the configuration variable from config.py
         self.protocol_version = config.PROTOCOL_VERSION
         self.version_name = config.VERSION_NAME
-        self.gamemode = config.GAMEMODE
-        self.gamemode_num = config.GAMEMODE_NUM
+
+        # Checking for correctly set gamemode and setting gamemode_num
+        match config.GAMEMODE.lower():
+            case 'survival':
+                self.gamemode = 'Survival'
+                self.gamemode_num = 1
+            case 'creative':
+                self.gamemode = 'Creative'
+                self.gamemode_num = 2
+            case 'adventure':
+                self.gamemode = 'Adventure'
+                self.gamemode_num = 3
+            case _:
+                self.gamemode = 'Survival'
+                self.gamemode_num = 1
+        # self.gamemode = config.GAMEMODE
+        # self.gamemode_num = config.GAMEMODE_NUM
         self.port_v4 = config.PORT_V4
         self.port_v6 = config.PORT_V6
         self.server_guid = server.guid
