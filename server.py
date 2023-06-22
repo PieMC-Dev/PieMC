@@ -1,5 +1,5 @@
 import socket
-
+import config
 
 class Packet:
     def __init__(self, body):
@@ -23,12 +23,19 @@ class GamePacket(Packet):
 
             if isinstance(packet, PingPacket):
                 self.handle_ping_packet(packet, client_address)
+            else:
+                # Handle other types of packets
+                pass
 
     def handle_ping_packet(self, packet, client_address):
         # Handle the ping packet
         response_packet = PingPacket(b"Response")
         encoded_response = response_packet.body
         self.server.server_socket.sendto(encoded_response, client_address)
+
+        # Perform online ping
+        self.server.perform_online_ping(client_address)
+
 
     def read_packets_data(self):
         packets = []
@@ -57,6 +64,8 @@ class MinecraftBedrockServer:
         self.server_socket.bind((self.ip, self.port))
 
         print("Server started!")
+        print("IP: " + str(self.ip))
+        print("PORT: " + str(self.port))
 
         while True:
             # Receive data from clients
@@ -66,7 +75,14 @@ class MinecraftBedrockServer:
             game_packet = GamePacket(data)
             game_packet.decode(client_address)
 
+    def perform_online_ping(self, client_address):
+        # Perform online ping by sending a packet to the client
+        online_ping_packet = PingPacket(b"Online Ping")
+        encoded_ping_packet = online_ping_packet.body
+        self.server_socket.sendto(encoded_ping_packet, client_address)
+
+
 
 if __name__ == "__main__":
-    server = MinecraftBedrockServer("0.0.0.0", 19132)
+    server = MinecraftBedrockServer(config.HOST, config.PORT)
     server.start()
