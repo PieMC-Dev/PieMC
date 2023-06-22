@@ -1,6 +1,5 @@
 from game_packet import GamePacket
 
-
 class Disconnect(GamePacket):
     clientbound: bool = False
     serverbound: bool = False
