@@ -1,6 +1,4 @@
-<p align="center">
-  <h1>PieMC Bedrock</h1>
-</p>
+# PieMC Bedrock
 
 <p align="center">
   <img src="https://i.ibb.co/ws95McC/apple-pie-slice-scaled-64x-pngcrushed-1.png" alt="Image" width="200" height="200" />
