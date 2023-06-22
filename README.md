@@ -10,9 +10,9 @@
 [![Languages](https://img.shields.io/github/languages/count/lapismyt/PieMC_Bedrock)](https://github.com/lapismyt/PieMC_Bedrock)
 [![Stars](https://img.shields.io/github/stars/lapismyt/PieMC_Bedrock?style=social)](https://github.com/lapismyt/PieMC_Bedrock/stargazers)
 
-Server software for Minecraft: Bedrock Edition, written in Python. It is currently in the early stages of development. 🚧
+![Discord](https://img.shields.io/discord/1120767457364279338)
 
-[Our Discord](https://discord.gg/ybXKzdyNhG)
+Server software for Minecraft: Bedrock Edition, written in Python. It is currently in the early stages of development. 🚧
 
 ## Getting Started
 
