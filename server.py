@@ -1,14 +1,26 @@
 from rak_net.server import server as raknet_server
 from packets.game_packet import GamePacket
 import config
+import os
 
 # Import "en(.py)" or other language from config if defined correctly
-with open('languages.txt') as f:
-    languages = f.read().strip().split('\n')
-    if config.LANG in languages:
+lang_dirname = "lang"
+file_to_find = config.LANG + ".py"
+
+# Get the full path of the "lang" directory
+lang_fullpath = os.path.join(os.getcwd(), lang_dirname)
+
+# Check if the directory exists
+if os.path.exists(lang_fullpath):
+    # Check if the file exists in the directory
+    lang_path = os.path.join(lang_fullpath, file_to_find)
+    if os.path.isfile(lang_path):
         language = config.LANG
     else:
         language = 'en'
+        print(f"The {config.LANG} lang doesn't exist in the {lang_dirname} directory.")
+    
+
 text = __import__('lang.' + language, fromlist=[config.LANG])
 
 server = raknet_server("0.0.0.0", 19132, 4)
@@ -22,7 +34,6 @@ class Interface:
         self.total_players = 2
         self.max_players = config.MAX_PLAYERS  # Use the configuration variable from config.py
         self.protocol_version = config.PROTOCOL_VERSION
-        self.version_name = config.VERSION_NAME
 
         # Checking for correctly set gamemode and setting gamemode_num
         match config.GAMEMODE.lower():
@@ -66,7 +77,6 @@ class Interface:
             self.edition,
             self.motd1,
             str(self.protocol_version),
-            self.version_name,
             str(self.total_players),
             str(self.max_players),
             str(self.server_guid),

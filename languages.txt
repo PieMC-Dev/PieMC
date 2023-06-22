@@ -1,5 +1,0 @@
-de
-en
-es
-ru
-eu
