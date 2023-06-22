@@ -17,7 +17,7 @@ Server software for Minecraft: Bedrock Edition, written in Python. It is current
 To run the server, execute the following command:
 
 ```bash
-python3 -m PieMC Bedrock
+python server.py
 ```
 
 ## Functionality
