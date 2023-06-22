@@ -1,14 +1,16 @@
-# PieMC Bedrock
+# PieMC
 
 <p align="center">
   <img src="https://i.ibb.co/ws95McC/apple-pie-slice-scaled-64x-pngcrushed-1.png" alt="Image" width="200" height="200" />
 </p>
 
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/lapismyt/PieMC_Bedrock/blob/main/LICENSE)
-[![Last Commit](https://img.shields.io/github/last-commit/lapismyt/PieMC_Bedrock)](https://github.com/lapismyt/PieMC_Bedrock/commits/main)
-[![Languages](https://img.shields.io/github/languages/count/lapismyt/PieMC_Bedrock)](https://github.com/lapismyt/PieMC_Bedrock)
-[![Stars](https://img.shields.io/github/stars/lapismyt/PieMC_Bedrock?style=social)](https://github.com/lapismyt/PieMC_Bedrock/stargazers)
+[![License](https://img.shields.io/badge/license-GPL--3.0-blue.svg)](https://github.com/lapismyt/PieMC_Bedrock/blob/main/LICENSE)
+[![Last Commit](https://img.shields.io/github/last-commit/lapismyt/PieMC_Bedrock?color=blue)](https://github.com/lapismyt/PieMC_Bedrock/commits/main)
+[![Languages](https://img.shields.io/github/languages/count/lapismyt/PieMC_Bedrock?color=blue)](https://github.com/lapismyt/PieMC_Bedrock)
+[![Stars](https://img.shields.io/github/stars/lapismyt/PieMC_Bedrock?style=social&color=blue)](https://github.com/lapismyt/PieMC_Bedrock/stargazers)
+
+![Discord](https://img.shields.io/discord/1120767457364279338?color=blue)
 
 Server software for Minecraft: Bedrock Edition, written in Python. It is currently in the early stages of development. 🚧
 
@@ -67,9 +69,8 @@ python server.py
 
 - Lead Developer: [@LapisMYT](https://github.com/lapismyt)
 - Collaborators:
-  - [@DevUser123](https://github.com/DevUser123)
-  - [@CoderX](https://github.com/CoderX)
-  - [@MinecraftFan99](https://github.com/MinecraftFan99)
+  - [@andiricum2](https://github.com/andiricum2)
+  - [@skyss0fly](https://github.com/skyss0fly)
 
 ## Contributions
 
@@ -80,9 +81,9 @@ We welcome contributions from the community. If you're interested in contributin
 3. Test your changes thoroughly.
 4. Submit a pull request with a clear description of your changes and the problem it solves.
 
-# PieMC Bedrock Roadmap 🚀
+# PieMC Roadmap 🚀
 
-Our roadmap outlines the future development plans for PieMC Bedrock. We're excited about the potential of this project and aim to bring a comprehensive and feature-rich Minecraft: Bedrock Edition server software to the community. Here's what we have in store:
+Our roadmap outlines the future development plans for PieMC. We're excited about the potential of this project and aim to bring a comprehensive and feature-rich Minecraft: Bedrock Edition server software to the community. Here's what we have in store:
 
 ## Phase 1: Foundational Development 🛠️
 
@@ -91,7 +92,7 @@ Our roadmap outlines the future development plans for PieMC Bedrock. We're excit
 
 ## Phase 2: Core Features 🌟
 
-- **Game Protocol ⬜** - Develop the game protocol to handle gameplay mechanics, such as block placement, player movement, and world interactions.
+- **Game Protocol ⬜** - Develope the game protocol to handle gameplay mechanics, such as block placement, player movement, and world interactions.
 - **Plugins ⬜** - Create a flexible and extensible plugin system, allowing developers to enhance server functionality with custom features.
 - **Permissions ⬜** - Implement a permissions system to manage user access levels and control their actions on the server.
 - **User Authentication ⬜** - Introduce a secure authentication mechanism to allow players to log in using their Minecraft accounts.
@@ -113,9 +114,9 @@ Our roadmap outlines the future development plans for PieMC Bedrock. We're excit
 
 ## Phase 5: Community Engagement 🤝
 
-- **Documentation and Tutorials ⬜** - Provide comprehensive documentation and tutorials to help users understand and utilize PieMC Bedrock effectively.
+- **Documentation and Tutorials ⬜** - Provide comprehensive documentation and tutorials to help users understand and utilize PieMC effectively.
 - **Bug Fixes and Stability ⬜** - Continuously address reported issues, fix bugs, and ensure a stable and reliable server software.
-- **Community Feedback ⬜** - Listen to the community's feedback, ideas, and suggestions to shape the future direction of PieMC Bedrock.
+- **Community Feedback ⬜** - Listen to the community's feedback, ideas, and suggestions to shape the future direction of PieMC.
 
 ![Community](https://i.ytimg.com/vi/oXKVfLTrdBM/maxresdefault.jpg)
 
@@ -123,4 +124,5 @@ We're thrilled to have you on this journey with us. As we progress through each 
 
 ## License
 
-This project is licensed under the [MIT License](https://github.com/lapismyt/PieMC_Bedrock/blob/main/LICENSE).
+This project is licensed under the [GPL-3.0 License](https://github.com/lapismyt/PieMC_Bedrock/blob/main/LICENSE).
+NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG.
