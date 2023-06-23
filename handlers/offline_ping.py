@@ -6,9 +6,9 @@ class OfflinePingHandler:
     def handle(packet, server, connection):
         packet.decode()
         if config.DEBUG:
-            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} Client Timestamp: {str(packet.client_timestamp)}")
-            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} MAGIC: {str(packet.magic)}")
-            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} Client GUID: {str(packet.client_guid)}")
+            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Client Timestamp: {str(packet.client_timestamp)}")
+            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - MAGIC: {str(packet.magic)}")
+            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Client GUID: {str(packet.client_guid)}")
 
     def create_response_packet(self):
         edition = "MCPE"  # DON'T CHANGE

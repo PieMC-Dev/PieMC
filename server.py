@@ -54,15 +54,15 @@ class MinecraftBedrockServer:
                     if config.DEBUG:
                         print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} New packet:")
                         print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet ID: {data[0]}")
-                        print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} Packet Body: {data[1:]}")
+                        print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Body: {data[1:]}")
                     if data[0] == 0x01:
                         if config.DEBUG:
-                            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} Packet Type: Offline Ping")
+                            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Type: Offline Ping")
                         packet = OfflinePing(data=data)
                         OfflinePingHandler.handle(packet=packet, server=self, connection=client_address)
                     else:
                         if config.DEBUG:
-                            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} Packet Type: Unknown")
+                            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Type: Unknown")
 
             except KeyboardInterrupt:
                 print(Fore.RED + "Server stopped." + Style.RESET_ALL)
