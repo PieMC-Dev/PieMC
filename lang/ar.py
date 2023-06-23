@@ -1,0 +1,6 @@
+RUNNING = "بدأ الخادم"
+NEWPACKET = "GamePacket جديد من"
+DISCONNECTED = "انقطع الاتصال."
+CONNECTING = "توصيل..."
+DISCONNECT_PACKET = "لم يتم الانتهاء من PieMC-Bedrock. \n نحن نعمل على ذلك ليل نهار. \n إذا كنت تريد مساعدتنا ، يمكنك المساهمة على:\nhttps://github.com/LapisMYT/PieMC_Bedrock"
+PORT = "Port"
