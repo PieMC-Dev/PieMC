@@ -10,7 +10,7 @@ from handlers.offline_ping import OfflinePingHandler
 lang_dirname = "lang"
 file_to_find = config.LANG + ".py"
 
-lang_fullpath = os.path.join(os.getcwd(), 'PieMC', lang_dirname)
+lang_fullpath = os.path.join(os.getcwd(), lang_dirname)
 
 if os.path.exists(lang_fullpath):
     lang_path = os.path.join(lang_fullpath, file_to_find)
