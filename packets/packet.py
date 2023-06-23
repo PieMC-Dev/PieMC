@@ -1,4 +1,6 @@
-from ..buffer import Buffer
+from buffer import Buffer
+import config
+from colorama import Fore, Style
 
 
 class Packet(Buffer):

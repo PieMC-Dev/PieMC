@@ -4,7 +4,8 @@ import random
 import os
 from colorama import Fore, Style
 import time
-import packets
+from packets.packet import Packet
+from packets.offline_ping import OfflinePing
 
 lang_dirname = "lang"
 file_to_find = config.LANG + ".py"
@@ -20,7 +21,6 @@ if os.path.exists(lang_fullpath):
         print(f"The {config.LANG} lang doesn't exist in the {lang_dirname} directory. Using English...")
         time.sleep(5)
 
-
 text = __import__('lang.' + language, fromlist=[config.LANG])
 
 if not os.path.exists("server.key"):
@@ -28,25 +28,6 @@ if not os.path.exists("server.key"):
     with open("server.key", "w") as key_file:
         key_file.write(str(pieuid))
     print("Created server.key and added pieuid:", pieuid)
-
-class GamePacket(packets.Packet):
-    def __init__(self, body):
-        super().__init__(body)
-
-    def decode(self):
-        packet_hex = self.body.hex()
-        if config.DEBUG:
-            print(Fore.BLUE + "[DEBUG] " + Fore.WHITE + "Received Package: " + str(packet_hex))
-        packet_type = int(packet_hex[0:2], 16)
-        if config.DEBUG:
-            if packet_type == 1:
-                print("Type: Offline Ping")
-            else:
-                print("Type: Online Ping")
-
-        # Handle other types of packets
-        pass
-
 
 class MinecraftBedrockServer:
     def __init__(self, ip, port):
@@ -65,8 +46,7 @@ class MinecraftBedrockServer:
             try:
                 while True:
                     data, client_address = server_socket.recvfrom(1024)
-                    game_packet = GamePacket(data)
-                    game_packet.decode()
+                    packet = f
 
                     # Send a response packet to the client
                     response_packet = self.create_response_packet()
