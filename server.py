@@ -4,8 +4,8 @@ import random
 import os
 from colorama import Fore, Style
 import time
-from packets.packet import Packet
 from packets.offline_ping import OfflinePing
+from handlers.offline_ping import OfflinePingHandler
 
 lang_dirname = "lang"
 file_to_find = config.LANG + ".py"
@@ -31,12 +31,17 @@ if not os.path.exists("server.key"):
 
 class MinecraftBedrockServer:
     def __init__(self, ip, port):
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.ip = ip
         self.port = port
 
+    def send(self, data, connection):
+        self.socket.sendto(data, connection)
+
     def start(self):
-        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as server_socket:
+        with self.socket as server_socket:
             server_socket.bind((self.ip, self.port))
+            self.socket = server_socket
             print(Fore.GREEN + Style.BRIGHT + "Server started!" + Style.RESET_ALL)
             print(f"{text.IP}: {Fore.YELLOW}{config.HOST}{Style.RESET_ALL}")
             print(f"{text.PORT}: {Fore.YELLOW}{config.PORT}{Style.RESET_ALL}")
@@ -46,43 +51,21 @@ class MinecraftBedrockServer:
             try:
                 while True:
                     data, client_address = server_socket.recvfrom(1024)
-                    packet = f
-
-                    # Send a response packet to the client
-                    response_packet = self.create_response_packet()
-                    server_socket.sendto(response_packet, client_address)
+                    if config.DEBUG:
+                        print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} New packet:")
+                        print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet ID: {data[0]}")
+                        print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} Packet Body: {data[1:]}")
+                    if data[0] == 0x01:
+                        if config.DEBUG:
+                            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} Packet Type: ")
+                        packet = OfflinePing(data=data)
+                        OfflinePingHandler.handle(packet=packet, server=self, connection=client_address)
+                    else:
+                        if config.DEBUG:
+                            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} Packet Type: Unknown")
 
             except KeyboardInterrupt:
                 print(Fore.RED + "Server stopped." + Style.RESET_ALL)
-
-    @staticmethod
-    def create_response_packet():
-        edition = "MCPE"  # DON'T CHANGE
-        protocol_version = 589  # DON'T CHANGE
-        version_name = "1.20.0"  # DON'T CHANGE
-        server_uid = 13253860892328930865  # DON'T CHANGE
-        motd1 = config.MOTD1
-        motd2 = config.MOTD2
-        players_online = 2
-        max_players = config.MAX_PLAYERS
-        if config.GAMEMODE == "Survival":
-            gamemode = "Survival"
-            gamemode_num = 0
-        elif config.GAMEMODE == "Creative":
-            gamemode = "Creative"
-            gamemode_num = 1
-        elif config.GAMEMODE == "Adventure":
-            gamemode = "Adventure"
-            gamemode_num = 2
-        port_ipv4 = config.PORT
-        port_ipv6 = 19133  # NOT NECESSARY
-
-        response_packet = f"{edition};{motd1};{protocol_version};{version_name};{players_online};{max_players};{server_uid};{motd2};{gamemode};{gamemode_num};{port_ipv4};{port_ipv6};"
-        unconnected_pong = f"2;{response_packet};".encode('utf-8')
-        if config.DEBUG:
-            print(Fore.BLUE + "[DEBUG] " + Fore.WHITE + "Sent Package: " + str(response_packet))
-        return unconnected_pong
-
 
 if __name__ == "__main__":
     server = MinecraftBedrockServer(config.HOST, config.PORT)

@@ -1,4 +1,4 @@
-from .packet import Packet
+from packets.packet import Packet
 
 
 class OfflinePing(Packet):
