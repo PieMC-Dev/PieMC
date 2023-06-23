@@ -1,86 +1,118 @@
 import socket
 import config
+import random
+import os
+from colorama import Fore, Style
+import time
+
+lang_dirname = "lang"
+file_to_find = config.LANG + ".py"
+
+lang_fullpath = os.path.join(os.getcwd(), lang_dirname)
+
+if os.path.exists(lang_fullpath):
+    lang_path = os.path.join(lang_fullpath, file_to_find)
+    if os.path.isfile(lang_path):
+        language = config.LANG
+    else:
+        language = 'en'
+        print(f"The {config.LANG} lang doesn't exist in the {lang_dirname} directory. Using English...")
+        time.sleep(5)
+
+
+text = __import__('lang.' + language, fromlist=[config.LANG])
+
+if not os.path.exists("server.key"):
+    pieuid = random.randint(10**19, (10**20)-1)
+    with open("server.key", "w") as key_file:
+        key_file.write(str(pieuid))
+    print("Created server.key and added pieuid:", pieuid)
+
 
 class Packet:
     def __init__(self, body):
         self.body = body
 
+    def encode(self):
+        return self.body
 
-class PingPacket(Packet):
-    def __init__(self, body):
-        super().__init__(body)
+    @staticmethod
+    def decode(data):
+        return data
 
 
 class GamePacket(Packet):
     def __init__(self, body):
         super().__init__(body)
 
-    def decode(self, client_address):
-        packets = self.read_packets_data()
-        for packet in packets:
-            packet_hex = packet.body.hex()
-            print(f"Packet body: {packet_hex}")
-
-            if isinstance(packet, PingPacket):
-                self.handle_ping_packet(packet, client_address)
+    def decode(self):
+        packet_hex = self.body.hex()
+        if config.DEBUG:
+            print(Fore.BLUE + "[DEBUG] " + Fore.WHITE + "Received Package: " + str(packet_hex))
+        packet_type = int(packet_hex[0:2], 16)
+        if config.DEBUG:
+            if packet_type == 1:
+                print("Type: Offline Ping")
             else:
-                # Handle other types of packets
-                pass
+                print("Type: Online Ping")
 
-    def handle_ping_packet(self, packet, client_address):
-        # Handle the ping packet
-        response_packet = PingPacket(b"Response")
-        encoded_response = response_packet.body
-        self.server.server_socket.sendto(encoded_response, client_address)
-
-        # Perform online ping
-        self.server.perform_online_ping(client_address)
-
-
-    def read_packets_data(self):
-        packets = []
-        # Implement your logic to extract packets from the game packet data
-        # Example implementation:
-        # Assuming each packet starts with a length prefix followed by the packet body
-        index = 0
-        while index < len(self.body):
-            length = int.from_bytes(self.body[index:index + 4], "little")
-            packet_body = self.body[index + 4:index + 4 + length]
-            packet = Packet(packet_body)  # Replace with the appropriate class or structure
-            packets.append(packet)
-            index += length + 4
-        return packets
+        # Handle other types of packets
+        pass
 
 
 class MinecraftBedrockServer:
     def __init__(self, ip, port):
         self.ip = ip
         self.port = port
-        self.server_socket = None
 
     def start(self):
-        # Create a UDP socket object
-        self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        self.server_socket.bind((self.ip, self.port))
+        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as server_socket:
+            server_socket.bind((self.ip, self.port))
+            print(Fore.GREEN + Style.BRIGHT + "Server started!" + Style.RESET_ALL)
+            print(f"{text.IP}: {Fore.YELLOW}{config.HOST}{Style.RESET_ALL}")
+            print(f"{text.PORT}: {Fore.YELLOW}{config.PORT}{Style.RESET_ALL}")
+            print(f"{text.GAMEMODE}: {Fore.YELLOW}{config.GAMEMODE}{Style.RESET_ALL}")
+            print(f"{text.MAX_PLAYERS}: {Fore.YELLOW}{config.MAX_PLAYERS}{Style.RESET_ALL}")
 
-        print("Server started!")
-        print("IP: " + str(self.ip))
-        print("PORT: " + str(self.port))
+            try:
+                while True:
+                    data, client_address = server_socket.recvfrom(1024)
+                    game_packet = GamePacket(data)
+                    game_packet.decode()
 
-        while True:
-            # Receive data from clients
-            data, client_address = self.server_socket.recvfrom(1024)
+                    # Send a response packet to the client
+                    response_packet = self.create_response_packet()
+                    server_socket.sendto(response_packet, client_address)
 
-            # Process received data
-            game_packet = GamePacket(data)
-            game_packet.decode(client_address)
+            except KeyboardInterrupt:
+                print(Fore.RED + "Server stopped." + Style.RESET_ALL)
 
-    def perform_online_ping(self, client_address):
-        # Perform online ping by sending a packet to the client
-        online_ping_packet = PingPacket(b"Online Ping")
-        encoded_ping_packet = online_ping_packet.body
-        self.server_socket.sendto(encoded_ping_packet, client_address)
+    @staticmethod
+    def create_response_packet():
+        edition = "MCPE"  # DON'T CHANGE
+        protocol_version = 589  # DON'T CHANGE
+        version_name = "1.20.0"  # DON'T CHANGE
+        server_uid = 13253860892328930865  # DON'T CHANGE
+        motd1 = config.MOTD1
+        motd2 = config.MOTD2
+        players_online = 2
+        max_players = config.MAX_PLAYERS
+        if config.GAMEMODE == "Survival":
+            gamemode = "Survival"
+            gamemode_num = 0
+        elif config.GAMEMODE == "Creative":
+            gamemode = "Creative"
+            gamemode_num = 1
+        elif config.GAMEMODE == "Adventure":
+            gamemode = "Adventure"
+            gamemode_num = 2
+        port_ipv4 = config.PORT
+        port_ipv6 = 19133  # NOT NECESSARY
 
+        response_packet = f"{edition};{motd1};{protocol_version};{version_name};{players_online};{max_players};{server_uid};{motd2};{gamemode};{gamemode_num};{port_ipv4};{port_ipv6};".encode('utf-8')
+        if config.DEBUG:
+            print(Fore.BLUE + "[DEBUG] " + Fore.WHITE + "Sent Package: " + str(response_packet))
+        return response_packet
 
 
 if __name__ == "__main__":
