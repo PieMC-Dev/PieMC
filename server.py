@@ -109,10 +109,11 @@ class MinecraftBedrockServer:
         port_ipv4 = config.PORT
         port_ipv6 = 19133  # NOT NECESSARY
 
-        response_packet = f"{edition};{motd1};{protocol_version};{version_name};{players_online};{max_players};{server_uid};{motd2};{gamemode};{gamemode_num};{port_ipv4};{port_ipv6};".encode('utf-8')
+        response_packet = f"{edition};{motd1};{protocol_version};{version_name};{players_online};{max_players};{server_uid};{motd2};{gamemode};{gamemode_num};{port_ipv4};{port_ipv6};"
+        unconnected_pong = f"2;{response_packet};".encode('utf-8')
         if config.DEBUG:
             print(Fore.BLUE + "[DEBUG] " + Fore.WHITE + "Sent Package: " + str(response_packet))
-        return response_packet
+        return unconnected_pong
 
 
 if __name__ == "__main__":
