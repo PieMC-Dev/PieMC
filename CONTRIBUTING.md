@@ -1,6 +1,6 @@
 # Contributing Guidelines
 
-👍🎉 Thank you for your interest in contributing to our Minecraft Bedrock server software project! We welcome contributions from developers like you to make this project even better. To ensure a smooth and collaborative experience for everyone, please take a moment to review the following guidelines.
+👍🎉 Thank you for your interest in contributing to PieMC, our Minecraft Bedrock server software project! We welcome contributions from developers like you to make this project even better. To ensure a smooth and collaborative experience for everyone, please take a moment to review the following guidelines.
 
 ## How to Contribute
 
