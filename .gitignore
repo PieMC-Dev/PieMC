@@ -3,6 +3,7 @@ lang/__pycache__/
 packets/__pycache__/
 *.pyc
 server.key
+piemc_test.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

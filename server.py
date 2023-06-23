@@ -4,6 +4,7 @@ import random
 import os
 from colorama import Fore, Style
 import time
+import packets
 
 lang_dirname = "lang"
 file_to_find = config.LANG + ".py"
@@ -28,20 +29,7 @@ if not os.path.exists("server.key"):
         key_file.write(str(pieuid))
     print("Created server.key and added pieuid:", pieuid)
 
-
-class Packet:
-    def __init__(self, body):
-        self.body = body
-
-    def encode(self):
-        return self.body
-
-    @staticmethod
-    def decode(data):
-        return data
-
-
-class GamePacket(Packet):
+class GamePacket(packets.Packet):
     def __init__(self, body):
         super().__init__(body)
 
