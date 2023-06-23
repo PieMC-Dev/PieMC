@@ -18,7 +18,7 @@ Server software for Minecraft: Bedrock Edition, written in Python. It is current
 To run the server, execute the following command:
 
 ```bash
-python server.py
+python -m PieMC
 ```
 
 ## Functionality
@@ -91,7 +91,7 @@ Our roadmap outlines the future development plans for PieMC. We're excited about
 
 ## Phase 2: Core Features 🌟
 
-- **Game Protocol ⬜** - Develope the game protocol to handle gameplay mechanics, such as block placement, player movement, and world interactions.
+- **Game Protocol ⬜** - Develop the game protocol to handle gameplay mechanics, such as block placement, player movement, and world interactions.
 - **Plugins ⬜** - Create a flexible and extensible plugin system, allowing developers to enhance server functionality with custom features.
 - **Permissions ⬜** - Implement a permissions system to manage user access levels and control their actions on the server.
 - **User Authentication ⬜** - Introduce a secure authentication mechanism to allow players to log in using their Minecraft accounts.
