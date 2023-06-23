@@ -4,8 +4,10 @@ import struct
 class UnsupportedIPVersion(BaseException):
     pass
 
+
 class EOSError(BaseException):
     pass
+
 
 class Buffer:
     def __init__(self, data: bytes = b'', pos=0):
@@ -38,19 +40,19 @@ class Buffer:
         self.write_byte(data)
 
     def read_byte(self):
-        return struct.unpack('b', self.read(1))
+        return struct.unpack('b', self.read(1))[0]
 
     def write_byte(self, data):
         self.write(struct.pack('b', data))
 
     def read_short(self):
-        return struct.unpack('>h', self.read(2))
+        return struct.unpack('>h', self.read(2))[0]
 
     def write_short(self, data):
         self.write(struct.pack('>h', data))
 
     def read_unsigned_short(self):
-        return struct.unpack('>H', self.read(2))
+        return struct.unpack('>H', self.read(2))[0]
 
     def write_unsigned_short(self, data):
         self.write(struct.pack('>H', data))
@@ -62,13 +64,13 @@ class Buffer:
         self.write(data)
 
     def read_long(self):
-        return struct.unpack('>q', self.read(8))
+        return struct.unpack('>q', self.read(8))[0]
 
     def write_long(self, data):
         self.write(struct.pack('>q', data))
 
     def read_bool(self):
-        return struct.unpack('?', self.read(1))
+        return struct.unpack('?', self.read(1))[0]
 
     def write_bool(self, data):
         self.write(struct.pack('?', data))
