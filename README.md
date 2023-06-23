@@ -15,17 +15,15 @@ Server software for Minecraft: Bedrock Edition, written in Python. It is current
 
 ## Getting Started
 
-To run the server, execute the following command in PieMC directory:
-
-First of all you need to install requirements.
+First of all you need to install requirements with:
 ```bash
 pip install -r requirements.txt
 ```
-For running the server use the following command:
+
+To run the server, execute the following command in PieMC directory:
 ```bash
 python PieMC.py
 ```
-in the parent directory
 
 ## Functionality
 
