@@ -2,7 +2,8 @@ import config
 from colorama import Fore
 
 class OfflinePingHandler:
-    def handle(self, packet, server, connection):
+    @staticmethod
+    def handle(packet, server, connection):
         packet.decode()
         if config.DEBUG:
             print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} Client Timestamp: {str(packet.client_timestamp)}")

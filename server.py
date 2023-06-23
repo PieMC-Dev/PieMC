@@ -57,9 +57,9 @@ class MinecraftBedrockServer:
                         print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} Packet Body: {data[1:]}")
                     if data[0] == 0x01:
                         if config.DEBUG:
-                            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} Packet Type: ")
+                            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} Packet Type: Offline Ping")
                         packet = OfflinePing(data=data)
-                        OfflinePingHandler.handle(packet=packet, server=self, connection=client_address)
+                        OfflinePingHandler.handle(server=self, connection=client_address)
                     else:
                         if config.DEBUG:
                             print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} Packet Type: Unknown")
