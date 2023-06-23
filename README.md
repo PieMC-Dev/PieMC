@@ -5,11 +5,11 @@
 </p>
 
 
-[![License](https://img.shields.io/badge/license-GPL--3.0-blue.svg)](https://github.com/PieMC-Dev/PieMC_Bedrock/blob/main/LICENSE)
-[![Last Commit](https://img.shields.io/github/last-commit/PieMC-Dev/PieMC_Bedrock?color=blue)](https://github.com/PieMC-Dev/PieMC_Bedrock/commits/main)
-[![Languages](https://img.shields.io/github/languages/count/PieMC-Dev/PieMC_Bedrock?color=blue)](https://github.com/PieMC-Dev/PieMC_Bedrock)
+[![License](https://img.shields.io/badge/license-GPL--3.0-blue.svg)](https://github.com/PieMC-Dev/PieMC/blob/main/LICENSE)
+[![Last Commit](https://img.shields.io/github/last-commit/PieMC-Dev/PieMC?color=blue)](https://github.com/PieMC-Dev/PieMC/commits/main)
+[![Languages](https://img.shields.io/github/languages/count/PieMC-Dev/PieMC?color=blue)](https://github.com/PieMC-Dev/PieMC)
 [![Discord](https://img.shields.io/discord/1120767457364279338?color=blue)](https://discord.gg/Bf3cXRUUnm)
-[![Stars](https://img.shields.io/github/stars/PieMC-Dev/PieMC_Bedrock?style=social&color=blue)](https://github.com/PieMC-Dev/PieMC_Bedrock/stargazers)
+[![Stars](https://img.shields.io/github/stars/PieMC-Dev/PieMC?style=social&color=blue)](https://github.com/PieMC-Dev/PieMC/stargazers)
 
 Server software for Minecraft: Bedrock Edition, written in Python. It is currently in the early stages of development. 🚧
 
@@ -52,17 +52,17 @@ python server.py
 
 ## Project Stats
 
-![Repo Size](https://img.shields.io/github/repo-size/PieMC-Dev/PieMC_Bedrock)
-![Lines of Code](https://img.shields.io/tokei/lines/github/PieMC-Dev/PieMC_Bedrock)
+![Repo Size](https://img.shields.io/github/repo-size/PieMC-Dev/PieMC)
+![Lines of Code](https://img.shields.io/tokei/lines/github/PieMC-Dev/PieMC)
 
-![Contributors](https://img.shields.io/github/contributors/PieMC-Dev/PieMC_Bedrock)
-![Stars](https://img.shields.io/github/stars/lapismyt/PieMC_Bedrock?style=social)
+![Contributors](https://img.shields.io/github/contributors/PieMC-Dev/PieMC)
+![Stars](https://img.shields.io/github/stars/lapismyt/PieMC?style=social)
 
 ## Project Evolution
 
 📈 **Stars Evolution:**
 
-![Stars Evolution](https://starchart.cc/PieMC-Dev/PieMC_Bedrock.svg)
+![Stars Evolution](https://starchart.cc/PieMC-Dev/PieMC.svg)
 
 ## Development Team
 
@@ -123,5 +123,5 @@ We're thrilled to have you on this journey with us. As we progress through each 
 
 ## License
 
-This project is licensed under the [GPL-3.0 License](https://github.com/PieMC-Dev/PieMC_Bedrock/blob/main/LICENSE).
+This project is licensed under the [GPL-3.0 License](https://github.com/PieMC-Dev/PieMC/blob/main/LICENSE).
 NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG.
