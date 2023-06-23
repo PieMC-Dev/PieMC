@@ -5,3 +5,5 @@ GAMEMODE = "Survival"
 LANG = "en"
 MOTD1 = "PieMC Server"
 MOTD2 = "Powered by PieMC"
+VERSION = "1.20.0"
+PROTOCOL = 589

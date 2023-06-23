@@ -1,2 +1,2 @@
 import server
-server.server.run()
+server.run()
