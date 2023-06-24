@@ -5,8 +5,8 @@
 </p>
 
 
-[![License](https://img.shields.io/badge/license-GPL--3.0-blue.svg)](https://github.com/PieMC-Dev/PieMC/blob/main/LICENSE)
-[![Last Commit](https://img.shields.io/github/last-commit/PieMC-Dev/PieMC?color=blue)](https://github.com/PieMC-Dev/PieMC/commits/main)
+[![License](https://img.shields.io/badge/license-GPL--3.0-blue.svg)](https://github.com/PieMC-Dev/PieMC/blob/socket/LICENSE)
+[![Last Commit](https://img.shields.io/github/last-commit/PieMC-Dev/PieMC?color=blue)](https://github.com/PieMC-Dev/PieMC/commits/socket)
 [![Languages](https://img.shields.io/github/languages/count/PieMC-Dev/PieMC?color=blue)](https://github.com/PieMC-Dev/PieMC)
 [![Discord](https://img.shields.io/discord/1120767457364279338?color=blue)](https://discord.gg/Bf3cXRUUnm)
 [![Stars](https://img.shields.io/github/stars/PieMC-Dev/PieMC?style=social&color=blue)](https://github.com/PieMC-Dev/PieMC/stargazers)
@@ -15,21 +15,20 @@ Server software for Minecraft: Bedrock Edition, written in Python. It is current
 
 ## Getting Started
 
-To run the server, execute the following command in PieMC directory:
+First of all you need to install requirements with:
+```bash
+pip install -r requirements.txt
+```
 
+To run the server, execute the following command in PieMC directory:
 ```bash
-python3 PieMC.py
+python PieMC.py
 ```
-or
-```bash
-python3 -m PieMC
-```
-in the parent directory
 
 ## Functionality
 
-- ✅ Basic protocol (RakNet)
-- ✅ MOTD
+- ✅ Basic protocol
+- ⬜ MOTD
 - ⬜ Game Protocol
 - ⬜ Plugins
 - ⬜ Permissions
@@ -75,12 +74,13 @@ in the parent directory
 - Collaborators:
   - [@andiricum2](https://github.com/andiricum2)
   - [@skyss0fly](https://github.com/skyss0fly)
+  - [@Inaay](https://github.com/Inaay)
 
 ## Contributions
 
 We welcome contributions from the community. If you're interested in contributing to the project, please follow these guidelines:
 
-1. Fork the repository and create your branch from `main`.
+1. Fork the repository and create your branch from `socket`.
 2. Make your changes, ensuring they follow the project's coding conventions.
 3. Test your changes thoroughly.
 4. Submit a pull request with a clear description of your changes and the problem it solves.
@@ -91,8 +91,8 @@ Our roadmap outlines the future development plans for PieMC. We're excited about
 
 ## Phase 1: Foundational Development 🛠️
 
-- **Basic protocol (RakNet) ✅** - Implement the fundamental networking protocol for communication between the server and clients.
-- **MOTD ✅** - Add support for the Message of the Day (MOTD) to display server information to players.
+- **Basic protocol ✅** - Implement the fundamental networking protocol for communication between the server and clients.
+- **MOTD ⬜** - Add support for the Message of the Day (MOTD) to display server information to players.
 
 ## Phase 2: Core Features 🌟
 
@@ -128,5 +128,5 @@ We're thrilled to have you on this journey with us. As we progress through each 
 
 ## License
 
-This project is licensed under the [GPL-3.0 License](https://github.com/PieMC-Dev/PieMC/blob/main/LICENSE).
+This project is licensed under the [GPL-3.0 License](https://github.com/PieMC-Dev/PieMC/blob/socket/LICENSE).
 NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG.
