@@ -15,10 +15,9 @@ class Buffer:
         self.pos = pos
 
     def write(self, data):  # Write data to buffer
-        try:
-            self.data += data
-        except TypeError:
-            self.data += data.encode('utf-8')
+        if not (data is bytes):
+            data = data.encode('utf-8')
+        self.data += data
 
     def read(self, size):  # Read data from buffer
         if not self.feos():
@@ -44,8 +43,16 @@ class Buffer:
 
     def write_byte(self, data):
         if not (data is bytes):
-            data = data.encode()
+            data = data.encode('utf-8')
         self.write(struct.pack('b', data))
+
+    def read_ubyte(self):
+        return struct.unpack('B', self.read(1))[0]
+
+    def write_ubyte(self, data):
+        if not (data is bytes):
+            data = data.encode('utf-8')
+        self.write(struct.pack('B', data))
 
     def read_short(self):
         return struct.unpack('>h', self.read(2))[0]
@@ -64,7 +71,7 @@ class Buffer:
 
     def write_magic(self, data=b'00ffff00fefefefefdfdfdfd12345678'):
         if not (data is bytes):
-            data = data.encode()
+            data = data.encode('utf-8')
         self.write(data)
 
     def read_long(self):
@@ -73,11 +80,23 @@ class Buffer:
     def write_long(self, data):
         self.write(struct.pack('>q', data))
 
+    def read_ulong(self):
+        return struct.unpack('>Q', self.read(8))[0]
+
+    def write_ulong(self, data):
+        self.write(struct.pack('>Q', data))
+
     def read_bool(self):
         return struct.unpack('?', self.read(1))[0]
 
     def write_bool(self, data):
         self.write(struct.pack('?', data))
+
+    def read_uint24le(self):
+        return struct.unpack("<I", self.read(3) + b'\x00')[0]
+
+    def write_uint24le(self, data):
+        self.write(struct.pack("<I", data)[:3])
 
     def read_string(self):
         length = self.read_short()
@@ -87,7 +106,7 @@ class Buffer:
     def write_string(self, data):
         self.write_short(len(data))
         if not (data is bytes):
-            data = data.encode()
+            data = data.encode('utf-8')
         self.write(data)
 
     def read_address(self):
@@ -98,6 +117,16 @@ class Buffer:
                 hostname_parts.append(str(~self.read_byte() & 0xff))
             hostname = ".".join(hostname_parts)
             port = self.read_unsigned_short()
-            return (hostname, port, ipv)
+            return hostname, port, ipv
+        else:
+            raise UnsupportedIPVersion('IP version is not 4')
+
+    def write_address(self, address: tuple):
+        if address[2] == 4:
+            self.write_byte(address[2])
+            hostname_parts: list = address[0].split('.')
+            for part in hostname_parts:
+                self.write_byte(~int(part) & 0xff)
+            self.write_short(address[1])
         else:
             raise UnsupportedIPVersion('IP version is not 4')
