@@ -36,7 +36,7 @@ By contributing to this project, you agree that your contributions will be licen
 
 ## Contact
 
-If you have any questions or need further clarification, feel free to reach out to us on our Discord server.
+If you have any questions or need further clarification, feel free to reach out to us on our [Discord server](https://discord.gg/ybXKzdyNhG).
 
 Thank you for your valuable contributions and support in making our Minecraft Bedrock server software project a success!
 
