@@ -43,6 +43,8 @@ class Buffer:
         return struct.unpack('b', self.read(1))[0]
 
     def write_byte(self, data):
+        if not (data is bytes):
+            data = data.encode()
         self.write(struct.pack('b', data))
 
     def read_short(self):
@@ -61,6 +63,8 @@ class Buffer:
         return self.read(16)
 
     def write_magic(self, data=b'00ffff00fefefefefdfdfdfd12345678'):
+        if not (data is bytes):
+            data = data.encode()
         self.write(data)
 
     def read_long(self):
@@ -82,7 +86,9 @@ class Buffer:
 
     def write_string(self, data):
         self.write_short(len(data))
-        self.write(data.encode('utf-8'))
+        if not (data is bytes):
+            data = data.encode()
+        self.write(data)
 
     def read_address(self):
         ipv = self.read_byte()

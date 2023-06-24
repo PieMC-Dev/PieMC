@@ -3,9 +3,9 @@ from packets.packet import Packet
 
 class OfflinePing(Packet):
     packet_id = 0x01
-    client_timestamp = None
-    magic = None
-    client_guid = None
+    client_timestamp: int = None
+    magic: bytes = None
+    client_guid: int = None
 
     def decode_payload(self):
         self.client_timestamp = self.read_long()

@@ -1,7 +1,7 @@
 import socket
 import config
 import random
-import os
+import os, sys
 from colorama import Fore, Style
 import time
 from packets.offline_ping import OfflinePing
@@ -23,19 +23,64 @@ if os.path.exists(lang_fullpath):
 
 text = __import__('lang.' + language, fromlist=[config.LANG])
 
-if not os.path.exists("server.key"):
+if not os.path.exists("pieuid.dat"):
     pieuid = random.randint(10**19, (10**20)-1)
-    with open("server.key", "w") as key_file:
-        key_file.write(str(pieuid))
-    print("Created server.key and added pieuid:", pieuid)
+    with open("pieuid.dat", "w") as uid_file:
+        uid_file.write(str(pieuid))
+    print("Created pieuid.dat and added server's UID:", pieuid)
 
-class MinecraftBedrockServer:
+class PieMC_Server:
     def __init__(self, ip, port):
+        self.server_name = None
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.ip = ip
         self.port = port
+        self.edition = "MCPE"
+        self.protocol_version = 589
+        self.version_name = "1.20.0"
+        self.motd1 = config.MOTD1
+        self.motd2 = config.MOTD2
+        self.players_online = 2 # 2 players online XD
+        self.max_players = config.MAX_PLAYERS
+        if config.GAMEMODE.lower() == "Survival":
+            self.gamemode = "Survival"
+            self.gamemode_num = 1
+        elif config.GAMEMODE.lower() == "Creative":
+            self.gamemode = "Creative"
+            self.gamemode_num = 2
+        elif config.GAMEMODE.lower() == "Adventure":
+            self.gamemode = "Adventure"
+            self.gamemode_num = 3
+        else:
+            self.gamemode = "Survival"
+            self.gamemode_num = 0
+            print(f"Gamemode {str(config.GAMEMODE)} not exists, using Survival")
+        self.port = config.PORT
+        self.port_v6 = 19133
+        self.guid = random.randint(1, 99999999)
+        with open('pieuid.dat', 'r') as f:
+            pieuid = f.read().strip()
+        self.uid = pieuid
+        self.magic = '00ffff00fefefefefdfdfdfd12345678'
+        self.update_server_status()
 
-    def send(self, data, connection):
+    def update_server_status(self):
+        self.server_name = ';'.join([
+            self.edition,
+            self.motd1,
+            str(self.protocol_version),
+            self.version_name,
+            str(self.players_online),
+            str(self.max_players),
+            str(self.uid),
+            self.motd2,
+            self.gamemode,
+            str(self.gamemode_num),
+            str(self.port),
+            str(self.port_v6)
+        ]) + ';'
+
+    def send(self, data: bytes, connection: tuple):
         self.socket.sendto(data, connection)
 
     def start(self):
@@ -53,6 +98,7 @@ class MinecraftBedrockServer:
                     data, client_address = server_socket.recvfrom(1024)
                     if config.DEBUG:
                         print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} New packet:")
+                        print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Client: {client_address[0]}:{client_address[1]}")
                         print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet ID: {data[0]}")
                         print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Body: {data[1:]}")
                     if data[0] == 0x01:
@@ -68,5 +114,5 @@ class MinecraftBedrockServer:
                 print(Fore.RED + "Server stopped." + Style.RESET_ALL)
 
 if __name__ == "__main__":
-    server = MinecraftBedrockServer(config.HOST, config.PORT)
+    server = PieMC_Server(config.HOST, config.PORT)
     server.start()
