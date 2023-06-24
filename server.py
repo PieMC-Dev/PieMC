@@ -42,19 +42,19 @@ class PieMC_Server:
         self.motd2 = config.MOTD2
         self.players_online = 2 # 2 players online XD. Update (By andiri): YES :sunglasses:
         self.max_players = config.MAX_PLAYERS
-        if config.GAMEMODE.lower() == "Survival":
+        if config.GAMEMODE.lower() == "survival":
             self.gamemode = "Survival"
             self.gamemode_num = 1
-        elif config.GAMEMODE.lower() == "Creative":
+        elif config.GAMEMODE.lower() == "creative":
             self.gamemode = "Creative"
             self.gamemode_num = 2
-        elif config.GAMEMODE.lower() == "Adventure":
+        elif config.GAMEMODE.lower() == "adventure":
             self.gamemode = "Adventure"
             self.gamemode_num = 3
         else:
             self.gamemode = "Survival"
             self.gamemode_num = 0
-            print(f"Gamemode {str(config.GAMEMODE)} not exists, using Survival") # Is possible to add placeholders to translation files?
+            print(f"Gamemode {str(config.GAMEMODE)} not exists, using Survival")
         self.port = config.PORT
         self.port_v6 = 19133
         self.guid = random.randint(1, 99999999)
