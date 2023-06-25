@@ -2,11 +2,10 @@ import config
 from colorama import Fore
 from packets.offline_pong import OfflinePong
 from packets.offline_ping import OfflinePing
-from server import PieMC_Server
-
 
 class OfflinePingHandler:
-    def handle(self, packet: OfflinePing, server: PieMC_Server, connection: tuple):
+    @staticmethod
+    def handle(packet: OfflinePing, server, connection: tuple):
         packet.decode()
         if config.DEBUG:
             print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Client Timestamp: {str(packet.client_timestamp)}")
