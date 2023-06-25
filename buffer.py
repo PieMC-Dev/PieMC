@@ -42,8 +42,9 @@ class Buffer:
         return struct.unpack('b', self.read(1))[0]
 
     def write_byte(self, data):
-        if not isinstance(data, bytes):
-            data = str(data).encode('utf-8')
+        if not (data is bytes):
+            data = str(data)
+            data = data.encode()
         self.write(struct.pack('b', data))
 
     def read_ubyte(self):
