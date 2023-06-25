@@ -36,8 +36,7 @@ class Buffer:
         return self.read_byte()
 
     def write_packet_id(self, data):
-        self.write_byte(data)
-        data = str(data)
+        self.write_byte(str(data))
 
     def read_byte(self):
         return struct.unpack('b', self.read(1))[0]
