@@ -37,13 +37,14 @@ class Buffer:
 
     def write_packet_id(self, data):
         self.write_byte(data)
+        data = str(data)
 
     def read_byte(self):
         return struct.unpack('b', self.read(1))[0]
 
     def write_byte(self, data):
-        if not (data is bytes):
-            data = data.encode('utf-8')
+        if not isinstance(data, bytes):
+            data = str(data).encode('utf-8')
         self.write(struct.pack('b', data))
 
     def read_ubyte(self):
