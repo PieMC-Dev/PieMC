@@ -1,23 +1,27 @@
 import struct
 
 
-class UnsupportedIPVersion(BaseException):
+class UnsupportedIPVersion(Exception):
     pass
 
 
-class EOSError(BaseException):
+class EOSError(Exception):
     pass
 
 
 class Buffer:
+
     def __init__(self, data: bytes = b'', pos=0):
+        if not isinstance(data, bytes):
+            data = bytes(str(data), 'utf-8')
         self.data = data
         self.pos = pos
 
-    def write(self, data):  # Write data to buffer
+
+    def write(self, data): # Write data to buffer
         if not isinstance(data, bytes):
-            data = str(data).encode('utf-8')
-        self.data += data
+            data = bytes(str(data), 'utf-8')
+        self.data += bytearray(data)
 
     def read(self, size):  # Read data from buffer
         if not self.feos():
@@ -67,6 +71,8 @@ class Buffer:
         self.write(struct.pack('>H', data))
 
     def read_magic(self):
+        if len(self.data) - self.pos < 16:
+            raise EOSError('End of buffer')
         return self.read(16)
 
     def write_magic(self, data=b'00ffff00fefefefefdfdfdfd12345678'):

@@ -1,11 +1,14 @@
 import socket
 import config
 import random
-import os, sys
+import os
 from colorama import Fore, Style
 import time
 from packets.offline_ping import OfflinePing
 from handlers.offline_ping import OfflinePingHandler
+from handlers.open_connection_request_1_handler import OpenConnectionRequest1Handler
+from handlers.open_connection_request_2_handler import OpenConnectionRequest2Handler
+from ProtocolInfo import ProtocolInfo
 
 lang_dirname = "lang"
 file_to_find = config.LANG + ".py"
@@ -42,19 +45,13 @@ class PieMC_Server:
         self.motd2 = config.MOTD2
         self.players_online = 2 # 2 players online XD. Update (By andiri): YES :sunglasses:
         self.max_players = config.MAX_PLAYERS
-        if config.GAMEMODE.lower() == "survival":
-            self.gamemode = "Survival"
-            self.gamemode_num = 1
-        elif config.GAMEMODE.lower() == "creative":
-            self.gamemode = "Creative"
-            self.gamemode_num = 2
-        elif config.GAMEMODE.lower() == "adventure":
-            self.gamemode = "Adventure"
-            self.gamemode_num = 3
-        else:
-            self.gamemode = "Survival"
-            self.gamemode_num = 0
-            print(f"Gamemode {str(config.GAMEMODE)} not exists, using Survival")
+        self.gamemode_map = {
+            "survival": ("Survival", 1),
+            "creative": ("Creative", 2),
+            "adventure": ("Adventure", 3)
+        }
+        self.gamemode = self.gamemode_map.get(config.GAMEMODE.lower(), ("Survival", 0))
+        print(f"Gamemode {config.GAMEMODE} not exists, using Survival") if self.gamemode[1] == 0 else None
         self.port = config.PORT
         self.port_v6 = 19133
         self.guid = random.randint(1, 99999999)
@@ -74,8 +71,8 @@ class PieMC_Server:
             str(self.max_players),
             str(self.uid),
             self.motd2,
-            self.gamemode,
-            str(self.gamemode_num),
+            self.gamemode[0],
+            str(self.gamemode[1]),
             str(self.port),
             str(self.port_v6)
         ]) + ';'
@@ -106,6 +103,10 @@ class PieMC_Server:
                             print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Type: Offline Ping")
                         packet = OfflinePing(data=data)
                         OfflinePingHandler.handle(packet=packet, server=self, connection=client_address)
+                    if data[0] == ProtocolInfo.OPEN_CONNECTION_REQUEST_1:
+                        self.send(OpenConnectionRequest1Handler.handle(data[0], client_address, self), client_address)
+                    if data[0] == ProtocolInfo.OPEN_CONNECTION_REQUEST_2:
+                        self.send(OpenConnectionRequest2Handler.handle(data[0], client_address, self), client_address)
                     else:
                         if config.DEBUG:
                             print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Type: Unknown")
