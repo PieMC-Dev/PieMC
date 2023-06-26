@@ -1,2 +1,3 @@
-python PieMC.py
+python3 PieMC.py
+echo "Server process stopped."
 pause
