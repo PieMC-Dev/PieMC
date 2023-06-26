@@ -1,6 +1,5 @@
 from packets.packet import Packet
 
-
 class OfflinePing(Packet):
     packet_id = 0x01
     client_timestamp: int = None

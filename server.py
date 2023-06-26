@@ -6,6 +6,9 @@ from colorama import Fore, Style
 import time
 from packets.offline_ping import OfflinePing
 from handlers.offline_ping import OfflinePingHandler
+from handlers.open_connection_request_1_handler import OpenConnectionRequest1Handler
+from handlers.open_connection_request_2_handler import OpenConnectionRequest2Handler
+from ProtocolInfo import ProtocolInfo
 
 lang_dirname = "lang"
 file_to_find = config.LANG + ".py"
@@ -100,6 +103,10 @@ class PieMC_Server:
                             print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Type: Offline Ping")
                         packet = OfflinePing(data=data)
                         OfflinePingHandler.handle(packet=packet, server=self, connection=client_address)
+                    if data[0] == ProtocolInfo.OPEN_CONNECTION_REQUEST_1:
+                        self.send(OpenConnectionRequest1Handler.handle(data[0], client_address, self), client_address)
+                    if data[0] == ProtocolInfo.OPEN_CONNECTION_REQUEST_2:
+                        self.send(OpenConnectionRequest2Handler.handle(data[0], client_address, self), client_address)
                     else:
                         if config.DEBUG:
                             print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Type: Unknown")

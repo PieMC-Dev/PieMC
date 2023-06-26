@@ -1,7 +1,7 @@
 import config
 from colorama import Fore
-from packets.offline_pong import OfflinePong
 from packets.offline_ping import OfflinePing
+from packets.offline_pong import OfflinePong
 
 
 class OfflinePingHandler:

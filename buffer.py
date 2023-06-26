@@ -10,7 +10,10 @@ class EOSError(Exception):
 
 
 class Buffer:
+
     def __init__(self, data: bytes = b'', pos=0):
+        if not isinstance(data, bytes):
+            data = bytes(str(data), 'utf-8')
         self.data = data
         self.pos = pos
 
@@ -67,6 +70,8 @@ class Buffer:
         self.write(struct.pack('>H', data))
 
     def read_magic(self):
+        if len(self.data) - self.pos < 16:
+            raise EOSError('End of buffer')
         return self.read(16)
 
     def write_magic(self, data=b'00ffff00fefefefefdfdfdfd12345678'):
