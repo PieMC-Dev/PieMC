@@ -14,7 +14,7 @@ class OpenConnectionRequest2Handler:
         new_packet.server_guid = server.guid
         new_packet.client_address = connection # connection = address TODO Implement or edit
         new_packet.mtu_size = packet.mtu_size
-        new_packet.use_encryption = False
+        new_packet.encription_enabled = False
         new_packet.encode()
         server.add_connection(connection, packet.mtu_size) # connection = address TODO Implement or edit
         return new_packet.data
