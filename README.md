@@ -28,7 +28,7 @@ python PieMC.py
 ## Functionality
 
 - ✅ Basic protocol
-- ⬜ MOTD
+- ✅ MOTD
 - ⬜ Game Protocol
 - ⬜ Plugins
 - ⬜ Permissions
@@ -92,7 +92,7 @@ Our roadmap outlines the future development plans for PieMC. We're excited about
 ## Phase 1: Foundational Development 🛠️
 
 - **Basic protocol ✅** - Implement the fundamental networking protocol for communication between the server and clients.
-- **MOTD ⬜** - Add support for the Message of the Day (MOTD) to display server information to players.
+- **MOTD ✅** - Add support for the Message of the Day (MOTD) to display server information to players.
 
 ## Phase 2: Core Features 🌟
 

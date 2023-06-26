@@ -17,7 +17,6 @@ class Buffer:
         self.data = data
         self.pos = pos
 
-
     def write(self, data): # Write data to buffer
         if not isinstance(data, bytes):
             data = bytes(str(data), 'utf-8')

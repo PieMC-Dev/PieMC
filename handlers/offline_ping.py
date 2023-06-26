@@ -3,6 +3,7 @@ from colorama import Fore
 from packets.offline_ping import OfflinePing
 from packets.offline_pong import OfflinePong
 
+
 class OfflinePingHandler:
     @staticmethod
     def handle(packet: OfflinePing, server, connection: tuple):
