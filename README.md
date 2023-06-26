@@ -28,7 +28,7 @@ python PieMC.py
 ## Functionality
 
 - ✅ Basic protocol
-- ⬜ MOTD
+- ✅ MOTD
 - ⬜ Game Protocol
 - ⬜ Plugins
 - ⬜ Permissions
