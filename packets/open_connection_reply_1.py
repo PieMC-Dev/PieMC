@@ -10,6 +10,6 @@ class OpenConnectionReply1(Packet):
     
     def decode_payload(self):
         self.write_magic(self.magic)
-        self.address = self.write_address()
+        self.write_long(self.server_guid)
         self.write_bool(self.use_security)
         self.write("\x00" * self.mtu_size)

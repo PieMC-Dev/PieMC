@@ -4,7 +4,7 @@ from packets.packet import Packet
 class OpenConnectionRequest2(Packet):
     packet_id = 0x07
     magic: bytes = None
-    address: bytes = None
+    server_address: bytes = None
     mtu_size: int = None
     client_guid: int = None
 
