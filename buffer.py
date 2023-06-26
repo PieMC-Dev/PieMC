@@ -15,9 +15,8 @@ class Buffer:
         self.pos = pos
 
     def write(self, data):  # Write data to buffer
-        if not (data is bytes):
-            data = str(data)
-            data = data.encode('utf-8')
+        if not isinstance(data, bytes):
+            data = str(data).encode('utf-8')
         self.data += data
 
     def read(self, size):  # Read data from buffer
@@ -43,16 +42,15 @@ class Buffer:
         return struct.unpack('b', self.read(1))[0]
 
     def write_byte(self, data):
-        if not (data is bytes):
-            data = str(data)
-            data = data.encode()
+        if not isinstance(data, bytes):
+            data = str(data).encode()
         self.write(struct.pack('b', int(data)))
 
     def read_ubyte(self):
         return struct.unpack('B', self.read(1))[0]
 
     def write_ubyte(self, data):
-        if not (data is bytes):
+        if not isinstance(data, bytes):
             data = data.encode('utf-8')
         self.write(struct.pack('B', data))
 
@@ -72,7 +70,7 @@ class Buffer:
         return self.read(16)
 
     def write_magic(self, data=b'00ffff00fefefefefdfdfdfd12345678'):
-        if not (data is bytes):
+        if not isinstance(data, bytes):
             data = data.encode('utf-8')
         self.write(data)
 
@@ -107,7 +105,7 @@ class Buffer:
 
     def write_string(self, data):
         self.write_short(len(data))
-        if not (data is bytes):
+        if not isinstance(data, bytes):
             data = data.encode('utf-8')
         self.write(data)
 
