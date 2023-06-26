@@ -1,11 +1,11 @@
 import struct
 
 
-class UnsupportedIPVersion(BaseException):
+class UnsupportedIPVersion(Exception):
     pass
 
 
-class EOSError(BaseException):
+class EOSError(Exception):
     pass
 
 
@@ -14,10 +14,10 @@ class Buffer:
         self.data = data
         self.pos = pos
 
-    def write(self, data):  # Write data to buffer
+    def write(self, data): # Write data to buffer
         if not isinstance(data, bytes):
-            data = str(data).encode('utf-8')
-        self.data += data
+            data = bytes(str(data), 'utf-8')
+        self.data += bytearray(data)
 
     def read(self, size):  # Read data from buffer
         if not self.feos():
