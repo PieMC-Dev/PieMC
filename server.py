@@ -95,7 +95,7 @@ class PieMC_Server:
 
             try:
                 while True:
-                    data, client_address = server_socket.recvfrom(1024)
+                    data, client_address = server_socket.recvfrom(4096)
                     if config.DEBUG:
                         print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} New packet:")
                         print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Client: {client_address[0]}:{client_address[1]}")
