@@ -6,8 +6,8 @@ from colorama import Fore, Style
 import time
 from packets.offline_ping import OfflinePing
 from handlers.offline_ping import OfflinePingHandler
-from handlers.open_connection_request_1_handler import OpenConnectionRequest1Handler
-from handlers.open_connection_request_2_handler import OpenConnectionRequest2Handler
+from handlers.open_connection_request_1 import OpenConnectionRequest1Handler
+from handlers.open_connection_request_2 import OpenConnectionRequest2Handler
 from ProtocolInfo import ProtocolInfo
 
 lang_dirname = "lang"
