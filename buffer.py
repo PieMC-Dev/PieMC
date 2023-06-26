@@ -16,6 +16,7 @@ class Buffer:
 
     def write(self, data):  # Write data to buffer
         if not (data is bytes):
+            data = str(data)
             data = data.encode('utf-8')
         self.data += data
 
