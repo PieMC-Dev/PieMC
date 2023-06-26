@@ -27,7 +27,7 @@ if not os.path.exists("pieuid.dat"):
     pieuid = random.randint(10**19, (10**20)-1)
     with open("pieuid.dat", "w") as uid_file:
         uid_file.write(str(pieuid))
-    print("Created pieuid.dat and added server's UID:", pieuid)
+    print(str(text.CREATED_PIEUID) + ":", pieuid)
 
 class PieMC_Server:
     def __init__(self, ip, port):
@@ -40,15 +40,15 @@ class PieMC_Server:
         self.version_name = "1.20.0"
         self.motd1 = config.MOTD1
         self.motd2 = config.MOTD2
-        self.players_online = 2 # 2 players online XD
+        self.players_online = 2 # 2 players online XD. Update (By andiri): YES :sunglasses:
         self.max_players = config.MAX_PLAYERS
-        if config.GAMEMODE.lower() == "Survival":
+        if config.GAMEMODE.lower() == "survival":
             self.gamemode = "Survival"
             self.gamemode_num = 1
-        elif config.GAMEMODE.lower() == "Creative":
+        elif config.GAMEMODE.lower() == "creative":
             self.gamemode = "Creative"
             self.gamemode_num = 2
-        elif config.GAMEMODE.lower() == "Adventure":
+        elif config.GAMEMODE.lower() == "adventure":
             self.gamemode = "Adventure"
             self.gamemode_num = 3
         else:
@@ -87,7 +87,7 @@ class PieMC_Server:
         with self.socket as server_socket:
             server_socket.bind((self.ip, self.port))
             self.socket = server_socket
-            print(Fore.GREEN + Style.BRIGHT + "Server started!" + Style.RESET_ALL)
+            print(Fore.GREEN + Style.BRIGHT + text.RUNNING + Style.RESET_ALL)
             print(f"{text.IP}: {Fore.YELLOW}{config.HOST}{Style.RESET_ALL}")
             print(f"{text.PORT}: {Fore.YELLOW}{config.PORT}{Style.RESET_ALL}")
             print(f"{text.GAMEMODE}: {Fore.YELLOW}{config.GAMEMODE}{Style.RESET_ALL}")
@@ -111,7 +111,7 @@ class PieMC_Server:
                             print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Type: Unknown")
 
             except KeyboardInterrupt:
-                print(Fore.RED + "Server stopped." + Style.RESET_ALL)
+                print(Fore.RED + text.STOP + Style.RESET_ALL)
 
 if __name__ == "__main__":
     server = PieMC_Server(config.HOST, config.PORT)

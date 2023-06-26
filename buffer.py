@@ -36,15 +36,16 @@ class Buffer:
         return self.read_byte()
 
     def write_packet_id(self, data):
-        self.write_byte(data)
+        self.write_byte(str(data))
 
     def read_byte(self):
         return struct.unpack('b', self.read(1))[0]
 
     def write_byte(self, data):
         if not (data is bytes):
-            data = data.encode('utf-8')
-        self.write(struct.pack('b', data))
+            data = str(data)
+            data = data.encode()
+        self.write(struct.pack('b', int(data)))
 
     def read_ubyte(self):
         return struct.unpack('B', self.read(1))[0]

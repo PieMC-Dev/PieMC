@@ -1,4 +1,5 @@
 RUNNING = "Сервер запущен"
+STOP = "Server stopped" #Pending Translation
 NEWPACKET = "Новый игровой пакет от"
 DISCONNECTED = "Отключено"
 CONNECTING = "Подключение..."
@@ -7,3 +8,4 @@ IP = "IP сервера"
 PORT = "Порт сервера"
 GAMEMODE = "Режим игры по умолчанию"
 MAX_PLAYERS = "Игроков максимум"
+CREATED_PIEUID = "Created pieuid.dat and added server's UID" #Pending Translation

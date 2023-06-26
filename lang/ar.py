@@ -1,4 +1,5 @@
 RUNNING = "بدأ الخادم"
+STOP = "Server stopped" #Pending Translation
 NEWPACKET = "GamePacket جديد من"
 DISCONNECTED = "انقطع الاتصال."
 CONNECTING = "توصيل..."
@@ -7,3 +8,4 @@ IP = "خادم IP"
 PORT = "Port"
 GAMEMODE = "نوع اللعبة"
 MAX_PLAYERS = "ماكس لاعبين"
+CREATED_PIEUID = "Created pieuid.dat and added server's UID" #Pending Translation
