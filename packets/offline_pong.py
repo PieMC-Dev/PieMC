@@ -10,7 +10,7 @@ class OfflinePong(Packet):
     def encode_payload(self):
         self.write_long(self.client_timestamp)
         self.write_long(self.server_guid)
-        if not (self.magic is bytes):
+        if not isinstance(self.magic, bytes):
             self.magic = self.magic.encode('utf-8')
         self.write_magic(self.magic)
         self.write_string(self.server_name)
