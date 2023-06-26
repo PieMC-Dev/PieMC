@@ -49,7 +49,7 @@ python PieMC.py
   > Certainly! If you know Python and can understand the project's code, we welcome your contributions. Please submit your Pull Requests, and we will review them.
 
 - **Can I talk to the developer?**
-  > Yes, you can reach out to the developer via Telegram: [@LapisMYT](https://t.me/LapisMYT).
+  > Yes, you can reach out to LapisMYT via Telegram: [@LapisMYT](https://t.me/LapisMYT) Or join our Discord Server Here: [![Discord](https://img.shields.io/discord/1120767457364279338?color=blue)](https://discord.gg/Bf3cXRUUnm)
 
 - **Why Python specifically?**
   > Python is a simple and convenient language that many people know. We hope that this choice will make the project more accessible and maintainable by other developers.
