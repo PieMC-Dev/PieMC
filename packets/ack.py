@@ -4,7 +4,7 @@ from packets.packet import Packet
 
 class Ack(Packet):
     
-    packet_id = 0xa0
+    packet_id = 0xc0
     record_count: int = None
     record_single_sequence_number: bool = None
     record_start_sequence_number: bytes = None
