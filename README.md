@@ -21,7 +21,7 @@ First of all you need to install requirements with:
 pip install -r requirements.txt
 ```
 
-To run the server, execute the following command in PieMC directory <a href="https://PieMC-Dev.github.io/hti>(See here how to get to directory)</a>:
+To run the server, execute the following command in PieMC directory[See how to get to the directory here](https://PieMC-Dev.github.io/directory):
 ```bash
 python PieMC.py
 ```
