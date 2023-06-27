@@ -12,6 +12,7 @@
 [![Stars](https://img.shields.io/github/stars/PieMC-Dev/PieMC?style=social&color=blue)](https://github.com/PieMC-Dev/PieMC/stargazers)
 
 Server software for Minecraft: Bedrock Edition, written in Python. It is currently in the early stages of development. 🚧
+We are Looking For Developers, think your interested, see how to apply here: https://PieMC-dev.gitub.io/developers
 
 ## Getting Started
 
@@ -24,6 +25,7 @@ To run the server, execute the following command in PieMC directory:
 ```bash
 python PieMC.py
 ```
+or run `start.cmd`
 
 ## Functionality
 
