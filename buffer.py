@@ -17,7 +17,7 @@ class Buffer:
         self.data = data
         self.pos = pos
 
-    def write(self, data): # Write data to buffer
+    def write(self, data):  # Write data to buffer
         if not isinstance(data, bytes):
             data = bytes(str(data), 'utf-8')
         self.data += bytearray(data)
@@ -90,6 +90,18 @@ class Buffer:
 
     def write_ulong(self, data):
         self.write(struct.pack('>Q', data))
+
+    def read_int(self):
+        return struct.unpack(">i", self.read(4))[0]
+
+    def write_int(self, data):
+        self.write(struct.pack('>i', data))
+
+    def read_uint(self):
+        return struct.unpack(">I", self.read(4))[0]
+
+    def write_uint(self, data):
+        self.write(struct.pack('>I', data))
 
     def read_bool(self):
         return struct.unpack('?', self.read(1))[0]
