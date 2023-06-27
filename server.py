@@ -27,10 +27,11 @@ if os.path.exists(lang_fullpath):
 text = __import__('lang.' + language, fromlist=[config.LANG])
 
 if not os.path.exists("pieuid.dat"):
-    pieuid = random.randint(10**19, (10**20)-1)
+    pieuid = random.randint(10 ** 19, (10 ** 20) - 1)
     with open("pieuid.dat", "w") as uid_file:
         uid_file.write(str(pieuid))
     print(str(text.CREATED_PIEUID) + ":", pieuid)
+
 
 class PieMC_Server:
     def __init__(self, ip, port):
@@ -43,7 +44,7 @@ class PieMC_Server:
         self.version_name = "1.20.0"
         self.motd1 = config.MOTD1
         self.motd2 = config.MOTD2
-        self.players_online = 2 # 2 players online XD. Update (By andiri): YES :sunglasses:
+        self.players_online = 2  # 2 players online XD. Update (By andiri): YES :sunglasses:
         self.max_players = config.MAX_PLAYERS
         self.gamemode_map = {
             "survival": ("Survival", 1),
@@ -59,7 +60,11 @@ class PieMC_Server:
             pieuid = f.read().strip()
         self.uid = pieuid
         self.magic = '00ffff00fefefefefdfdfdfd12345678'
+        self.start_time = int(time.time() * 1000)
         self.update_server_status()
+
+    def get_time_ms(self):
+        return int(time.time() * 1000) - self.start_time
 
     def update_server_status(self):
         self.server_name = ';'.join([
@@ -98,7 +103,7 @@ class PieMC_Server:
                         print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Client: {client_address[0]}:{client_address[1]}")
                         print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet ID: {data[0]}")
                         print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Body: {data[1:]}")
-                    if data[0] == 0x01:
+                    if data[0] in [ProtocolInfo.OFFLINE_PING, ProtocolInfo.OFFLINE_PING_OPEN_CONNECTIONS]:
                         if config.DEBUG:
                             print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Type: Offline Ping")
                         packet = OfflinePing(data=data)
@@ -113,6 +118,7 @@ class PieMC_Server:
 
             except KeyboardInterrupt:
                 print(Fore.RED + text.STOP + Style.RESET_ALL)
+
 
 if __name__ == "__main__":
     server = PieMC_Server(config.HOST, config.PORT)

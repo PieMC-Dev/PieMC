@@ -3,9 +3,9 @@ from packets.packet import Packet
 
 class ConnectionRequest(Packet):
     packet_id = 0x09
-    guid: int = None
-    time: int = None
+    client_guid: int = None
+    client_timestamp: int = None
     
     def decode_payload(self):
-        self.read_long(self.guid)
-        self.read_long(self.time)
+        self.client_guid = self.read_long()
+        self.client_timestamp = self.read_long()
