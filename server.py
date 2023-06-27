@@ -6,7 +6,9 @@ from colorama import Fore, Style
 import time
 from packets.offline_ping import OfflinePing
 from handlers.offline_ping import OfflinePingHandler
+from packets.open_connection_request_1 import OpenConnectionRequest1
 from handlers.open_connection_request_1 import OpenConnectionRequest1Handler
+from packets.open_connection_request_2 import OpenConnectionRequest2
 from handlers.open_connection_request_2 import OpenConnectionRequest2Handler
 from ProtocolInfo import ProtocolInfo
 
@@ -59,7 +61,7 @@ class PieMC_Server:
         with open('pieuid.dat', 'r') as f:
             pieuid = f.read().strip()
         self.uid = pieuid
-        self.magic = '00ffff00fefefefefdfdfdfd12345678'
+        # self.magic = '00ffff00fefefefefdfdfdfd12345678'
         self.start_time = int(time.time() * 1000)
         self.update_server_status()
 
@@ -109,9 +111,15 @@ class PieMC_Server:
                         packet = OfflinePing(data=data)
                         OfflinePingHandler.handle(packet=packet, server=self, connection=client_address)
                     if data[0] == ProtocolInfo.OPEN_CONNECTION_REQUEST_1:
-                        self.send(OpenConnectionRequest1Handler.handle(data[0], client_address, self), client_address)
+                        if config.DEBUG:
+                            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Type: Open Connection Request 1")
+                        packet = OpenConnectionRequest1(data=data)
+                        OpenConnectionRequest1Handler.handle(packet, server=self, connection=client_address)
                     if data[0] == ProtocolInfo.OPEN_CONNECTION_REQUEST_2:
-                        self.send(OpenConnectionRequest2Handler.handle(data[0], client_address, self), client_address)
+                        if config.DEBUG:
+                            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Type: Open Connection Request 2")
+                        packet = OpenConnectionRequest2(data=data)
+                        OpenConnectionRequest2Handler.handle(packet, server=self, connection=client_address)
                     else:
                         if config.DEBUG:
                             print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Type: Unknown")
