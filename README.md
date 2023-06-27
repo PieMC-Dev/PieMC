@@ -25,7 +25,9 @@ To run the server, execute the following command in PieMC directory:
 ```bash
 python PieMC.py
 ```
-or run `start.cmd`
+or run `start.cmd` or open terminal and run `
+./start.sh
+`
 
 ## Functionality
 
