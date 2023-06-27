@@ -1,0 +1,12 @@
+RUNNING = "Сервер запущений"
+STOP = "Сервер зупинено"
+NEWPACKET = "Новий ігровий пакет від"
+DISCONNECTED = "Відключений"
+CONNECTING = "Підключення..."
+DISCONNECT_PACKET = "PieMC ще не готовий.\nМи працюємо над цим вдень і вночі.\nЯкщо ви хочете допомогти нам, " \
+                    "ви можете\nзробити свій внесок за адресою:\nhttps://github.com/PieMC-Dev/PieMC"
+IP = "IP сервера"
+PORT = "Порт сервера"
+GAMEMODE = "Режим гри за замовчуванням"
+MAX_PLAYERS = "Гравців максимум"
+CREATED_PIEUID = "Створено файл pieuid.dat і доданий UID сервера"

@@ -1,11 +1,12 @@
 RUNNING = "Сервер запущен"
-STOP = "Server stopped" #Pending Translation
+STOP = "Сервер остановлен"
 NEWPACKET = "Новый игровой пакет от"
 DISCONNECTED = "Отключено"
 CONNECTING = "Подключение..."
-DISCONNECT_PACKET = "PieMC еще не готов.\nМы работаем над этим днем ​​и ночью.\nЕсли вы хотите помочь нам, вы можете внести свой вклад по адресу:\nhttps://github.com/PieMC-Dev/PieMC"
+DISCONNECT_PACKET = "PieMC еще не готов.\nМы работаем над этим днем и ночью.\nЕсли вы хотите помочь нам, вы можете " \
+                    "внести свой вклад по адресу:\nhttps://github.com/PieMC-Dev/PieMC"
 IP = "IP сервера"
 PORT = "Порт сервера"
 GAMEMODE = "Режим игры по умолчанию"
 MAX_PLAYERS = "Игроков максимум"
-CREATED_PIEUID = "Created pieuid.dat and added server's UID" #Pending Translation
+CREATED_PIEUID = "Создан файл pieuid.dat и добавлен UID сервера"

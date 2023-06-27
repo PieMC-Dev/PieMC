@@ -1,12 +1,10 @@
 # PieMC
 lang/__pycache__/
 packets/__pycache__/
-*.pyc
 server.key
 pieuid.dat
 piemc_test.py
 config.py
-*.pyc
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
