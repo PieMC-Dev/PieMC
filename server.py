@@ -11,6 +11,9 @@ from handlers.open_connection_request_1 import OpenConnectionRequest1Handler
 from packets.open_connection_request_2 import OpenConnectionRequest2
 from handlers.open_connection_request_2 import OpenConnectionRequest2Handler
 from ProtocolInfo import ProtocolInfo
+from packets.ack import Ack
+from packets.nack import Nack
+from packets.frame_set import FrameSet
 
 lang_dirname = "lang"
 file_to_find = config.LANG + ".py"
@@ -120,6 +123,21 @@ class PieMC_Server:
                             print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Type: Open Connection Request 2")
                         packet = OpenConnectionRequest2(data=data)
                         OpenConnectionRequest2Handler.handle(packet, server=self, connection=client_address)
+                    if data[0] == ProtocolInfo.ACK: #AKC TODO
+                        if config.DEBUG:
+                            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Type: ACK")
+                        packet: Ack = Ack(data)
+                        packet.decode()
+                    if data[0] == ProtocolInfo.NACK: #NACK TODO
+                        if config.DEBUG:
+                            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Type: ")
+                        packet: Nack = Nack(data)
+                        packet.decode()
+                    if data[0] & ProtocolInfo.FRAME_SET != 0: #Frame set TODO
+                        if config.DEBUG:
+                            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Type: FrameSet")
+                        packet: FrameSet = FrameSet(data)
+                        packet.decode()
                     else:
                         if config.DEBUG:
                             print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Type: Unknown")

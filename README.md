@@ -21,11 +21,13 @@ First of all you need to install requirements with:
 pip install -r requirements.txt
 ```
 
-To run the server, execute the following command in PieMC directory:
+To run the server, execute the following command in PieMC directory: [See how to get to the directory here](https://PieMC-Dev.github.io/directory)
 ```bash
 python PieMC.py
 ```
-or run `start.cmd`
+or run `start.cmd` or open terminal and run `
+./start.sh
+`
 
 ## Functionality
 
