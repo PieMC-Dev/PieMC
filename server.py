@@ -109,7 +109,7 @@ class PieMC_Server:
         ]) + ';'
 
     def send(self, data: bytes, connection: tuple):
-        self.socket.sendto(data, connection)
+        self.socket.sendto(data, (connection[0], connection[1]))
 
     def start(self):
         with self.socket as server_socket:
