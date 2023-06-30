@@ -1,3 +1,22 @@
+#
+#
+# //--------\\    [----------]   ||--------]   ||\      /||    ||----------]
+# ||        ||         ||        ||            ||\\    //||    ||
+# ||        //         ||        ||======|     || \\  // ||    ||
+# ||-------//          ||        ||            ||  \\//  ||    ||
+# ||                   ||        ||            ||   —–   ||    ||
+# ||              [----------]   ||--------]   ||        ||    ||----------]
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# @author PieMC Team
+# @link http://www.PieMC-Dev.github.io/
+#
+#
+#
+
 import struct
 
 
@@ -6,6 +25,10 @@ class UnsupportedIPVersion(Exception):
 
 
 class EOSError(Exception):
+    pass
+
+
+class BuffError(Exception):
     pass
 
 
@@ -147,3 +170,25 @@ class Buffer:
             self.write_short(address[1])
         else:
             raise UnsupportedIPVersion('IP version is not 4')
+
+    def read_var_int(self):
+        value: int = 0
+        for i in range(0, 35, 7):
+            if self.feos():
+                raise EOSError("Data position exceeded")
+            number = self.read_ubyte()
+            value |= ((number & 0x7f) << i)
+            if (number & 0x80) == 0:
+                return value
+        raise BuffError("VarInt is too big")
+
+    def write_var_int(self, value: int) -> None:
+        value &= 0xffffffff
+        for i in range(0, 5):
+            to_write: int = value & 0x7f
+            value >>= 7
+            if value != 0:
+                self.write_ubyte(to_write | 0x80)
+            else:
+                self.write_ubyte(to_write)
+                break

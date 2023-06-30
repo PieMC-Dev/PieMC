@@ -1,3 +1,22 @@
+#
+#
+# //--------\\    [----------]   ||--------]   ||\      /||    ||----------]
+# ||        ||         ||        ||            ||\\    //||    ||
+# ||        //         ||        ||======|     || \\  // ||    ||
+# ||-------//          ||        ||            ||  \\//  ||    ||
+# ||                   ||        ||            ||   —–   ||    ||
+# ||              [----------]   ||--------]   ||        ||    ||----------]
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# @author PieMC Team
+# @link http://www.PieMC-Dev.github.io/
+#
+#
+#
+
 import socket
 import config
 import random
@@ -11,8 +30,8 @@ from handlers.open_connection_request_1 import OpenConnectionRequest1Handler
 from packets.open_connection_request_2 import OpenConnectionRequest2
 from handlers.open_connection_request_2 import OpenConnectionRequest2Handler
 from ProtocolInfo import ProtocolInfo
-from packets.ack import Ack
-from packets.nack import Nack
+from packets.acknowledgement import Ack
+from packets.acknowledgement import Nack
 from packets.frame_set import FrameSet
 
 lang_dirname = "lang"

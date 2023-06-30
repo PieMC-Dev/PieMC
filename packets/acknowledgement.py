@@ -1,5 +1,25 @@
+#
+#
+# //--------\\    [----------]   ||--------]   ||\      /||    ||----------]
+# ||        ||         ||        ||            ||\\    //||    ||
+# ||        //         ||        ||======|     || \\  // ||    ||
+# ||-------//          ||        ||            ||  \\//  ||    ||
+# ||                   ||        ||            ||   —–   ||    ||
+# ||              [----------]   ||--------]   ||        ||    ||----------]
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# @author PieMC Team
+# @link http://www.PieMC-Dev.github.io/
+#
+#
+#
+
 from packets.packet import Packet
 from buffer import Buffer
+from ProtocolInfo import ProtocolInfo
 
 
 class Acknowledgement(Packet):
@@ -54,3 +74,9 @@ class Acknowledgement(Packet):
             count += 1
             self.write_short(count)
             self.write(temp_buffer.data)
+
+class Nack(Acknowledgement):
+    packet_id = ProtocolInfo.NACK
+
+class Ack(Acknowledgement):
+    packet_id = ProtocolInfo.NACK
