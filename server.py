@@ -86,6 +86,7 @@ class PieMC_Server:
         # self.magic = '00ffff00fefefefefdfdfdfd12345678'
         self.start_time = int(time.time() * 1000)
         self.update_server_status()
+        self.raknet_version = 11
 
     def get_time_ms(self):
         return int(time.time() * 1000) - self.start_time

@@ -32,7 +32,7 @@ class OpenConnectionRequest1Handler:
             print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - MAGIC: {str(packet.magic)}")
             print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - RakNet Version: {str(packet.raknet_version)}")
             print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - MTU: {str(packet.mtu_size)}")
-        if packet.raknet_version == server.protocol_version:
+        if packet.raknet_version == server.raknet_version:
             new_packet: OpenConnectionReply1 = OpenConnectionReply1()
             new_packet.magic = packet.magic
             new_packet.server_guid = server.guid
