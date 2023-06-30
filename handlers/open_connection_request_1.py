@@ -38,25 +38,27 @@ class OpenConnectionRequest1Handler:
             new_packet.server_guid = server.guid
             new_packet.use_security = False
             new_packet.mtu_size = packet.mtu_size
-            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} Sent Packet:")
-            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet ID: {str(new_packet.packet_id)}")
-            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Body: {str(new_packet.data[1:])}")
-            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Type: Open Connection Reply 1")
-            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - MAGIC: {str(new_packet.magic)}")
-            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Server GUID: {str(new_packet.server_guid)}")
-            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Use Security: {str(new_packet.use_security)}")
-            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - MTU Size: {str(new_packet.mtu_size)}")
+            if config.DEBUG:
+                print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} Sent Packet:")
+                print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet ID: {str(new_packet.packet_id)}")
+                print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Body: {str(new_packet.data[1:])}")
+                print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Type: Open Connection Reply 1")
+                print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - MAGIC: {str(new_packet.magic)}")
+                print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Server GUID: {str(new_packet.server_guid)}")
+                print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Use Security: {str(new_packet.use_security)}")
+                print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - MTU Size: {str(new_packet.mtu_size)}")
         else:
             new_packet: IncompatibleProtocolVersion = IncompatibleProtocolVersion()
             new_packet.raknet_version = server.protocol_version
             new_packet.magic = packet.magic
             new_packet.server_guid = server.guid
-            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} Sent Packet:")
-            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet ID: {str(new_packet.packet_id)}")
-            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Body: {str(new_packet.data[1:])}")
-            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Type: Incompatible RakNet Version")
-            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Server RakNet Version: {str(new_packet.raknet_version)}")
-            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - MAGIC: {str(new_packet.magic)}")
-            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Server GUID: {str(new_packet.server_guid)}")
+            if config.DEBUG:
+                print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} Sent Packet:")
+                print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet ID: {str(new_packet.packet_id)}")
+                print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Body: {str(new_packet.data[1:])}")
+                print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Type: Incompatible RakNet Version")
+                print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Server RakNet Version: {str(new_packet.raknet_version)}")
+                print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - MAGIC: {str(new_packet.magic)}")
+                print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Server GUID: {str(new_packet.server_guid)}")
         new_packet.encode()
         return new_packet.data

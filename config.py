@@ -24,4 +24,4 @@ GAMEMODE = "Survival"
 LANG = "en"
 MOTD1 = "PieMC Server"
 MOTD2 = "Powered by PieMC"
-DEBUG = True # Only For Development
+DEBUG = False # Only For Development
