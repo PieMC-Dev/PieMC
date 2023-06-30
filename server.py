@@ -30,9 +30,10 @@ from handlers.open_connection_request_1 import OpenConnectionRequest1Handler
 from packets.open_connection_request_2 import OpenConnectionRequest2
 from handlers.open_connection_request_2 import OpenConnectionRequest2Handler
 from ProtocolInfo import ProtocolInfo
-from packets.acknowledgement import Ack
-from packets.acknowledgement import Nack
 from packets.frame_set import FrameSet
+from handlers.frame_set import FrameSetHandler
+# from packets.acknowledgement import Ack
+# from packets.acknowledgement import Nack
 
 lang_dirname = "lang"
 file_to_find = config.LANG + ".py"
@@ -123,6 +124,7 @@ class PieMC_Server:
             try:
                 while True:
                     data, client_address = server_socket.recvfrom(4096)
+                    connection = (client_address[0], client_address[1], 4)
                     if config.DEBUG:
                         print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} New packet:")
                         print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Client: {client_address[0]}:{client_address[1]}")
@@ -131,36 +133,35 @@ class PieMC_Server:
                     if data[0] in [ProtocolInfo.OFFLINE_PING, ProtocolInfo.OFFLINE_PING_OPEN_CONNECTIONS]:
                         if config.DEBUG:
                             print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Type: Offline Ping")
-                        packet = OfflinePing(data=data)
-                        OfflinePingHandler.handle(packet=packet, server=self, connection=client_address)
+                        packet: OfflinePing = OfflinePing(data=data)
+                        OfflinePingHandler.handle(packet=packet, server=self, connection=connection)
                     if data[0] == ProtocolInfo.OPEN_CONNECTION_REQUEST_1:
                         if config.DEBUG:
                             print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Type: Open Connection Request 1")
-                        packet = OpenConnectionRequest1(data=data)
-                        OpenConnectionRequest1Handler.handle(packet, server=self, connection=client_address)
+                        packet: OpenConnectionRequest1 = OpenConnectionRequest1(data=data)
+                        OpenConnectionRequest1Handler.handle(packet, server=self, connection=connection)
                     if data[0] == ProtocolInfo.OPEN_CONNECTION_REQUEST_2:
                         if config.DEBUG:
                             print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Type: Open Connection Request 2")
-                        packet = OpenConnectionRequest2(data=data)
-                        OpenConnectionRequest2Handler.handle(packet, server=self, connection=client_address)
-                    if data[0] == ProtocolInfo.ACK: #AKC TODO
+                        packet: OpenConnectionRequest2 = OpenConnectionRequest2(data=data)
+                        OpenConnectionRequest2Handler.handle(packet, server=self, connection=connection)
+                    if data[0] == ProtocolInfo.ACK:  # TODO ACK Handling
                         if config.DEBUG:
                             print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Type: ACK")
-                        packet: Ack = Ack(data)
-                        packet.decode()
-                    if data[0] == ProtocolInfo.NACK: #NACK TODO
+                            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Discarded.")
+                    if data[0] == ProtocolInfo.NACK:  # TODO NACK Handling
                         if config.DEBUG:
-                            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Type: ")
-                        packet: Nack = Nack(data)
-                        packet.decode()
-                    if data[0] & ProtocolInfo.FRAME_SET != 0: #Frame set TODO
+                            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Type: NACK")
+                            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Discarded.")
+                    if data[0] == ProtocolInfo.FRAME_SET:  # TODO Frame Set Handling
                         if config.DEBUG:
-                            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Type: FrameSet")
-                        packet: FrameSet = FrameSet(data)
-                        packet.decode()
+                            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Type: Frame Set")
+                        packet: FrameSet = FrameSet(data=data)
+                        FrameSetHandler.handle(packet=packet, server=self, connection=connection)
                     else:
                         if config.DEBUG:
                             print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Type: Unknown")
+                            print(f"{Fore.BLUE}[DEBUG]{Fore.WHITE} - Packet Discarded.")
 
             except KeyboardInterrupt:
                 print(Fore.RED + text.STOP + Style.RESET_ALL)
