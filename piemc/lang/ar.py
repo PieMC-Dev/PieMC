@@ -17,18 +17,14 @@
 #
 #
 
-from packets.packet import Packet
-
-
-class OpenConnectionReply1(Packet):
-    packet_id = 0x06
-    magic: bytes = None
-    server_guid: int = None
-    use_security: bool = None
-    mtu_size: int = None
-    
-    def encode_payload(self):
-        self.write_magic(self.magic)
-        self.write_long(self.server_guid)
-        self.write_bool(self.use_security)
-        self.write_short(self.mtu_size)
+RUNNING = "بدأ الخادم"
+STOP = "Server stopped" #Pending Translation
+NEWPACKET = "GamePacket جديد من"
+DISCONNECTED = "انقطع الاتصال."
+CONNECTING = "توصيل..."
+DISCONNECT_PACKET = "لم يتم الانتهاء من PieMC. \n نحن نعمل على ذلك ليل نهار. \n إذا كنت تريد مساعدتنا ، يمكنك المساهمة على:\nhttps://github.com/PieMC-Dev/PieMC"
+IP = "خادم IP"
+PORT = "Port"
+GAMEMODE = "نوع اللعبة"
+MAX_PLAYERS = "ماكس لاعبين"
+CREATED_PIEUID = "Created pieuid.dat and added server's UID" #Pending Translation

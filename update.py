@@ -58,7 +58,7 @@ def update_download(zipball_url, destination_folder):
         
 def update_config_file():
     new_config_file = "config.py.new"
-    old_config_file = "config.py"
+    old_config_file = "piemc/config.py"
     if os.path.isfile(new_config_file):
         os.rename(new_config_file, old_config_file)
         print("Config file updated successfully.")

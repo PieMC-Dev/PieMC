@@ -17,25 +17,9 @@
 #
 #
 
-from buffer import Buffer
-import config
-from colorama import Fore, Style
+class ProtocolInfo:
+    # Minecraft Bedrock - MAGIC
+    MAGIC: bytes = b"\x00\xff\xff\x00\xfe\xfe\xfe\xfe\xfd\xfd\xfd\xfd\x12\x34\x56\x78"
 
-
-class Packet(Buffer):
-    packet_id = 0x00
-    def decode_header(self):
-        return self.read_byte()
-
-    def encode_header(self):
-        self.write_byte(self.packet_id)
-
-    def decode(self):
-        self.decode_header()
-        if hasattr(self, 'decode_payload'):
-            self.decode_payload()
-
-    def encode(self):
-        self.encode_header()
-        if hasattr(self, 'encode_payload'):
-            self.encode_payload()
+    # Minecraft Bedrock Packet IDs
+    LOGIN: int = 0x01
