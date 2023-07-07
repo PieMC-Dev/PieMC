@@ -17,12 +17,14 @@
 #
 #
 
+import json
 import logging
 import os
 import random
 import socket
 import threading
 import time
+from pathlib import Path
 
 from piemc import config
 from piemc.command import CommandHandler
@@ -33,10 +35,11 @@ class MCBEServer:
     def __init__(self, hostname, port, language=None):
         print('Initializing...')
         if language is None:
+            current_dir = Path(__file__).resolve().parent
             lang_dirname = "lang"
-            file_to_find = config.LANG + ".py"
+            file_to_find = config.LANG + ".json"
 
-            lang_fullpath = os.path.join(os.getcwd(), lang_dirname)
+            lang_fullpath = os.path.join(current_dir, lang_dirname)
 
             if os.path.exists(lang_fullpath):
                 lang_path = os.path.join(lang_fullpath, file_to_find)
@@ -45,19 +48,39 @@ class MCBEServer:
                 else:
                     language = 'en'
                     print(f"The {config.LANG} lang doesn't exist in the {lang_dirname} directory. Using English...")
-                    time.sleep(5)
+                    time.sleep(3)
 
             if language:
                 pass
             else:
                 language = 'en'
-        self.lang = __import__('lang.' + language, fromlist=[config.LANG])
+
+        lang_file_path = os.path.join(lang_fullpath, f"{language}.json")
+        fallback_lang_file_path = os.path.join(lang_fullpath, "en.json")
+        
+        if os.path.exists(lang_file_path):
+            with open(lang_file_path, 'r', encoding='utf-8') as lang_file:
+                self.lang = json.load(lang_file)
+        else:
+            print(f"Language file not found for language: {language}")
+            self.lang = {}
+        
+        if os.path.exists(fallback_lang_file_path):
+            with open(fallback_lang_file_path, 'r', encoding='utf-8') as fallback_lang_file:
+                fallback_lang = json.load(fallback_lang_file)
+                # Update the self.lang dictionary with missing translations from the fallback language
+                for key, value in fallback_lang.items():
+                    if key not in self.lang:
+                        self.lang[key] = value
+        else:
+            print("Fallback language file not found: en.json")
+
         self.logger = self.create_logger('PieMC')
         if not os.path.exists("pieuid.dat"):
             pieuid = random.randint(10 ** 19, (10 ** 20) - 1)
             with open("pieuid.dat", "w") as uid_file:
                 uid_file.write(str(pieuid))
-            self.logger.info(f"{self.lang.CREATED_PIEUID}: {str(pieuid)}")
+            self.logger.info(f"{self.lang['CREATED_PIEUID']}: {str(pieuid)}")
         self.server_status = None
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.hostname = hostname
@@ -95,7 +118,7 @@ class MCBEServer:
         self.raknet_thread.daemon = True
         self.running = False
         self.cmd_handler = CommandHandler(self.create_logger('CMD Handler'))
-        self.logger.info(self.lang.SERVER_INITIALIZED)
+        self.logger.info(self.lang['SERVER_INITIALIZED'])
         self.start_time = int(time.time())
 
     def get_time_ms(self):
@@ -105,15 +128,23 @@ class MCBEServer:
     def create_logger(name):
         logger = logging.getLogger(name)
         logger.setLevel(logging.INFO)
-        fhandler = logging.FileHandler('../log/' + name, 'w', 'utf-8')
+    
+        log_dir = './log'
+        os.makedirs(log_dir, exist_ok=True)  # Create the directory if it doesn't exist
+    
+        log_file = os.path.join(log_dir, name)
+        fhandler = logging.FileHandler(log_file, 'w', 'utf-8')
         shandler = logging.StreamHandler()
-        formatter = logging.Formatter("[%(name)s]" + str(' ' * (11 - len(name))) + "[%(asctime)s] [%(levelname)s] : "
-                                                                                   "%(message)s")
+    
+        formatter = logging.Formatter("[%(name)s]" + str(' ' * (11 - len(name))) + "[%(asctime)s] [%(levelname)s] : %(message)s")
         fhandler.setFormatter(formatter)
         shandler.setFormatter(formatter)
+    
         logger.addHandler(fhandler)
         logger.addHandler(shandler)
+    
         return logger
+
 
     def update_server_status(self):
         self.server_status = ';'.join([
@@ -135,22 +166,22 @@ class MCBEServer:
     def start(self):
         self.running = True
         self.raknet_thread.start()
-        self.logger.info(f"{self.lang.RUNNING} ({self.get_time_ms()}s.)")
-        self.logger.info(f"{self.lang.IP}: {self.hostname}")
-        self.logger.info(f"{self.lang.PORT}: {self.port}")
-        self.logger.info(f"{self.lang.GAMEMODE}: {self.gamemode}")
-        self.logger.info(f"{self.lang.MAX_PLAYERS}: {self.max_players}")
+        self.logger.info(f"{self.lang['RUNNING']} ({self.get_time_ms()}s.)")
+        self.logger.info(f"{self.lang['IP']}: {self.hostname}")
+        self.logger.info(f"{self.lang['PORT']}: {self.port}")
+        self.logger.info(f"{self.lang['GAMEMODE']}: {self.gamemode}")
+        self.logger.info(f"{self.lang['MAX_PLAYERS']}: {self.max_players}")
         while self.running:
             cmd = input('>>> ')
             self.cmd_handler.handle_cmd(cmd, self)
             time.sleep(.1)
 
     def stop(self):
-        self.logger.info(self.lang.STOPPING_WAIT)
+        self.logger.info(self.lang['STOPPING_WAIT'])
         self.running = False
         self.raknet_server.stop()
         self.raknet_thread.join()
-        self.logger.info(self.lang.STOP)
+        self.logger.info(self.lang['STOP'])
 
 
 if __name__ == "__main__":

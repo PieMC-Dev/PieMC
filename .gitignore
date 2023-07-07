@@ -5,6 +5,7 @@ piemc/__pycache__/
 server.key
 pieuid.dat
 piemc_test.py
+log/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

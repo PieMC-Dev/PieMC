@@ -1,0 +1,17 @@
+{
+  "RUNNING": "Zerbitzaria hasia",
+  "STOP": "Server stopped",
+  "NEWPACKET": "Joko Pakete Berria:",
+  "DISCONNECTED": "Deskonektatua.",
+  "CONNECTING": "Konektatzen...",
+  "DISCONNECT_PACKET": "PieMC oraindik ez dago bukatuta.\nGau eta egun ari gara lanean.\nLagundu nahi baduzu, hemen lagun dezakezu:\nhttps://github.com/PieMC-Dev/PieMC",
+  "IP": "Zerbitzari IPa",
+  "PORT": "Portua",
+  "GAMEMODE": "Joko Modua",
+  "MAX_PLAYERS": "Jokalari Muga",
+  "CREATED_PIEUID": "pieuid.dat fitxategia sortu da eta zerbitzariaren UIDa gehitu da.",
+  "SERVER_INITIALIZED": "Server initialized",
+  "NEW_INCOMING_CONNECTION": "Player connecting",
+  "DISCONNECT": "Player disconnected",
+  "STOPPING_WAIT": "Server stopping, please wait."
+}
