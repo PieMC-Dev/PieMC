@@ -10,8 +10,8 @@
   "GAMEMODE": "Modo de Juego",
   "MAX_PLAYERS": "Límite de Jugadores",
   "CREATED_PIEUID": "Se ha creado el archivo pieuid.dat y se ha añadido el UID del servidor",
-  "SERVER_INITIALIZED": "Server initialized", 
-  "NEW_INCOMING_CONNECTION": "Player connecting", 
-  "DISCONNECT": "Player disconnected", 
-  "STOPPING_WAIT": "Server stopping, please wait."
+  "SERVER_INITIALIZED": "Servidor iniciado", 
+  "NEW_INCOMING_CONNECTION": "Jugador uniendose", 
+  "DISCONNECT": "Jugador desconectado", 
+  "STOPPING_WAIT": "Servidor apagandose, espere por favor."
   }  
