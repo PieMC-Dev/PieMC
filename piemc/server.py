@@ -17,44 +17,50 @@
 #
 #
 
-import socket
-from piemc import config
-from piemc.meta.protocol_info import ProtocolInfo
-import random
+import logging
 import os
+import random
+import socket
+import threading
 import time
 
-# from packets.acknowledgement import Ack
-# from packets.acknowledgement import Nack
-
-lang_dirname = "lang"
-file_to_find = config.LANG + ".py"
-
-lang_fullpath = os.path.join(os.getcwd(), lang_dirname)
-
-if os.path.exists(lang_fullpath):
-    lang_path = os.path.join(lang_fullpath, file_to_find)
-    if os.path.isfile(lang_path):
-        language = config.LANG
-    else:
-        language = 'en'
-        print(f"The {config.LANG} lang doesn't exist in the {lang_dirname} directory. Using English...")
-        time.sleep(5)
-
-text = __import__('lang.' + language, fromlist=[config.LANG])
-
-if not os.path.exists("pieuid.dat"):
-    pieuid = random.randint(10 ** 19, (10 ** 20) - 1)
-    with open("pieuid.dat", "w") as uid_file:
-        uid_file.write(str(pieuid))
-    print(str(text.CREATED_PIEUID) + ":", pieuid)
+from piemc import config
+from piemc.command import CommandHandler
+from pieraknet import Server
 
 
-class PieMC_Server:
-    def __init__(self, ip, port):
-        self.server_name = None
+class MCBEServer:
+    def __init__(self, hostname, port, language=None):
+        print('Initializing...')
+        if language is None:
+            lang_dirname = "lang"
+            file_to_find = config.LANG + ".py"
+
+            lang_fullpath = os.path.join(os.getcwd(), lang_dirname)
+
+            if os.path.exists(lang_fullpath):
+                lang_path = os.path.join(lang_fullpath, file_to_find)
+                if os.path.isfile(lang_path):
+                    language = config.LANG
+                else:
+                    language = 'en'
+                    print(f"The {config.LANG} lang doesn't exist in the {lang_dirname} directory. Using English...")
+                    time.sleep(5)
+
+            if language:
+                pass
+            else:
+                language = 'en'
+        self.lang = __import__('lang.' + language, fromlist=[config.LANG])
+        self.logger = self.create_logger('PieMC')
+        if not os.path.exists("pieuid.dat"):
+            pieuid = random.randint(10 ** 19, (10 ** 20) - 1)
+            with open("pieuid.dat", "w") as uid_file:
+                uid_file.write(str(pieuid))
+            self.logger.info(f"{self.lang.CREATED_PIEUID}: {str(pieuid)}")
+        self.server_status = None
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        self.ip = ip
+        self.hostname = hostname
         self.port = port
         self.edition = "MCPE"
         self.protocol_version = 589
@@ -76,16 +82,41 @@ class PieMC_Server:
         with open('pieuid.dat', 'r') as f:
             pieuid = f.read().strip()
         self.uid = pieuid
-        # self.magic = '00ffff00fefefefefdfdfdfd12345678'
-        self.start_time = int(time.time() * 1000)
-        self.update_server_status()
         self.raknet_version = 11
+        self.timeout = 20
+        self.raknet_server = Server(self.hostname, self.port, self.create_logger('PieRakNet'))
+        self.raknet_server.interface = self
+        self.update_server_status()
+        self.raknet_server.name = self.server_status
+        self.raknet_server.protocol_version = self.raknet_version
+        self.raknet_server.timeout = self.timeout
+        # self.raknet_server.magic = ''
+        self.raknet_thread = threading.Thread(target=self.raknet_server.start)
+        self.raknet_thread.daemon = True
+        self.running = False
+        self.cmd_handler = CommandHandler(self.create_logger('CMD Handler'))
+        self.logger.info(self.lang.SERVER_INITIALIZED)
+        self.start_time = int(time.time())
 
     def get_time_ms(self):
-        return int(time.time() * 1000) - self.start_time
+        return round(time.time() - self.start_time, 4)
+
+    @staticmethod
+    def create_logger(name):
+        logger = logging.getLogger(name)
+        logger.setLevel(logging.INFO)
+        fhandler = logging.FileHandler('../log/' + name, 'w', 'utf-8')
+        shandler = logging.StreamHandler()
+        formatter = logging.Formatter("[%(name)s]" + str(' ' * (11 - len(name))) + "[%(asctime)s] [%(levelname)s] : "
+                                                                                   "%(message)s")
+        fhandler.setFormatter(formatter)
+        shandler.setFormatter(formatter)
+        logger.addHandler(fhandler)
+        logger.addHandler(shandler)
+        return logger
 
     def update_server_status(self):
-        self.server_name = ';'.join([
+        self.server_status = ';'.join([
             self.edition,
             self.motd1,
             str(self.protocol_version),
@@ -99,11 +130,29 @@ class PieMC_Server:
             str(self.port),
             str(self.port_v6)
         ]) + ';'
+        self.raknet_server.name = self.server_status
 
     def start(self):
-        pass
+        self.running = True
+        self.raknet_thread.start()
+        self.logger.info(f"{self.lang.RUNNING} ({self.get_time_ms()}s.)")
+        self.logger.info(f"{self.lang.IP}: {self.hostname}")
+        self.logger.info(f"{self.lang.PORT}: {self.port}")
+        self.logger.info(f"{self.lang.GAMEMODE}: {self.gamemode}")
+        self.logger.info(f"{self.lang.MAX_PLAYERS}: {self.max_players}")
+        while self.running:
+            cmd = input('>>> ')
+            self.cmd_handler.handle_cmd(cmd, self)
+            time.sleep(.1)
+
+    def stop(self):
+        self.logger.info(self.lang.STOPPING_WAIT)
+        self.running = False
+        self.raknet_server.stop()
+        self.raknet_thread.join()
+        self.logger.info(self.lang.STOP)
 
 
 if __name__ == "__main__":
-    server = PieMC_Server(config.HOST, config.PORT)
+    server = MCBEServer(config.HOST, config.PORT)
     server.start()

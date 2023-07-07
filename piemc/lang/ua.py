@@ -29,3 +29,7 @@ PORT = "Порт сервера"
 GAMEMODE = "Режим гри за замовчуванням"
 MAX_PLAYERS = "Гравців максимум"
 CREATED_PIEUID = "Створено файл pieuid.dat і доданий UID сервера"
+SERVER_INITIALIZED = "Server initialized"  # Pending Translation
+NEW_INCOMING_CONNECTION = "Player connecting"  # Pending Translation
+DISCONNECT = "Player disconnected"  # Pending Translation
+STOPPING_WAIT = "Server stopping, please wait."  # Pending Translation

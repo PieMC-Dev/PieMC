@@ -1,3 +1,2 @@
-colorama
-pieraknet>=1.0.2
+pieraknet>=1.0.3
 requests

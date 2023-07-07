@@ -28,3 +28,7 @@ PORT = "Portua"
 GAMEMODE = "Joko Modua"
 MAX_PLAYERS = "Jokalari Muga"
 CREATED_PIEUID = "pieuid.dat fitxategia sortu da eta zerbitzariaren UIDa gehitu da."
+SERVER_INITIALIZED = "Server initialized"  # Pending Translation
+NEW_INCOMING_CONNECTION = "Player connecting"  # Pending Translation
+DISCONNECT = "Player disconnected"  # Pending Translation
+STOPPING_WAIT = "Server stopping, please wait."  # Pending Translation

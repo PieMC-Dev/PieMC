@@ -18,7 +18,7 @@
 #
 
 RUNNING = "Server gestartet"
-STOP = "Server stopped" #Pending Translation
+STOP = "Server stopped"  # Pending Translation
 NEWPACKET = "Neues GamePacket von"
 DISCONNECTED = "Getrennt."
 CONNECTING = "Verbinden…"
@@ -27,4 +27,8 @@ IP = "Server-IP"
 PORT = "Serverport"
 GAMEMODE = "Spielmodus"
 MAX_PLAYERS = "Max Spieleranzahl"
-CREATED_PIEUID = "Created pieuid.dat and added server's UID" #Pending Translation
+CREATED_PIEUID = "Created pieuid.dat and added server's UID"  # Pending Translation
+SERVER_INITIALIZED = "Server initialized"  # Pending Translation
+NEW_INCOMING_CONNECTION = "Player connecting"  # Pending Translation
+DISCONNECT = "Player disconnected"  # Pending Translation
+STOPPING_WAIT = "Server stopping, please wait."  # Pending Translation

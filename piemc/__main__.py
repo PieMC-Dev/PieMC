@@ -18,8 +18,8 @@
 #
 
 from piemc import config
-from piemc.server import PieMC_Server
+from piemc.server import MCBEServer
 
 if __name__ == "__main__":
-    server = PieMC_Server(config.HOST, config.PORT)
+    server = MCBEServer(config.HOST, config.PORT)
     server.start()

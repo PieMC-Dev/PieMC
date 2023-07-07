@@ -23,11 +23,9 @@ pip install -r requirements.txt
 
 To run the server, execute the following command in PieMC directory: [See how to get to the directory here](https://PieMC-Dev.github.io/directory)
 ```bash
-python PieMC.py
+python start.py
 ```
-or run `start.cmd` or open terminal and run `
-./start.sh
-`
+or run `start.cmd`/`start.sh`
 
 ## Functionality
 

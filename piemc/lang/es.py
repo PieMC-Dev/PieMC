@@ -28,3 +28,7 @@ PORT = "Puerto"
 GAMEMODE = "Modo de Juego"
 MAX_PLAYERS = "Límite de Jugadores"
 CREATED_PIEUID = "Se ha creado el archivo pieuid.dat y se ha añadido el UID del servidor"
+SERVER_INITIALIZED = "Server initialized"  # Pending Translation
+NEW_INCOMING_CONNECTION = "Player connecting"  # Pending Translation
+DISCONNECT = "Player disconnected"  # Pending Translation
+STOPPING_WAIT = "Server stopping, please wait."  # Pending Translation

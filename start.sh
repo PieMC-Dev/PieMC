@@ -1,2 +1,2 @@
-python PieMC.py
+python start.py
 echo "Server process stopped."
