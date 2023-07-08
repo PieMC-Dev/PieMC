@@ -16,65 +16,23 @@
 #
 #
 #
-
-import json
 import logging
 import os
 import random
 import socket
 import threading
 import time
-from pathlib import Path
 
 from piemc import config
 from piemc.command import CommandHandler
+from piemc.handlers.lang import LangHandler
 from pieraknet import Server
 
 
 class MCBEServer:
-    def __init__(self, hostname, port, language=None):
+    def __init__(self, hostname, port):
         print('Initializing...')
-        if language is None:
-            current_dir = Path(__file__).resolve().parent
-            lang_dirname = "lang"
-            file_to_find = config.LANG + ".json"
-
-            lang_fullpath = os.path.join(current_dir, lang_dirname)
-
-            if os.path.exists(lang_fullpath):
-                lang_path = os.path.join(lang_fullpath, file_to_find)
-                if os.path.isfile(lang_path):
-                    language = config.LANG
-                else:
-                    language = 'en'
-                    print(f"The {config.LANG} lang doesn't exist in the {lang_dirname} directory. Using English...")
-                    time.sleep(3)
-
-            if language:
-                pass
-            else:
-                language = 'en'
-
-        lang_file_path = os.path.join(lang_fullpath, f"{language}.json")
-        fallback_lang_file_path = os.path.join(lang_fullpath, "en.json")
-        
-        if os.path.exists(lang_file_path):
-            with open(lang_file_path, 'r', encoding='utf-8') as lang_file:
-                self.lang = json.load(lang_file)
-        else:
-            print(f"Language file not found for language: {language}")
-            self.lang = {}
-        
-        if os.path.exists(fallback_lang_file_path):
-            with open(fallback_lang_file_path, 'r', encoding='utf-8') as fallback_lang_file:
-                fallback_lang = json.load(fallback_lang_file)
-                # Update the self.lang dictionary with missing translations from the fallback language
-                for key, value in fallback_lang.items():
-                    if key not in self.lang:
-                        self.lang[key] = value
-        else:
-            print("Fallback language file not found: en.json")
-
+        self.lang = LangHandler.initialize_language()
         self.logger = self.create_logger('PieMC')
         if not os.path.exists("pieuid.dat"):
             pieuid = random.randint(10 ** 19, (10 ** 20) - 1)

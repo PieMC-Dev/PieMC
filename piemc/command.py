@@ -1,17 +1,19 @@
-import time
+from piemc.handlers.lang import LangHandler
+
 class CommandHandler:
     def __init__(self, logger):
         self.logger = logger
 
     def handle_cmd(self, cmd, server):
+        self.lang = LangHandler.initialize_language()
         if cmd == 'stop':
             self.handle_stop_cmd(server)
         elif cmd == 'restart':
             self.handle_restart_cmd(server)
         elif cmd == '':
-            print("Empty command. Please provide a valid command.")
+            print(self.lang['EMPTY_COMMAND'])
         else:
-            print("This command doesn't exist: {}".format(cmd))
+            print(self.lang['NOT_A_COMMAND'] .format(cmd))
 
     def handle_stop_cmd(self, server):
         self.logger.info('Stopping...')

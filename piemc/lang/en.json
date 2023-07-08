@@ -13,5 +13,7 @@
   "SERVER_INITIALIZED": "Server initialized",
   "NEW_INCOMING_CONNECTION": "Player connecting",
   "DISCONNECT": "Player disconnected",
-  "STOPPING_WAIT": "Server stopping, please wait."
+  "STOPPING_WAIT": "Server stopping, please wait.",
+  "EMPTY_COMMAND": "Empty command. Please provide a valid command.",
+  "NOT_A_COMMAND": "This command doesn't exist: {}"
 }
