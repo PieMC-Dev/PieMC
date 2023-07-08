@@ -24,7 +24,7 @@ import threading
 import time
 
 from piemc import config
-from piemc.command import CommandHandler
+from piemc.handlers.command import CommandHandler
 from piemc.handlers.lang import LangHandler
 from pieraknet import Server
 
