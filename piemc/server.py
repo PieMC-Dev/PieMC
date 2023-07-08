@@ -31,8 +31,8 @@ from pieraknet import Server
 
 class MCBEServer:
     def __init__(self, hostname, port):
-        print('Initializing...')
         self.lang = LangHandler.initialize_language()
+        print(self.lang['INITIALIZING'])
         self.logger = self.create_logger('PieMC')
         if not os.path.exists("pieuid.dat"):
             pieuid = random.randint(10 ** 19, (10 ** 20) - 1)
@@ -56,7 +56,7 @@ class MCBEServer:
             "adventure": ("Adventure", 3)
         }
         self.gamemode = self.gamemode_map.get(config.GAMEMODE.lower(), ("Survival", 0))
-        print(f"Gamemode {config.GAMEMODE} not exists, using Survival") if self.gamemode[1] == 0 else None
+        print(self.lang['NOT_EXISTING_GAMEMODE'])  if self.gamemode[1] == 0 else None
         self.port = config.PORT
         self.port_v6 = 19133
         self.guid = random.randint(1, 99999999)

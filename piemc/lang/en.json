@@ -15,5 +15,9 @@
   "DISCONNECT": "Player disconnected",
   "STOPPING_WAIT": "Server stopping, please wait.",
   "EMPTY_COMMAND": "Empty command. Please provide a valid command.",
-  "NOT_A_COMMAND": "This command doesn't exist: {}"
+  "NOT_A_COMMAND": "This command doesn't exist: {}",
+  "INITIALIZING": "Initializing...",
+  "STOPPING": "Stopping...",
+  "RESTARTING": "Restarting...",
+  "NOT_EXISTING_GAMEMODE": "The Gamemode that you have specified in the configuration does not exist, using Survival..."
 }

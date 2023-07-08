@@ -1,6 +1,6 @@
 import json
 import os
-import time
+
 from pathlib import Path
 
 from piemc import config
