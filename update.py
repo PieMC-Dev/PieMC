@@ -62,9 +62,6 @@ if response.status_code == 200:
             file.write(latest_version)
         
         print("Server updated to version:", latest_version)
-        
-        if extracted_folder is not None and os.path.exists(os.path.join(update_folder, extracted_folder, "piemc/config.py")):
-            shutil.move(os.path.join(update_folder, extracted_folder, "piemc/config.py"), config_file_path)
     
     else:
         print("The server is already up to date.")
