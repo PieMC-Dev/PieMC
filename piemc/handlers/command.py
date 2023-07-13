@@ -4,7 +4,7 @@ class CommandHandler:
     def __init__(self, logger):
         self.logger = logger
 
-    def handle_cmd(self, cmd, server):
+    def handle(self, cmd, server):
         self.lang = LangHandler.initialize_language()
         if cmd == 'stop':
             self.handle_stop_cmd(server)
