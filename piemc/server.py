@@ -19,7 +19,6 @@
 import logging
 import os
 import random
-import socket
 import threading
 import time
 
@@ -40,7 +39,6 @@ class MCBEServer:
                 uid_file.write(str(pieuid))
             self.logger.info(f"{self.lang['CREATED_PIEUID']}: {str(pieuid)}")
         self.server_status = None
-        self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.hostname = hostname
         self.port = port
         self.edition = "MCPE"
@@ -131,7 +129,7 @@ class MCBEServer:
         self.logger.info(f"{self.lang['MAX_PLAYERS']}: {self.max_players}")
         while self.running:
             cmd = input('>>> ')
-            self.cmd_handler.handle_cmd(cmd, self)
+            self.cmd_handler.handle(cmd, self)
             time.sleep(.1)
 
     def stop(self):

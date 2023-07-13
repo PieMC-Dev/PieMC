@@ -1,2 +1,2 @@
-pieraknet>=1.0.3
+pieraknet>=1.0.4
 requests
