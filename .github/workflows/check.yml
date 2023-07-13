@@ -1,0 +1,18 @@
+name: PieMC
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 0 * * *" # Everyday
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: 3.10
+    - run: pip install -r requirements.txt 
+    - run: python start.py
