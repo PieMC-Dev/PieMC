@@ -1,11 +1,10 @@
-#
-#
-# //--------\\    [----------]   ||--------]   ||\      /||    ||----------]
-# ||        ||         ||        ||            ||\\    //||    ||
-# ||        //         ||        ||======|     || \\  // ||    ||
-# ||-------//          ||        ||            ||  \\//  ||    ||
-# ||                   ||        ||            ||   —–   ||    ||
-# ||              [----------]   ||--------]   ||        ||    ||----------]
+# -*- coding: utf-8 -*-
+
+#  ____  _      __  __  ____
+# |  _ \(_) ___|  \/  |/ ___|
+# | |_) | |/ _ \ |\/| | |
+# |  __/| |  __/ |  | | |___
+# |_|   |_|\___|_|  |_|\____|
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -13,9 +12,7 @@
 #
 # @author PieMC Team
 # @link http://www.PieMC-Dev.github.io/
-#
-#
-#
+
 import logging
 import os
 import random
@@ -25,11 +22,17 @@ import time
 from piemc import config
 from piemc.handlers.command import CommandHandler
 from piemc.handlers.lang import LangHandler
+from piemc.meta.protocol_info import ProtocolInfo
+
 from pieraknet import Server
+from pieraknet.packets.game_packet import GamePacket
+from pieraknet.packets.frame_set import Frame
+from pieraknet.connection import Connection
 
 
 class MCBEServer:
     def __init__(self, hostname, port):
+        self.threads = []
         self.lang = LangHandler.initialize_language()
         print(self.lang['INITIALIZING'])
         self.logger = self.create_logger('PieMC')
@@ -54,7 +57,7 @@ class MCBEServer:
             "adventure": ("Adventure", 3)
         }
         self.gamemode = self.gamemode_map.get(config.GAMEMODE.lower(), ("Survival", 0))
-        print(self.lang['NOT_EXISTING_GAMEMODE'])  if self.gamemode[1] == 0 else None
+        print(self.lang['NOT_EXISTING_GAMEMODE']) if self.gamemode[1] == 0 else None
         self.port = config.PORT
         self.port_v6 = 19133
         self.guid = random.randint(1, 99999999)
@@ -72,6 +75,7 @@ class MCBEServer:
         # self.raknet_server.magic = ''
         self.raknet_thread = threading.Thread(target=self.raknet_server.start)
         self.raknet_thread.daemon = True
+        self.threads.append(self.raknet_thread)
         self.running = False
         self.cmd_handler = CommandHandler(self.create_logger('CMD Handler'))
         self.logger.info(self.lang['SERVER_INITIALIZED'])
@@ -84,23 +88,23 @@ class MCBEServer:
     def create_logger(name):
         logger = logging.getLogger(name)
         logger.setLevel(logging.INFO)
-    
+
         log_dir = './log'
         os.makedirs(log_dir, exist_ok=True)  # Create the directory if it doesn't exist
-    
+
         log_file = os.path.join(log_dir, name)
         fhandler = logging.FileHandler(log_file, 'w', 'utf-8')
         shandler = logging.StreamHandler()
-    
-        formatter = logging.Formatter("[%(name)s]" + str(' ' * (11 - len(name))) + "[%(asctime)s] [%(levelname)s] : %(message)s")
+
+        formatter = logging.Formatter(
+            "[%(name)s]" + str(' ' * (11 - len(name))) + "[%(asctime)s] [%(levelname)s] : %(message)s")
         fhandler.setFormatter(formatter)
         shandler.setFormatter(formatter)
-    
+
         logger.addHandler(fhandler)
         logger.addHandler(shandler)
-    
-        return logger
 
+        return logger
 
     def update_server_status(self):
         self.server_status = ';'.join([
@@ -118,6 +122,20 @@ class MCBEServer:
             str(self.port_v6)
         ]) + ';'
         self.raknet_server.name = self.server_status
+
+    def on_game_packet(self, packet: GamePacket, connection: Connection):
+        packet.decode()
+        if packet.body[0] == ProtocolInfo.LOGIN:
+            self.logger.info(f"New Login Packet: {str(packet.body)}")
+
+    def on_new_incoming_connection(self, connection: Connection):
+        self.logger.info(f"New Incoming Connection: {str(connection.address)}")
+
+    def on_disconnect(self, connection: Connection):
+        self.logger.info(f"{str(connection.address)} disconnected")
+
+    def on_unknown_packet(self, packet: Frame, connection: Connection):
+        self.logger.info(f"New Unknown Packet: {str(packet.body)}")
 
     def start(self):
         self.running = True
