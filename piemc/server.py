@@ -87,7 +87,7 @@ class MCBEServer:
     @staticmethod
     def create_logger(name):
         logger = logging.getLogger(name)
-        logger.setLevel(logging.INFO)
+        logger.setLevel(logging.DEBUG)
 
         log_dir = './log'
         os.makedirs(log_dir, exist_ok=True)  # Create the directory if it doesn't exist

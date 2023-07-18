@@ -1,12 +1,12 @@
 # PieMC
 
 <p align="center">
-  <img src="https://i.ibb.co/ws95McC/apple-pie-slice-scaled-64x-pngcrushed-1.png" alt="Image" width="200" height="200" />
+  <img src="https://piemc-dev.github.io/assets/img/PieMC.webp" alt="Image" width="200" height="200" />
 </p>
 
 
-[![License](https://img.shields.io/badge/license-GPL--3.0-blue.svg)](https://github.com/PieMC-Dev/PieMC/blob/socket/LICENSE)
-[![Last Commit](https://img.shields.io/github/last-commit/PieMC-Dev/PieMC?color=blue)](https://github.com/PieMC-Dev/PieMC/commits/socket)
+[![License](https://img.shields.io/badge/license-GPL--3.0-blue.svg)](https://github.com/PieMC-Dev/PieMC/blob/pieraknet/LICENSE)
+[![Last Commit](https://img.shields.io/github/last-commit/PieMC-Dev/PieMC?color=blue)](https://github.com/PieMC-Dev/PieMC/commits/pieraknet)
 [![Languages](https://img.shields.io/github/languages/count/PieMC-Dev/PieMC?color=blue)](https://github.com/PieMC-Dev/PieMC)
 [![Discord](https://img.shields.io/discord/1120767457364279338?color=blue)](https://discord.gg/Bf3cXRUUnm)
 [![Stars](https://img.shields.io/github/stars/PieMC-Dev/PieMC?style=social&color=blue)](https://github.com/PieMC-Dev/PieMC/stargazers)
@@ -59,8 +59,6 @@ or run `start.cmd`/`start.sh`
 ## Project Stats
 
 ![Repo Size](https://img.shields.io/github/repo-size/PieMC-Dev/PieMC)
-![Lines of Code](https://img.shields.io/tokei/lines/github/PieMC-Dev/PieMC)
-
 ![Contributors](https://img.shields.io/github/contributors/PieMC-Dev/PieMC)
 ![Stars](https://img.shields.io/github/stars/lapismyt/PieMC?style=social)
 
@@ -82,7 +80,7 @@ or run `start.cmd`/`start.sh`
 
 We welcome contributions from the community. If you're interested in contributing to the project, please follow these guidelines:
 
-1. Fork the repository and create your branch from `socket`.
+1. Fork the repository and create your branch from `pieraknet`.
 2. Make your changes, ensuring they follow the project's coding conventions.
 3. Test your changes thoroughly.
 4. Submit a pull request with a clear description of your changes and the problem it solves.
@@ -130,5 +128,5 @@ We're thrilled to have you on this journey with us. As we progress through each 
 
 ## License
 
-This project is licensed under the [GPL-3.0 License](https://github.com/PieMC-Dev/PieMC/blob/socket/LICENSE).
+This project is licensed under the [GPL-3.0 License](https://github.com/PieMC-Dev/PieMC/blob/pieraknet/LICENSE).
 NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG.
