@@ -1,0 +1,19 @@
+RUNNING: "Сервер запущений"
+STOP: "Сервер зупинено"
+NEWPACKET: "Новий ігровий пакет від"
+DISCONNECTED: "Відключений"
+CONNECTING: "Підключення..."
+DISCONNECT_PACKET: |-
+  PieMC ще не готовий.
+  Ми працюємо над цим вдень і вночі.
+  Якщо ви хочете допомогти нам, ви можете зробити свій внесок за адресою:
+  https://github.com/PieMC-Dev/PieMC
+IP: "IP сервера"
+PORT: "Порт сервера"
+GAMEMODE: "Режим гри за замовчуванням"
+MAX_PLAYERS: "Гравців максимум"
+CREATED_PIEUID: "Створено файл pieuid.dat і доданий UID сервера"
+SERVER_INITIALIZED: "Server initialized"
+NEW_INCOMING_CONNECTION: "Player connecting"
+DISCONNECT: "Player disconnected"
+STOPPING_WAIT: "Server stopping, please wait."

@@ -1,0 +1,25 @@
+RUNNING: "Server started"
+STOP: "Server stopped"
+NEWPACKET: "New GamePacket from"
+DISCONNECTED: "Disconnected."
+CONNECTING: "Connecting..."
+DISCONNECT_PACKET: |-
+  "PieMC is not done.
+  We are working on it day and night.
+  If you want to help us, you can contribute at:
+  https://github.com/PieMC-Dev/PieMC"
+IP: "Server IP"
+PORT: "Port"
+GAMEMODE: "Gamemode"
+MAX_PLAYERS: "Max Players"
+CREATED_PIEUID: "Created pieuid.dat and added server's UID"
+SERVER_INITIALIZED: "Server initialized"
+NEW_INCOMING_CONNECTION: "Player connecting"
+DISCONNECT: "Player disconnected"
+STOPPING_WAIT: "Server stopping, please wait."
+EMPTY_COMMAND: "Empty command. Please provide a valid command."
+NOT_A_COMMAND: "This command doesn't exist: {}"
+INITIALIZING: "Initializing..."
+STOPPING: "Stopping..."
+RESTARTING: "Restarting..."
+NOT_EXISTING_GAMEMODE: "The Gamemode that you have specified in the configuration does not exist, using Survival..."

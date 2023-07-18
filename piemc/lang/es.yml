@@ -1,0 +1,19 @@
+RUNNING: "Servidor iniciado"
+STOP: "Servidor apagado"
+NEWPACKET: "Nuevo Paquete de Juego desde"
+DISCONNECTED: "Desconectado."
+CONNECTING: "Conectando..."
+DISCONNECT_PACKET: |-
+  PieMC aún no está completo.
+  Estamos trabajando en ello día y noche.
+  Si deseas ayudarnos, puedes contribuir en:
+  https://github.com/PieMC-Dev/PieMC
+IP: "IP del Servidor"
+PORT: "Puerto"
+GAMEMODE: "Modo de Juego"
+MAX_PLAYERS: "Límite de Jugadores"
+CREATED_PIEUID: "Se ha creado el archivo pieuid.dat y se ha añadido el UID del servidor"
+SERVER_INITIALIZED: "Servidor iniciado"
+NEW_INCOMING_CONNECTION: "Jugador uniéndose"
+DISCONNECT: "Jugador desconectado"
+STOPPING_WAIT: "Servidor apagándose, espere por favor."
