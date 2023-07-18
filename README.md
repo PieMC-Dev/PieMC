@@ -20,7 +20,7 @@ First of all you need to install requirements with:
 ```bash
 pip install -r requirements.txt
 ```
-
+which if you run `start.cmd` it will automatically install on startup
 To run the server, execute the following command in PieMC directory: [See how to get to the directory here](https://PieMC-Dev.github.io/directory)
 ```bash
 python start.py
