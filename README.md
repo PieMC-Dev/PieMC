@@ -76,6 +76,11 @@ or run `start.cmd`/`start.sh`
   - [@skyss0fly](https://github.com/skyss0fly)
   - [@Inaay](https://github.com/Inaay)
 
+- Contributors:
+<a href="https://github.com/PieMC-Dev/PieMC/graphs/contributors">
+<img src="https://contrib.rocks/image?repo=PieMC-Dev/PieMC" />
+</a>
+
 ## Contributions
 
 We welcome contributions from the community. If you're interested in contributing to the project, please follow these guidelines:
