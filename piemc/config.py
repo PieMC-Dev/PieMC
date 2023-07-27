@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-HOST = "127.0.0.1"
+HOST = "0.0.0.0"
 PORT = 19132
 MAX_PLAYERS = 20
 GAMEMODE = "Survival"
