@@ -1,5 +1,6 @@
 from piemc.handlers.lang import LangHandler
 
+
 class CommandHandler:
     def __init__(self, logger):
         self.logger = logger
@@ -13,7 +14,7 @@ class CommandHandler:
         elif cmd == '':
             print(self.lang['EMPTY_COMMAND'])
         else:
-            print(self.lang['NOT_A_COMMAND'] .format(cmd))
+            print(self.lang['NOT_A_COMMAND'].format(cmd))
 
     def handle_stop_cmd(self, server):
         self.logger.info(self.lang['STOPPING'])
