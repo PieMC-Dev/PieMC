@@ -84,25 +84,25 @@ class MCBEServer:
         self.logger.info(self.lang['SERVER_INITIALIZED'])
         self.start_time = int(time.time())
         initialize_commands(piemc.handlers.command)
-            
+        
     def get_time_ms(self):
         return round(time.time() - self.start_time, 4)
- 
+
     def update_server_status(self):
-        self.server_status = ';'.join([
+        self.server_status = ";".join([
             self.edition,
             self.motd,
-            str(self.protocol_version),
+            f"{self.protocol_version}",
             self.version_name,
-            str(self.players_online),
-            str(self.max_players),
-            str(self.uid),
+            f"{self.players_online}",
+            f"{self.max_players}",
+            f"{self.uid}",
             self.level,
             self.gamemode[0],
-            str(self.gamemode[1]),
-            str(self.port),
-            str(self.port_v6)
-        ]) + ';'
+            f"{self.gamemode[1]}",
+            f"{self.port}",
+            f"{self.port_v6}"
+        ]) + ";"
         self.raknet_server.name = self.server_status
 
     def on_game_packet(self, packet: GamePacket, connection: Connection):
