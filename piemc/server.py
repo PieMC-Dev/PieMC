@@ -18,11 +18,17 @@ import os
 import random
 import threading
 import time
+import importlib
+import pkgutil
+import inspect
+
 
 from piemc import config
-from piemc.handlers.command import CommandHandler
+from piemc.handlers.command import handle_command
 from piemc.handlers.lang import LangHandler
 from piemc.meta.protocol_info import ProtocolInfo
+import piemc.commands 
+from piemc.handlers.logger import create_logger
 
 from pieraknet import Server
 from pieraknet.packets.game_packet import GamePacket
@@ -36,7 +42,7 @@ class MCBEServer:
         self.threads = []
         self.lang = LangHandler.initialize_language()
         print(self.lang['INITIALIZING'])
-        self.logger = self.create_logger('PieMC')
+        self.logger = create_logger('PieMC')
         if not os.path.exists("pieuid.dat"):
             pieuid = random.randint(10 ** 19, (10 ** 20) - 1)
             with open("pieuid.dat", "w") as uid_file:
@@ -67,7 +73,7 @@ class MCBEServer:
         self.uid = pieuid
         self.raknet_version = 11
         self.timeout = 20
-        self.raknet_server = Server(self.hostname, self.port, self.create_logger('PieRakNet'))
+        self.raknet_server = Server(self.hostname, self.port, create_logger('PieRakNet'))
         self.raknet_server.interface = self
         self.update_server_status()
         self.raknet_server.name = self.server_status
@@ -78,42 +84,24 @@ class MCBEServer:
         self.raknet_thread.daemon = True
         self.threads.append(self.raknet_thread)
         self.running = False
-        self.cmd_handler = CommandHandler(self.create_logger('CMD Handler'))
+        self.cmd_handler = handle_command
         self.logger.info(self.lang['SERVER_INITIALIZED'])
         self.start_time = int(time.time())
+        self.initialize_commands()
+        
+    def initialize_commands(self):
+        command_modules = []
+        for importer, modname, ispkg in pkgutil.walk_packages(piemc.commands.__path__, piemc.commands.__name__ + '.'):
+            module = importlib.import_module(modname)
+            command_modules.append(module)
 
+        for module in command_modules:
+            for name, obj in inspect.getmembers(module, inspect.isclass):
+                if hasattr(obj, 'Command'):
+                    setattr(self, name.lower(), obj(self.logger, self))
+        
     def get_time_ms(self):
         return round(time.time() - self.start_time, 4)
-
-    @staticmethod
-    def create_logger(name):
-        log_level_mapping = {
-            'DEBUG': logging.DEBUG,
-            'INFO': logging.INFO,
-            'WARNING': logging.WARNING,
-            'ERROR': logging.ERROR,
-            'CRITICAL': logging.CRITICAL
-        }
-        log_level = log_level_mapping.get(config.LOG_LEVEL.upper(), logging.INFO)
-        logger = logging.getLogger(name)
-        logger.setLevel(log_level)
-
-        log_dir = './log'
-        os.makedirs(log_dir, exist_ok=True)  # Create the directory if it doesn't exist
-
-        log_file = os.path.join(log_dir, name)
-        fhandler = logging.FileHandler(log_file, 'w', 'utf-8')
-        shandler = logging.StreamHandler()
-
-        formatter = logging.Formatter(
-            "[%(name)s]" + str(' ' * (11 - len(name))) + "[%(asctime)s] [%(levelname)s] : %(message)s")
-        fhandler.setFormatter(formatter)
-        shandler.setFormatter(formatter)
-
-        logger.addHandler(fhandler)
-        logger.addHandler(shandler)
-
-        return logger
 
     def update_server_status(self):
         self.server_status = ';'.join([
@@ -159,7 +147,7 @@ class MCBEServer:
         check_for_updates()
         while self.running:
             cmd = input('>>> ')
-            self.cmd_handler.handle(cmd, self)
+            self.cmd_handler(self, cmd)  # Call self.cmd_handler instead of handle_command
             time.sleep(.1)
 
     def stop(self):
