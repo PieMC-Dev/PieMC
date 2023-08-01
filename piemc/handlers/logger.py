@@ -1,6 +1,6 @@
 import logging
 import os
-import piemc.config  # Assuming you have a config module with LOG_LEVEL defined
+import piemc.config
 
 def create_logger(name):
     log_level_mapping = {
@@ -15,7 +15,7 @@ def create_logger(name):
     logger.setLevel(log_level)
 
     log_dir = './log'
-    os.makedirs(log_dir, exist_ok=True)  # Create the directory if it doesn't exist
+    os.makedirs(log_dir, exist_ok=True)
 
     log_file = os.path.join(log_dir, name + '.log')
     fhandler = logging.FileHandler(log_file, 'w', 'utf-8')

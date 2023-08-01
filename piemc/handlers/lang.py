@@ -14,31 +14,34 @@
 # @link http://www.PieMC-Dev.github.io/
 
 import yaml
-import os
-
 from pathlib import Path
 from piemc import config
 
-
 class LangHandler:
+    lang_cache = None
+
     @staticmethod
     def initialize_language():
+        if LangHandler.lang_cache is not None:
+            return LangHandler.lang_cache
+
         current_dir = Path(__file__).resolve().parent.parent
         lang_dirname = "lang"
-        lang_fullpath = os.path.join(current_dir, lang_dirname)
-        lang_file_path = os.path.join(lang_fullpath, f"{config.LANG}.yml")
-        fallback_lang_file_path = os.path.join(lang_fullpath, "en.yml")
+        lang_fullpath = current_dir / lang_dirname
+        lang_file_path = lang_fullpath / f"{config.LANG}.yml"
+        fallback_lang_file_path = lang_fullpath / "en.yml"
 
-        if not os.path.exists(lang_file_path):
-            print(f"Language file not found for language: {config.LANG}")
-            lang = {}
-        else:
-            with open(lang_file_path, 'r', encoding='utf-8') as lang_file:
+        lang = {}
+        if lang_file_path.exists():
+            with lang_file_path.open('r', encoding='utf-8') as lang_file:
                 lang = yaml.safe_load(lang_file)
+        else:
+            print(f"Language file not found for language: {config.LANG}")
 
-        if os.path.exists(fallback_lang_file_path):
-            with open(fallback_lang_file_path, 'r', encoding='utf-8') as fallback_lang_file:
+        if fallback_lang_file_path.exists():
+            with fallback_lang_file_path.open('r', encoding='utf-8') as fallback_lang_file:
                 fallback_lang = yaml.safe_load(fallback_lang_file)
                 lang = {**fallback_lang, **lang}
 
+        LangHandler.lang_cache = lang
         return lang

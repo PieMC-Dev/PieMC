@@ -13,36 +13,32 @@
 # @author PieMC Team
 # @link http://www.PieMC-Dev.github.io/
 
-import logging
 import os
 import random
 import threading
 import time
-import importlib
-import pkgutil
-import inspect
-
 
 from piemc import config
 from piemc.handlers.command import handle_command
+from piemc.handlers.command import initialize_commands
 from piemc.handlers.lang import LangHandler
 from piemc.meta.protocol_info import ProtocolInfo
 import piemc.commands 
 from piemc.handlers.logger import create_logger
+from piemc.update import check_for_updates
 
 from pieraknet import Server
 from pieraknet.packets.game_packet import GamePacket
 from pieraknet.packets.frame_set import Frame
 from pieraknet.connection import Connection
 
-from piemc.update import check_for_updates
 
 class MCBEServer:
     def __init__(self, hostname, port):
         self.threads = []
         self.lang = LangHandler.initialize_language()
-        print(self.lang['INITIALIZING'])
         self.logger = create_logger('PieMC')
+        self.logger.info(self.lang['INITIALIZING'])
         if not os.path.exists("pieuid.dat"):
             pieuid = random.randint(10 ** 19, (10 ** 20) - 1)
             with open("pieuid.dat", "w") as uid_file:
@@ -64,7 +60,7 @@ class MCBEServer:
             "adventure": ("Adventure", 3)
         }
         self.gamemode = self.gamemode_map.get(config.GAMEMODE.lower(), ("Survival", 0))
-        print(self.lang['NOT_EXISTING_GAMEMODE']) if self.gamemode[1] == 0 else None
+        self.logger.info(self.lang['NOT_EXISTING_GAMEMODE']) if self.gamemode[1] == 0 else None
         self.port = config.PORT
         self.port_v6 = 19133
         self.guid = random.randint(1, 99999999)
@@ -87,18 +83,7 @@ class MCBEServer:
         self.cmd_handler = handle_command
         self.logger.info(self.lang['SERVER_INITIALIZED'])
         self.start_time = int(time.time())
-        self.initialize_commands()
-        
-    def initialize_commands(self):
-        command_modules = []
-        for importer, modname, ispkg in pkgutil.walk_packages(piemc.commands.__path__, piemc.commands.__name__ + '.'):
-            module = importlib.import_module(modname)
-            command_modules.append(module)
-
-        for module in command_modules:
-            for name, obj in inspect.getmembers(module, inspect.isclass):
-                if hasattr(obj, 'Command'):
-                    setattr(self, name.lower(), obj(self.logger, self))
+        initialize_commands(piemc.handlers.command)
         
     def get_time_ms(self):
         return round(time.time() - self.start_time, 4)
@@ -148,8 +133,7 @@ class MCBEServer:
         while self.running:
             cmd = input('>>> ')
             self.cmd_handler(self, cmd)  # Call self.cmd_handler instead of handle_command
-            time.sleep(.1)
-
+            
     def stop(self):
         self.logger.info(self.lang['STOPPING_WAIT'])
         self.running = False

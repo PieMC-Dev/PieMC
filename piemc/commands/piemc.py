@@ -8,4 +8,3 @@ def ping(self):
 def stop(self):
     self.logger.info("Stopping the server...")
     self.stop()
-
