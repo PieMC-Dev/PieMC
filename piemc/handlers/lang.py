@@ -13,9 +13,12 @@
 # @author PieMC Team
 # @link http://www.PieMC-Dev.github.io/
 
-import yaml
 from pathlib import Path
+
+import yaml
+
 from piemc import config
+
 
 class LangHandler:
     lang_cache = None
@@ -33,13 +36,13 @@ class LangHandler:
 
         lang = {}
         if lang_file_path.exists():
-            with lang_file_path.open('r', encoding='utf-8') as lang_file:
+            with lang_file_path.open("r", encoding="utf-8") as lang_file:
                 lang = yaml.safe_load(lang_file)
         else:
             print(f"Language file not found for language: {config.LANG}")
 
         if fallback_lang_file_path.exists():
-            with fallback_lang_file_path.open('r', encoding='utf-8') as fallback_lang_file:
+            with fallback_lang_file_path.open("r", encoding="utf-8") as fallback_lang_file:
                 fallback_lang = yaml.safe_load(fallback_lang_file)
                 lang = {**fallback_lang, **lang}
 

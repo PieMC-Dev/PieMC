@@ -13,11 +13,14 @@
 # @author PieMC Team
 # @link http://www.PieMC-Dev.github.io/
 
-import requests
-import os
+from pathlib import Path
 from datetime import datetime
 
+import requests
+
+
 repo_url = "https://api.github.com/repos/PieMC-Dev/PieMC/releases"
+
 
 def check_for_updates():
     response = requests.get(repo_url)
@@ -26,12 +29,12 @@ def check_for_updates():
 
         if releases:
             latest_release = releases[0]
-            latest_version = latest_release['tag_name']
-            latest_date = datetime.strptime(latest_release['published_at'], "%Y-%m-%dT%H:%M:%SZ")
+            latest_version = latest_release["tag_name"]
+            latest_date = datetime.strptime(latest_release["published_at"], "%Y-%m-%dT%H:%M:%SZ")
 
-            version_file = os.path.join(os.path.dirname(__file__), "version.dat")
-            if os.path.exists(version_file):
-                with open(version_file, 'r') as file:
+            version_file = Path(Path(__file__).parent, "version.dat")
+            if version_file.exists():
+                with open(version_file, "r") as file:
                     current_date_str = file.read().strip()
                     current_date = datetime.strptime(current_date_str, "%Y-%m-%dT%H:%M:%SZ")
             else:
