@@ -5,6 +5,5 @@ PORT = 19132
 MAX_PLAYERS = 20
 GAMEMODE = "Survival"
 LANG = "en"
-MOTD1 = "PieMC Server"
-MOTD2 = "Powered by PieMC"
+MOTD = "PieMC Server"
 LOG_LEVEL = '' # ONLY FOR DEVELOPERS. Set the desired log level in uppercase (e.g., 'INFO', 'DEBUG', 'WARNING', 'ERROR', 'CRITICAL')

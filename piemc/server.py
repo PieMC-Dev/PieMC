@@ -50,8 +50,8 @@ class MCBEServer:
         self.edition = "MCPE"
         self.protocol_version = 594
         self.version_name = "1.20.12"
-        self.motd1 = config.MOTD1
-        self.motd2 = config.MOTD2
+        self.motd = config.MOTD
+        self.level = "Powered by PieMC"
         self.players_online = 2  # 2 players online XD. Update (By andiri): YES :sunglasses:
         self.max_players = config.MAX_PLAYERS
         self.gamemode_map = {
@@ -84,20 +84,20 @@ class MCBEServer:
         self.logger.info(self.lang['SERVER_INITIALIZED'])
         self.start_time = int(time.time())
         initialize_commands(piemc.handlers.command)
-        
+            
     def get_time_ms(self):
         return round(time.time() - self.start_time, 4)
-
+ 
     def update_server_status(self):
         self.server_status = ';'.join([
             self.edition,
-            self.motd1,
+            self.motd,
             str(self.protocol_version),
             self.version_name,
             str(self.players_online),
             str(self.max_players),
             str(self.uid),
-            self.motd2,
+            self.level,
             self.gamemode[0],
             str(self.gamemode[1]),
             str(self.port),

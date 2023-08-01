@@ -2,7 +2,6 @@
 piemc/lang/__pycache__/
 piemc/meta/__pycache__/
 piemc/__pycache__/
-version.dat
 pieuid.dat
 piemc_test.py
 log/
