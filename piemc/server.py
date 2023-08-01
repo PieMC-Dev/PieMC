@@ -29,6 +29,7 @@ from pieraknet.packets.game_packet import GamePacket
 from pieraknet.packets.frame_set import Frame
 from pieraknet.connection import Connection
 
+from piemc.update import check_for_updates
 
 class MCBEServer:
     def __init__(self, hostname, port):
@@ -45,8 +46,8 @@ class MCBEServer:
         self.hostname = hostname
         self.port = port
         self.edition = "MCPE"
-        self.protocol_version = 589
-        self.version_name = "1.20.0"
+        self.protocol_version = 594
+        self.version_name = "1.20.12"
         self.motd1 = config.MOTD1
         self.motd2 = config.MOTD2
         self.players_online = 2  # 2 players online XD. Update (By andiri): YES :sunglasses:
@@ -86,8 +87,16 @@ class MCBEServer:
 
     @staticmethod
     def create_logger(name):
+        log_level_mapping = {
+            'DEBUG': logging.DEBUG,
+            'INFO': logging.INFO,
+            'WARNING': logging.WARNING,
+            'ERROR': logging.ERROR,
+            'CRITICAL': logging.CRITICAL
+        }
+        log_level = log_level_mapping.get(config.LOG_LEVEL.upper(), logging.INFO)
         logger = logging.getLogger(name)
-        logger.setLevel(logging.DEBUG)
+        logger.setLevel(log_level)
 
         log_dir = './log'
         os.makedirs(log_dir, exist_ok=True)  # Create the directory if it doesn't exist
@@ -145,6 +154,9 @@ class MCBEServer:
         self.logger.info(f"{self.lang['PORT']}: {self.port}")
         self.logger.info(f"{self.lang['GAMEMODE']}: {self.gamemode}")
         self.logger.info(f"{self.lang['MAX_PLAYERS']}: {self.max_players}")
+        self.logger.info(f"\033[36m{self.lang['NEEDHELP?']}\033[0m")
+        self.logger.info(f"\033[36m{self.lang['DISCORDINVITE']}\033[0m")
+        check_for_updates()
         while self.running:
             cmd = input('>>> ')
             self.cmd_handler.handle(cmd, self)
