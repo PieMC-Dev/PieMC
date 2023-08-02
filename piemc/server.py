@@ -129,7 +129,10 @@ class MCBEServer:
         self.logger.info(f"{self.lang['MAX_PLAYERS']}: {self.max_players}")
         self.logger.info(f"\033[36m{self.lang['NEEDHELP?']}\033[0m")
         self.logger.info(f"\033[36m{self.lang['DISCORDINVITE']}\033[0m")
-        check_for_updates()
+        try:
+            check_for_updates()
+        except:
+            self.logger.error("Error while checking for updates")
         while self.running:
             cmd = input('>>> ')
             self.cmd_handler(self, cmd)  # Call self.cmd_handler instead of handle_command

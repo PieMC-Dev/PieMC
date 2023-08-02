@@ -9,4 +9,4 @@ MOTD = "PieMC Server"
 
 # ONLY FOR DEVELOPERS
 # Set the desired log level in uppercase (e.g., "INFO", "DEBUG", "WARNING", "ERROR", "CRITICAL")
-LOG_LEVEL = ""
+LOG_LEVEL = "DEBUG"
