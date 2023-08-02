@@ -8,7 +8,7 @@ import piemc.commands
 registered_commands = {}
 
 
-def Command(func):
+def ConsoleCMD(func):
     cmd_name = func.__name__.lower()
     registered_commands[cmd_name] = func
     return func
@@ -25,16 +25,26 @@ def handle_command(server, cmd):
 
     func = registered_commands.get(cmd_name)
     if func is not None:
-        if inspect.getfullargspec(func).args:
-            func(server, *cmd_args[1:])
+        argspec = inspect.getfullargspec(func)
+        num_expected_args = len(argspec.args) - 1
+
+        if argspec.varargs:
+            cmd_args = cmd_args[1:]
+            func(server, *cmd_args)
         else:
-            func(server)
+            if len(cmd_args) - 1 < num_expected_args:
+                usage = f"{cmd_name} {' '.join(f'<{arg}>' for arg in argspec.args[1:])}"
+                print(f"Usage: {usage}")
+                return
+            cmd_args = cmd_args[1:num_expected_args + 1]
+            func(server, *cmd_args)
     else:
         print(f"Command '{cmd_name}' not found.")
 
 
 def initialize_commands(self):
     command_classes = []
+
     package_path = piemc.commands.__path__
     package_name = piemc.commands.__name__ + "."
 

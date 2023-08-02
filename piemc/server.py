@@ -19,12 +19,11 @@ import threading
 import time
 
 from piemc import config
-from piemc.handlers.command import handle_command
-from piemc.handlers.command import initialize_commands
+from piemc.handlers.command import handle_command, initialize_commands
 from piemc.handlers.lang import LangHandler
-from piemc.meta.protocol_info import ProtocolInfo
-import piemc.commands 
 from piemc.handlers.logger import create_logger
+from piemc.meta.protocol_info import ProtocolInfo
+import piemc.commands
 from piemc.update import check_for_updates
 
 from pieraknet import Server
@@ -46,7 +45,6 @@ class MCBEServer:
             self.logger.info(f"{self.lang['CREATED_PIEUID']}: {str(pieuid)}")
         self.server_status = None
         self.hostname = hostname
-        self.port = port
         self.edition = "MCPE"
         self.protocol_version = 594
         self.version_name = "1.20.12"
@@ -72,7 +70,6 @@ class MCBEServer:
         self.raknet_server = Server(self.hostname, self.port, create_logger('PieRakNet'))
         self.raknet_server.interface = self
         self.update_server_status()
-        self.raknet_server.name = self.server_status
         self.raknet_server.protocol_version = self.raknet_version
         self.raknet_server.timeout = self.timeout
         # self.raknet_server.magic = ''
@@ -135,7 +132,7 @@ class MCBEServer:
             self.logger.error("Error while checking for updates")
         while self.running:
             cmd = input('>>> ')
-            self.cmd_handler(self, cmd)  # Call self.cmd_handler instead of handle_command
+            self.cmd_handler(self, cmd)
             
     def stop(self):
         self.logger.info(self.lang['STOPPING_WAIT'])
