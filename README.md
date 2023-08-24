@@ -29,7 +29,7 @@ python start.py
 or run `start.cmd`/`start.sh`
 
 ## Documentation 
-you can view the official PieMC Wiki [here](https://github.com/PieMC-Dev/PieMC/wiki)
+you can view the official PieMC Wiki [here](https://github.com/PieMC-Dev/PieMC/wiki) and the docs [here](https://piemc-dev.github.io/docs/)
 ## Functionality
 
 - ✅ Basic protocol
