@@ -63,7 +63,7 @@ you can view the official PieMC Wiki [here](https://github.com/PieMC-Dev/PieMC/w
 
 ![Repo Size](https://img.shields.io/github/repo-size/PieMC-Dev/PieMC)
 ![Contributors](https://img.shields.io/github/contributors/PieMC-Dev/PieMC)
-![Stars](https://img.shields.io/github/stars/lapismyt/PieMC?style=social)
+![Stars](https://img.shields.io/github/stars/PieMC-Dev/PieMC?style=social)
 
 ## Project Evolution
 
