@@ -1,3 +1,4 @@
-git+https://github.com/PieMC-Dev/PieRakNet.git
+PieRakNet>=1.0.6
+PieBedrock
 requests
 pyyaml
