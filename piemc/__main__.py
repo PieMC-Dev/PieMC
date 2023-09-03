@@ -12,8 +12,8 @@
 # @link http://www.PieMC-Dev.github.io/
 
 from piemc import config
-from piemc.server import MCBEServer
+from piemc.server import PieServer
 
 if __name__ == "__main__":
-    server = MCBEServer(config.HOST, config.PORT)
+    server = PieServer()
     server.start()

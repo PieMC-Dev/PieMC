@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 HOST = "0.0.0.0"
-PORT = 19132
+BEDROCK_PORT = 19132
 MAX_PLAYERS = 20
 GAMEMODE = "Survival"
 LANG = "en"
