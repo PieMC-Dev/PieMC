@@ -14,10 +14,7 @@
 # @link http://www.PieMC-Dev.github.io/
 
 from pathlib import Path
-from datetime import datetime
-
 import requests
-
 
 repo_url = "https://api.github.com/repos/PieMC-Dev/PieMC/releases"
 
@@ -29,23 +26,26 @@ def check_for_updates():
 
         if releases:
             latest_release = releases[0]
-            latest_version = latest_release["tag_name"]
-            latest_date = datetime.strptime(latest_release["published_at"], "%Y-%m-%d")
+            latest_release_id = latest_release["id"]
 
-            version_file = Path(Path(__file__).parent, "version.dat")
-            if version_file.exists():
-                with open(version_file, "r") as file:
-                    current_date_str = file.read().strip()
-                    current_date = datetime.strptime(current_date_str, "%Y-%m-%d")
+            release_id_file = Path(Path(__file__).parent, "latest_release_id.dat")
+            if release_id_file.exists():
+                with open(release_id_file, "r") as file:
+                    current_release_id = int(file.read().strip())
             else:
-                current_date = datetime(1970, 1, 1)  # A default date for initial comparison
+                current_release_id = 114668911
 
-            if current_date < latest_date:
-                print("⚠️\033[33mNew version available:\033[0m", latest_version)
-                # You can add code here to perform the update, like downloading and installing the latest version.
+            if current_release_id < latest_release_id:
+                print("⚠️\033[33mNew version available:\033[0m", latest_release["tag_name"])
+
+                with open(release_id_file, "w") as file:
+                    file.write(str(latest_release_id))
             else:
                 print("The server is already up to date.")
         else:
             print("No releases found for the repository.")
     else:
         print("Failed to retrieve repository information.")
+
+if __name__ == "__main__":
+    check_for_updates()
