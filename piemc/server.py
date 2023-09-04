@@ -15,22 +15,16 @@
 
 import os
 import random
-import threading
 import time
 
 from piemc import config
 from piemc.handlers.command import handle_command, initialize_commands
 from piemc.handlers.lang import LangHandler
 from piemc.handlers.logger import create_logger
-from piemc.meta.protocol_info import ProtocolInfo
 import piemc.commands
 from piemc.update import check_for_updates
 
 from piebedrock.server import BedrockServer
-from pieraknet.packets.game_packet import GamePacket
-from pieraknet.packets.frame_set import Frame
-from pieraknet.connection import Connection
-
 
 class PieServer:
     def __init__(self):

@@ -1,4 +1,3 @@
-PieRakNet>=1.0.6
 PieBedrock
 requests
 pyyaml
