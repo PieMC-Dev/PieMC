@@ -30,13 +30,13 @@ def check_for_updates():
         if releases:
             latest_release = releases[0]
             latest_version = latest_release["tag_name"]
-            latest_date = datetime.strptime(latest_release["published_at"], "%Y-%m-%dT%H:%M:%SZ")
+            latest_date = datetime.strptime(latest_release["published_at"], "%Y-%m-%d")
 
             version_file = Path(Path(__file__).parent, "version.dat")
             if version_file.exists():
                 with open(version_file, "r") as file:
                     current_date_str = file.read().strip()
-                    current_date = datetime.strptime(current_date_str, "%Y-%m-%dT%H:%M:%SZ")
+                    current_date = datetime.strptime(current_date_str, "%Y-%m-%d")
             else:
                 current_date = datetime(1970, 1, 1)  # A default date for initial comparison
 
