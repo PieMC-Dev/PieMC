@@ -14,14 +14,15 @@
 # @link http://www.PieMC-Dev.github.io/
 
 import requests
-import piemc.server
+from piemc.server import __version__
 
 repo_url = "https://api.github.com/repos/PieMC-Dev/PieMC/releases"
 
 
 def compare_versions(version1, version2):
     def normalize(v):
-        return [int(x) for x in v.split('.')]
+        numeric_part = ''.join(filter(str.isdigit, v))
+        return [int(x) for x in numeric_part.split('.')]
 
     version1_parts = normalize(version1)
     version2_parts = normalize(version2)
@@ -43,8 +44,7 @@ def check_for_updates():
             latest_release = releases[0]
             latest_release_version = latest_release["tag_name"]
 
-            # Access the version directly from piemc.server module
-            current_release_version = piemc.server.__version__
+            current_release_version = __version__
 
             if compare_versions(current_release_version, latest_release_version) < 0:
                 print("⚠️\033[33mNew version available:\033[0m", latest_release_version)
