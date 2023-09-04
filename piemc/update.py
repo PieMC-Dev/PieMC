@@ -14,7 +14,7 @@
 # @link http://www.PieMC-Dev.github.io/
 
 import requests
-from piemc.server import __version__
+import piemc.server
 
 repo_url = "https://api.github.com/repos/PieMC-Dev/PieMC/releases"
 
@@ -44,7 +44,7 @@ def check_for_updates():
             latest_release = releases[0]
             latest_release_version = latest_release["tag_name"]
 
-            current_release_version = __version__
+            current_release_version = piemc.server.__version__
 
             if compare_versions(current_release_version, latest_release_version) < 0:
                 print("⚠️\033[33mNew version available:\033[0m", latest_release_version)
@@ -54,6 +54,3 @@ def check_for_updates():
             print("No releases found for the repository.")
     else:
         print("Failed to retrieve repository information.")
-
-if __name__ == "__main__":
-    check_for_updates()
