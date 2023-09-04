@@ -14,7 +14,9 @@
 # @link http://www.PieMC-Dev.github.io/
 
 import requests
+
 import piemc.server
+from piemc.handlers.logger import create_logger
 
 repo_url = "https://api.github.com/repos/PieMC-Dev/PieMC/releases"
 
@@ -36,6 +38,7 @@ def compare_versions(version1, version2):
     return 0
 
 def check_for_updates():
+    logger = create_logger('Updater')
     response = requests.get(repo_url)
     if response.status_code == 200:
         releases = response.json()
@@ -47,10 +50,10 @@ def check_for_updates():
             current_release_version = piemc.server.__version__
 
             if compare_versions(current_release_version, latest_release_version) < 0:
-                print("⚠️\033[33mNew version available:\033[0m", latest_release_version)
+                logger.info("⚠️\033[33mNew version available:\033[0m", latest_release_version)
             else:
-                print("The server is already up to date.")
+                logger.info("The server is already up to date.")
         else:
-            print("No releases found for the repository.")
+            logger.info("No releases found for the repository.")
     else:
-        print("Failed to retrieve repository information.")
+        logger.info("Failed to retrieve repository information.")

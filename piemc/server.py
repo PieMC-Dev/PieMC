@@ -21,7 +21,6 @@ from piemc import config
 from piemc.handlers.command import handle_command, initialize_commands
 from piemc.handlers.lang import LangHandler
 from piemc.handlers.logger import create_logger
-import piemc.commands
 from piemc.update import check_for_updates
 
 from piebedrock.server import BedrockServer
@@ -33,9 +32,9 @@ class PieServer:
         self.lang = LangHandler.initialize_language()
         self.logger = create_logger('PieMC')
         self.logger.info(self.lang['INITIALIZING'])
-        if not os.path.exists("pieuid.dat"):
+        if not os.path.exists("uid.pie"):
             pieuid = random.randint(10 ** 19, (10 ** 20) - 1)
-            with open("pieuid.dat", "w") as uid_file:
+            with open("uid.pie", "w") as uid_file:
                 uid_file.write(str(pieuid))
             self.logger.info(f"{self.lang['CREATED_PIEUID']}: {str(pieuid)}")
             
@@ -45,7 +44,7 @@ class PieServer:
         self.logger.info(self.lang['SERVER_INITIALIZED'])
         self.running = True
         self.start_time = int(time.time())
-        initialize_commands(piemc.handlers.command)
+        initialize_commands(self)
 
     def start(self):
         self.logger.info(f"{self.lang['IP']}: {config.HOST}")
