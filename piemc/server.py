@@ -76,3 +76,5 @@ class PieServer:
 if __name__ == "__main__":
     server = PieServer()
     server.start()
+
+__version__ = "V0.1.0.4" #Github release version (For updates)

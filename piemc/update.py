@@ -13,11 +13,26 @@
 # @author PieMC Team
 # @link http://www.PieMC-Dev.github.io/
 
-from pathlib import Path
 import requests
+import piemc.server
 
 repo_url = "https://api.github.com/repos/PieMC-Dev/PieMC/releases"
 
+
+def compare_versions(version1, version2):
+    def normalize(v):
+        return [int(x) for x in v.split('.')]
+
+    version1_parts = normalize(version1)
+    version2_parts = normalize(version2)
+
+    for v1, v2 in zip(version1_parts, version2_parts):
+        if v1 < v2:
+            return -1
+        elif v1 > v2:
+            return 1
+
+    return 0
 
 def check_for_updates():
     response = requests.get(repo_url)
@@ -26,20 +41,13 @@ def check_for_updates():
 
         if releases:
             latest_release = releases[0]
-            latest_release_id = latest_release["id"]
+            latest_release_version = latest_release["tag_name"]
 
-            release_id_file = Path(Path(__file__).parent, "latest_release_id.dat")
-            if release_id_file.exists():
-                with open(release_id_file, "r") as file:
-                    current_release_id = int(file.read().strip())
-            else:
-                current_release_id = 114668911
+            # Access the version directly from piemc.server module
+            current_release_version = piemc.server.__version__
 
-            if current_release_id < latest_release_id:
-                print("⚠️\033[33mNew version available:\033[0m", latest_release["tag_name"])
-
-                with open(release_id_file, "w") as file:
-                    file.write(str(latest_release_id))
+            if compare_versions(current_release_version, latest_release_version) < 0:
+                print("⚠️\033[33mNew version available:\033[0m", latest_release_version)
             else:
                 print("The server is already up to date.")
         else:
