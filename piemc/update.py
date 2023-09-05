@@ -13,39 +13,47 @@
 # @author PieMC Team
 # @link http://www.PieMC-Dev.github.io/
 
-from pathlib import Path
-from datetime import datetime
-
 import requests
 
+import piemc.server
+from piemc.handlers.logger import create_logger
 
 repo_url = "https://api.github.com/repos/PieMC-Dev/PieMC/releases"
 
 
+def compare_versions(version1, version2):
+    def normalize(v):
+        numeric_part = ''.join(filter(str.isdigit, v))
+        return [int(x) for x in numeric_part.split('.')]
+
+    version1_parts = normalize(version1)
+    version2_parts = normalize(version2)
+
+    for v1, v2 in zip(version1_parts, version2_parts):
+        if v1 < v2:
+            return -1
+        elif v1 > v2:
+            return 1
+
+    return 0
+
 def check_for_updates():
+    logger = create_logger('Updater')
     response = requests.get(repo_url)
     if response.status_code == 200:
         releases = response.json()
 
         if releases:
             latest_release = releases[0]
-            latest_version = latest_release["tag_name"]
-            latest_date = datetime.strptime(latest_release["published_at"], "%Y-%m-%dT%H:%M:%SZ")
+            latest_release_version = latest_release["tag_name"]
 
-            version_file = Path(Path(__file__).parent, "version.dat")
-            if version_file.exists():
-                with open(version_file, "r") as file:
-                    current_date_str = file.read().strip()
-                    current_date = datetime.strptime(current_date_str, "%Y-%m-%dT%H:%M:%SZ")
-            else:
-                current_date = datetime(1970, 1, 1)  # A default date for initial comparison
+            current_release_version = piemc.server.__version__
 
-            if current_date < latest_date:
-                print("⚠️\033[33mNew version available:\033[0m", latest_version)
-                # You can add code here to perform the update, like downloading and installing the latest version.
+            if compare_versions(current_release_version, latest_release_version) < 0:
+                logger.info("⚠️\033[33mNew version available:\033[0m", latest_release_version)
             else:
-                print("The server is already up to date.")
+                logger.info("The server is already up to date.")
         else:
-            print("No releases found for the repository.")
+            logger.info("No releases found for the repository.")
     else:
-        print("Failed to retrieve repository information.")
+        logger.info("Failed to retrieve repository information.")
