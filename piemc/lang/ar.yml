@@ -1,25 +1,26 @@
 RUNNING: "بدأ الخادم"
-STOP: "Server stopped"
+STOP: "توقف الخادم"
 NEWPACKET: "GamePacket جديد من"
 DISCONNECTED: "انقطع الاتصال."
-CONNECTING: "توصيل..."
+CONNECTING: "يتم الأتصال بالخادم"
 DISCONNECT_PACKET: |-
   لم يتم الانتهاء من PieMC.
   نحن نعمل على ذلك ليل نهار.
-  إذا كنت تريد مساعدتنا ، يمكنك المساهمة على:
+  :إذا كنت تريد مساعدتنا ، يمكنك الذهاب الى
   https://github.com/PieMC-Dev/PieMC
+  ثم تطلب الدمج
 IP: "خادم IP"
 PORT: "Port"
 GAMEMODE: "نوع اللعبة"
-MAX_PLAYERS: "ماكس لاعبين"
-CREATED_PIEUID: "Created uid.pie and added server's UID"
-SERVER_INITIALIZED: "Server initialized"
-NEW_INCOMING_CONNECTION: "Player connecting"
-DISCONNECT: "Player disconnected"
-STOPPING_WAIT: "Server stopping, please wait."
-EMPTY_COMMAND: "Empty command. Please provide a valid command."
-NOT_A_COMMAND: "This command doesn't exist: {}"
-INITIALIZING: "Initializing..."
-STOPPING: "Stopping..."
-RESTARTING: "Restarting..."
-NOT_EXISTING_GAMEMODE: "The Gamemode that you have specified in the configuration does not exist, using Survival..."
+MAX_PLAYERS: "الحد الاقصى من اللاعبين"
+CREATED_PIEUID: "تم إنشاء uid.pie وإضافة UID الخاص بالخادم"
+SERVER_INITIALIZED: "تمت تهيئة الخادم"
+NEW_INCOMING_CONNECTION: "اللاعب يتصل"
+DISCONNECT: "تم قطع الاتسال"
+STOPPING_WAIT: "الخادم يتوقف, الرجاء الصبر."
+EMPTY_COMMAND: "أمر فارغ. يرجى تقديم أمر صالح."
+NOT_A_COMMAND: "هذا الأمر غير موجود: {}"
+INITIALIZING: "جاري التهيئة..."
+STOPPING: "يتم التوقف..."
+RESTARTING: "يتم إعادة التشغيل..."
+NOT_EXISTING_GAMEMODE: "وضع اللعبة الذي حددته في التكوين غير موجود..."
