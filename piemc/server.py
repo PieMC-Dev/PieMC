@@ -26,10 +26,10 @@ from piemc.meta.protocol_info import ProtocolInfo
 import piemc.commands
 from piemc.update import check_for_updates
 
-from piebedrock import BedrockServer
+from piebedrock.server import BedrockServer
 
 
-class PieMC_Server:
+class PieServer:
     def __init__(self,
                  hostname="0.0.0.0",
                  port=19132,
@@ -64,6 +64,7 @@ class PieMC_Server:
         gamemode = self.gamemode_map.get(gamemode, ("Survival", 0))
         self.logger.info(self.lang['NOT_EXISTING_GAMEMODE']) if gamemode[1] == 0 else None
 
+        self.hostname = hostname
         self.port = port
         self.port_v6 = 19133
         self.guid = random.randint(1, 99999999)
@@ -71,6 +72,7 @@ class PieMC_Server:
         self.timeout = 20
         self.uid = pieuid
         self.gamemode = gamemode
+        self.max_players = max_players
 
         self.bedrock_server = BedrockServer(self.hostname, self.port, create_logger("PieBedrock"), self.gamemode, self.timeout)
         self.bedrock_server.protocol_version = protocol_version
@@ -78,7 +80,7 @@ class PieMC_Server:
         self.bedrock_server.motd1 = motd1
         self.bedrock_server.motd2 = motd2
         self.bedrock_server.max_players = max_players
-        self.bedrock_server.uid = uid
+        self.bedrock_server.uid = pieuid
         self.bedrock_server.guid = guid
         self.bedrock_server.raknet_version = raknet_version
         self.bedrock_server.raknet_init()
@@ -118,11 +120,11 @@ class PieMC_Server:
     def stop(self):
         self.logger.info(self.lang['STOPPING_WAIT'])
         self.running = False
-        self.network_server.stop()
+        self.bedrock_server.stop()
         self.network_thread.join()
         self.logger.info(self.lang['STOP'])
 
 
 if __name__ == "__main__":
-    server = PieMC_Server(config.HOST, config.PORT)
+    server = PieServer(config.HOST, config.PORT)
     server.start()
