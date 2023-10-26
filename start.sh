@@ -5,7 +5,7 @@ echo "PieMC Server Software for Minecraft: Bedrock Edition"
 pip install -r requirements.txt > /dev/null
 
 # Start the server
-python start.py
+python3 start.py
 
 # Display message after the server process has stopped
 echo "Server process stopped."
