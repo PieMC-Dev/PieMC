@@ -15,4 +15,4 @@
 
 import subprocess
 
-subprocess.call(['python', '-m', 'piemc'])
+subprocess.call(['python3', '-m', 'piemc'])
