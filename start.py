@@ -27,6 +27,7 @@ def check_python_version():
         except subprocess.CalledProcessError:
             raise Exception("Neither 'python' nor 'python3' found in your system.")
 
+
 selected_python_command = check_python_version()
 print(f"launching with the command: {selected_python_command}")
 subprocess.call(['python', '-m', 'piemc'])
