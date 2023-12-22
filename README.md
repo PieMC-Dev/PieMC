@@ -1,3 +1,6 @@
+[!NOTE]
+We are searching for DEVELOPERS!! If you are interested join our [Discord](https://discord.gg/Bf3cXRUUnm) 👷
+
 # PieMC
 
 <p align="center">
@@ -34,7 +37,7 @@ you can view the official PieMC Wiki [here](https://github.com/PieMC-Dev/PieMC/w
 
 - ✅ Basic protocol
 - ✅ MOTD
-- ⬜ Game Protocol
+- 👷 Game Protocol
 - ⬜ Plugins
 - ⬜ Permissions
 - ⬜ Ability to log in to the server
@@ -88,7 +91,7 @@ you can view the official PieMC Wiki [here](https://github.com/PieMC-Dev/PieMC/w
 
 We welcome contributions from the community. If you're interested in contributing to the project, please follow these guidelines:
 
-1. Fork the repository and create your branch from `pieraknet`.
+1. Fork the repository and create your branch from `main`.
 2. Make your changes, ensuring they follow the project's coding conventions.
 3. Test your changes thoroughly.
 4. Submit a pull request with a clear description of your changes and the problem it solves.
@@ -104,7 +107,7 @@ Our roadmap outlines the future development plans for PieMC. We're excited about
 
 ## Phase 2: Core Features 🌟
 
-- **Game Protocol ⬜** - Develop the game protocol to handle gameplay mechanics, such as block placement, player movement, and world interactions.
+- **Game Protocol 👷** - Develop the game protocol to handle gameplay mechanics, such as block placement, player movement, and world interactions.
 - **Plugins ⬜** - Create a flexible and extensible plugin system, allowing developers to enhance server functionality with custom features.
 - **Permissions ⬜** - Implement a permissions system to manage user access levels and control their actions on the server.
 - **User Authentication ⬜** - Introduce a secure authentication mechanism to allow players to log in using their Minecraft accounts.
