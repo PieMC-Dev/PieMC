@@ -107,10 +107,10 @@ class PieServer:
             self.logger.info(f"{self.lang['MAX_PLAYERS']}: {self.max_players}")
             self.logger.info(f"\033[36m{self.lang['NEEDHELP?']}\033[0m")
             self.logger.info(f"\033[36m{self.lang['DISCORDINVITE']}\033[0m")
-            try:
-                check_for_updates()
-            except Exception as e:
-                self.logger.error(f"Error while checking for updates: {e}")
+            # try:
+            #    check_for_updates()
+            #except Exception as e:
+            #    self.logger.error(f"Error while checking for updates: {e}")
             while self.running:
                 cmd = input('>>> ')
                 self.cmd_handler(self, cmd)
