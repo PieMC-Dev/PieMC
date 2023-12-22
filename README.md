@@ -1,5 +1,5 @@
-[!NOTE]
-We are searching for DEVELOPERS!! If you are interested join our [Discord](https://discord.gg/Bf3cXRUUnm) 👷
+> [!NOTE]
+> We are searching for DEVELOPERS!! If you are interested join our [Discord](https://discord.gg/Bf3cXRUUnm) 👷
 
 # PieMC
 
