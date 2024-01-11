@@ -76,6 +76,7 @@ class PieServer:
         self.bedrock_server.raknet_version = raknet_version
         self.bedrock_server.pieraknet_init()
         self.raknet_server = self.bedrock_server.pieraknet
+        self.raknet_server.logger = create_logger("PieRakNet")
 
         self.network_thread = threading.Thread(target=self.start_bedrock_server)
         self.network_thread.daemon = True
@@ -121,7 +122,8 @@ class PieServer:
         self.logger.info(self.lang['STOPPING_WAIT'])
         self.running = False
         self.bedrock_server.stop()
-        self.network_thread.join()
+        for thread in threads:
+            thread.join()
         self.logger.info(self.lang['STOP'])
 
 
