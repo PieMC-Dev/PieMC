@@ -122,7 +122,7 @@ class PieServer:
         self.logger.info(self.lang['STOPPING_WAIT'])
         self.running = False
         self.bedrock_server.stop()
-        for thread in threads:
+        for thread in self.threads:
             thread.join()
         self.logger.info(self.lang['STOP'])
 
