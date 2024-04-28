@@ -29,7 +29,7 @@ from piemc.update import check_for_updates
 from piebedrock.server import BedrockServer
 
 class PieServer:
-    def __init__(self, hostname="0.0.0.0", port=19132, motd1="PieMC Server", motd2="Powered by PieMC", version_name="1.20.12",
+    def __init__(self, hostname="0.0.0.0", port=19132, name="PieMC Server", motd="Powered by PieMC", version_name="1.20.12",
                  protocol_version=594, max_players=20, gamemode="survival", guid=random.randint(1, 99999999),
                  raknet_version=11, timeout=20):
         self.threads = []
@@ -45,12 +45,6 @@ class PieServer:
         with open('pieuid.dat', 'r') as f:
             pieuid = f.read().strip()
 
-        self.gamemode_map = {
-            "survival": ("Survival", 1),
-            "creative": ("Creative", 2),
-            "adventure": ("Adventure", 3)
-        }
-        gamemode = self.gamemode_map.get(gamemode, ("Survival", 0))
         self.logger.info(self.lang['NOT_EXISTING_GAMEMODE']) if gamemode[1] == 0 else None
 
         self.hostname = hostname
@@ -64,23 +58,22 @@ class PieServer:
         self.max_players = max_players
         self.dev_mode = config.DEV_MODE
 
-        self.bedrock_server = BedrockServer(self.hostname, self.port, create_logger("PieBedrock"), self.gamemode,
-                                            self.timeout, self.dev_mode)
+        self.bedrock_server = BedrockServer()
+        self.bedrock_server.hostname = hostname
+        self.bedrock_server.port = port
+        self.bedrock_server.gamemode = gamemode
         self.bedrock_server.protocol_version = protocol_version
         self.bedrock_server.version_name = version_name
-        self.bedrock_server.motd1 = motd1
-        self.bedrock_server.motd2 = motd2
+        self.bedrock_server.name = name
+        self.bedrock_server.motd = motd
         self.bedrock_server.max_players = max_players
         self.bedrock_server.uid = pieuid
         self.bedrock_server.guid = guid
         self.bedrock_server.raknet_version = raknet_version
-        self.bedrock_server.pieraknet_init()
-        self.raknet_server = self.bedrock_server.pieraknet
-        self.raknet_server.logger = create_logger("PieRakNet")
 
-        self.network_thread = threading.Thread(target=self.start_bedrock_server)
-        self.network_thread.daemon = True
-        self.threads.append(self.network_thread)
+        self.bedrockServer_thread = threading.Thread(target=self.start_bedrock_server)
+        self.bedrockServer_thread.daemon = True
+        self.threads.append(self.bedrockServer_thread)
 
         self.running = False
         self.cmd_handler = handle_command
@@ -99,7 +92,7 @@ class PieServer:
 
     def start(self):
         try:
-            self.network_thread.start()
+            self.bedrockServer_thread.start()
             self.running = True
             self.logger.info(f"{self.lang['RUNNING']} ({self.get_time_ms()}s.)")
             self.logger.info(f"{self.lang['IP']}: {self.hostname}")
