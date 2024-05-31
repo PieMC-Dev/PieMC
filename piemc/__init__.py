@@ -10,3 +10,5 @@
 #
 # @author PieMC Team
 # @link http://www.PieMC-Dev.github.io/
+
+from .start import main
