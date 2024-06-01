@@ -11,9 +11,7 @@
 # @author PieMC Team
 # @link http://www.PieMC-Dev.github.io/
 
-from piemc import config
-from piemc.server import PieServer
+from .start import main
 
 if __name__ == "__main__":
-    server = PieServer()
-    server.start()
+    main()
