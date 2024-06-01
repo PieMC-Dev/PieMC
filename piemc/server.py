@@ -22,6 +22,7 @@ from piemc import config
 from piemc.handlers.command import handle_command, initialize_commands
 from piemc.handlers.lang import LangHandler
 from piemc.handlers.logger import create_logger
+from piemc.handlers.events import EVENT
 import piemc.handlers.command
 from piemc.meta.protocol_info import ProtocolInfo
 from piemc.update import check_for_updates
@@ -75,11 +76,30 @@ class PieServer:
         self.bedrockServer_thread.daemon = True
         self.threads.append(self.bedrockServer_thread)
 
+        self.event_listeners = {}
+
         self.running = False
         self.cmd_handler = handle_command
         self.logger.info(self.lang['SERVER_INITIALIZED'])
         self.start_time = int(time.time())
         initialize_commands(piemc.handlers.command)
+
+    def event_listener(self, event: EVENT):
+        def decorator(func):
+            if self.event_listeners.get(event):
+                self.event_listeners[event].append(func)
+            self.event_listeners[event] = [func]
+            return func
+
+        return decorator
+
+    def add_event_listener(self, event: EVENT, func):
+        self.event_listeners[event] = func
+
+    def dispatch_event(self, event: EVENT):
+        if self.event_listeners.get(event):
+            for listener in self.event_listeners[event]:
+                listener()
 
     def start_bedrock_server(self):
         try:
