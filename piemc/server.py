@@ -30,9 +30,9 @@ from piemc.update import check_for_updates
 from piebedrock.server import BedrockServer
 
 class PieServer:
-    def __init__(self, hostname="0.0.0.0", port=19132, name="PieMC Server", motd="Powered by PieMC", version_name="1.20.12",
+    def __init__(self, hostname="0.0.0.0", port=19132, name="PieMC Server", motd="Powered by PieMC", version_name="1.20.81",
                  protocol_version=594, max_players=20, gamemode="survival", guid=random.randint(1, 99999999),
-                 raknet_version=11, timeout=20):
+                 raknet_version=11, timeout=30):
         self.threads = []
         self.lang = LangHandler.initialize_language()
         self.logger = create_logger('PieMC')
